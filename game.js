@@ -721,72 +721,81 @@ var Visible = 10
 
 
 
-document.addEventListener('wheel', (e) => {
+// document.addEventListener('wheel', (e) => {
 
   
   
   
-  if (e.deltaY == 50 && gameState.bets.length) {
+//   if (e.deltaY == 50 && gameState.bets.length) {
 
 
-    Visible += 1;
-    updateBetsTable();
-  }
-   if (e.deltaY == -50 && Visible > 10) {
+//     Visible += 1;
+//     updateBetsTable();
+//   }
+//    if (e.deltaY == -50 && Visible > 10) {
 
-    Visible -= 5;
-    updateBetsTable();
-  }
-});
+//     Visible -= 5;
+//     updateBetsTable();
+//   }
+// });
 
-let startY = 0; 
-let isTouching = false; 
+// let startY = 0; 
+// let isTouching = false; 
 
 
-function handleTouchStart(event) {
+// function handleTouchStart(event) {
   
-  startY = event.touches[0].clientY;
-  isTouching = true;
-}
+//   startY = event.touches[0].clientY;
+//   isTouching = true;
+// }
 
 
-function handleTouchMove(event) {
-  if (!isTouching) return;
+// function handleTouchMove(event) {
+//   if (!isTouching) return;
 
-  const currentY = event.touches[0].clientY;
-  const deltaY = startY - currentY; 
-
-
-  if (deltaY > 50&& gameState.bets.length) {
-    Visible+=5
-    requestAnimationFrame(updateBetsTable);
-    startY = currentY;
-  } else if (deltaY < -50) {
-    if(Visible>10 && Visible <30) {
-Visible-=10
-requestAnimationFrame(updateBetsTable);
-    }
-    else if( Visible >40) {
-      Visible-=30
-      requestAnimationFrame(updateBetsTable);
-    }
-    startY = currentY; 
-  }
-}
+//   const currentY = event.touches[0].clientY;
+//   const deltaY = startY - currentY; 
 
 
-function handleTouchEnd() {
-  isTouching = false;
-}
+//   if (deltaY > 50&& gameState.bets.length) {
+//     Visible+=5
+//     requestAnimationFrame(updateBetsTable);
+//     startY = currentY;
+//   } else if (deltaY < -50) {
+//     if(Visible>10 && Visible <30) {
+// Visible-=10
+// requestAnimationFrame(updateBetsTable);
+//     }
+//     else if( Visible >40) {
+//       Visible-=30
+//       requestAnimationFrame(updateBetsTable);
+//     }
+//     startY = currentY; 
+//   }
+// }
 
-document.addEventListener('touchstart', handleTouchStart, { passive: false });
-document.addEventListener('touchmove', handleTouchMove, { passive: false });
-document.addEventListener('touchend', handleTouchEnd, { passive: false });
+
+// function handleTouchEnd() {
+//   isTouching = false;
+// }
+
+// document.addEventListener('touchstart', handleTouchStart, { passive: false });
+// document.addEventListener('touchmove', handleTouchMove, { passive: false });
+// document.addEventListener('touchend', handleTouchEnd, { passive: false });
+let lastLoggedScrollY = 0;
 document.addEventListener('scroll',(e)=> {
  if(window.scrollY<400){
+  lastLoggedScrollY = 0
   Visible = 10
   updateBetsTable()
  };
+ if (window.scrollY >= lastLoggedScrollY + 200) {
+  console.log('qaqs');
+  
+  Visible+=5
+  updateBetsTable()
+  lastLoggedScrollY = window.scrollY;
+}
   
 })
 
