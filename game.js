@@ -784,7 +784,7 @@ var Visible = 10
 // document.addEventListener('touchend', handleTouchEnd, { passive: false });
 let lastLoggedScrollY = 0;
 document.addEventListener('scroll',(e)=> {
- if(window.scrollY<400){
+ if(window.scrollY<500){
   lastLoggedScrollY = 0
   Visible = 10
   updateBetsTable()
