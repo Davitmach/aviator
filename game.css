@@ -940,6 +940,7 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  padding-bottom: 20px;
 }
 .Game_container .Results_box #betsTable table {
   width: 100%;
@@ -956,7 +957,7 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 30px;
+  gap: 50px;
 }
 .Game_container .Results_box #betsTable table tbody .top td {
   width: 170px !important;
