@@ -721,7 +721,6 @@ var Visible = 10
 
 
 
-
 let lastLoggedScrollY = 0;
 document.addEventListener('scroll',(e)=> {
  if(window.scrollY<500){
@@ -734,6 +733,12 @@ document.addEventListener('scroll',(e)=> {
   
   Visible+=5
   updateBetsTable()
+  lastLoggedScrollY = window.scrollY;
+}
+ if (window.scrollY>500 &&window.scrollY <= lastLoggedScrollY - 200 && Visible > 10) {
+  console.log('qaqs');
+  Visible -= 5;
+  updateBetsTable();
   lastLoggedScrollY = window.scrollY;
 }
   
