@@ -1027,7 +1027,7 @@ sorted = topResultList.sort((a, b) => b.multiplier - a.multiplier);
   };
 
   function handleServerMessage(data) {
-    // console.log(data);
+    
     if(data.button == 'cash_out' && hasBet == true) {
       hasBet = false
       if(hasBet == true) {
@@ -1036,6 +1036,9 @@ sorted = topResultList.sort((a, b) => b.multiplier - a.multiplier);
       else {
         autoActionBtn.style.border = 'none'
       }
+    }
+    if(data.button == 'cancel_bet' && hasBet == false) {
+      hasBet = true
     }
 
 
