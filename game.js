@@ -763,7 +763,7 @@ function handleTouchMove(event) {
     startY = currentY;
   } else if (deltaY < -50) {
     if(Visible>10 && Visible <30) {
-Visible-=5
+Visible-=10
 requestAnimationFrame(updateBetsTable);
     }
     else if( Visible >40) {
@@ -788,7 +788,6 @@ document.addEventListener('touchend', handleTouchEnd, { passive: false });
 
 function updateBetsTable() {
   
- console.log('qaq');
  
 
 
