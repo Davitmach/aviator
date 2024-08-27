@@ -956,9 +956,10 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  gap: 30px;
 }
 .Game_container .Results_box #betsTable table tbody .top td {
-  width: 150px !important;
+  width: 170px !important;
 }
 .Game_container .Results_box #betsTable table tbody > tr {
   width: 100%;

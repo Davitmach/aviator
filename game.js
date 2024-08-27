@@ -526,10 +526,12 @@ betAmountInput.addEventListener('input',()=> {
     ChangeDef10_auto = true;
     if (ChangeDef1_auto == true) {
       autoAmountInput.value = 1;
+      CashOutAmount = autoAmountInput.value
       ChangeDef1_auto = false;
     } else {
       
       autoAmountInput.value = parseFloat(autoAmountInput.value) + 1 || 1;
+      CashOutAmount = autoAmountInput.value
     }
   });
   def2_auto.addEventListener("click", () => {
@@ -539,10 +541,12 @@ betAmountInput.addEventListener('input',()=> {
 
     if (ChangeDef2_auto == true) {
       autoAmountInput.value = 2;
+      CashOutAmount = autoAmountInput.value
       ChangeDef2_auto = false;
     } else {
       
       autoAmountInput.value = parseFloat(autoAmountInput.value) + 2 || 2;
+      CashOutAmount = autoAmountInput.value
     }
   });
   def5_auto.addEventListener("click", () => {
@@ -556,6 +560,7 @@ betAmountInput.addEventListener('input',()=> {
     } else {
       
       autoAmountInput.value = parseFloat(autoAmountInput.value) + 5 || 5;
+      CashOutAmount = autoAmountInput.value
     }
   });
   def10_auto.addEventListener("click", () => {
@@ -565,10 +570,12 @@ betAmountInput.addEventListener('input',()=> {
 
     if (ChangeDef10_auto == true) {
       autoAmountInput.value = 10;
+      CashOutAmount = autoAmountInput.value
       ChangeDef10_auto = false;
     } else {
       
       autoAmountInput.value = parseFloat(autoAmountInput.value) + 10 || 10;
+      CashOutAmount = autoAmountInput.value
     }
   });
 
@@ -584,13 +591,17 @@ betAmountInput.addEventListener('input',()=> {
   });
 
   Auto_plus_amount.addEventListener("click", () => {
-  
-    autoAmountInput.value++;
+    autoAmountInput.value++
+    CashOutAmount=autoAmountInput.value ;
+    console.log(CashOutAmount);
+    
     
   });
   Auto_minus_amount.addEventListener("click", () => {
     if (autoAmountInput.value > 1) {
       autoAmountInput.value--;
+      CashOutAmount=autoAmountInput.value ;
+      console.log(CashOutAmount);
     }
   });
 
@@ -849,10 +860,10 @@ sorted = topResultList.sort((a, b) => b.multiplier - a.multiplier);
           </svg>
          <h1> User ${bet.bet_id}</h1>
         </td>
-        <td>
+        <td style="color:${bet.cash_out ? '#95979d' : 'red'}">
         ${bet.bet / 10}
         </td>
-        <td>   <span>${
+        <td>   <span style="color:${bet.cash_out ? 'green' : ''}">${
           bet.cash_out
             ? bet.cash_out /10
             : ''
@@ -862,45 +873,7 @@ sorted = topResultList.sort((a, b) => b.multiplier - a.multiplier);
             ? bet.cash_out_multiplier.toFixed(2) + "x"
             : ""
         }</h4></td>
-        <td>${
-          bet.cash_out
-            ? `<svg width="52" height="46" viewBox="0 0 52 46" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g filter="url(#filter0_d_294_251)">
-<path d="M34.0644 22.0339C33.9885 22.8222 34.5466 23.5246 35.311 23.6029C36.0753 23.6811 36.7565 23.1056 36.8324 22.3174C37.0556 20.0001 37.0564 18.6806 36.8318 16.4518C36.7638 15.777 36.2465 15.2436 35.5922 15.1735C33.4308 14.9419 32.1512 14.9427 29.904 15.1728C29.1397 15.2511 28.5816 15.9535 28.6575 16.7417C28.7334 17.53 29.4146 18.1055 30.1789 18.0272C31.0945 17.9334 31.8186 17.8812 32.5117 17.8705L26.7892 23.7717L24.3994 21.3073C23.9231 20.8161 23.1509 20.8161 22.6747 21.3073L15.3572 28.8531C14.8809 29.3442 14.8809 30.1405 15.3572 30.6316C15.8335 31.1228 16.6057 31.1228 17.0819 30.6316L23.537 23.9751L25.9269 26.4395C26.1556 26.6754 26.4658 26.8079 26.7892 26.8079C27.1127 26.8079 27.4229 26.6754 27.6516 26.4395L34.2157 19.6704C34.204 20.3725 34.1536 21.1083 34.0644 22.0339Z" fill="#00DB44"/>
-</g>
-<defs>
-<filter id="filter0_d_294_251" x="0" y="0" width="52" height="46" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset/>
-<feGaussianBlur stdDeviation="7.5"/>
-<feComposite in2="hardAlpha" operator="out"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0.858824 0 0 0 0 0.266667 0 0 0 1 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_294_251"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_294_251" result="shape"/>
-</filter>
-</defs>
-</svg>
-`
-            : `<svg width="52" height="46" viewBox="0 0 52 46" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g filter="url(#filter0_d_294_281)">
-<path d="M32.5119 28.1295C31.8187 28.1188 31.0946 28.0666 30.1789 27.9728C29.4146 27.8945 28.7334 28.47 28.6575 29.2583C28.5816 30.0465 29.1397 30.7489 29.904 30.8272C32.1512 31.0573 33.4308 31.0581 35.5922 30.8265C36.2465 30.7564 36.7638 30.223 36.8318 29.5482C37.0564 27.3194 37.0556 25.9999 36.8324 23.6826C36.7565 22.8944 36.0753 22.3189 35.311 22.3971C34.5466 22.4754 33.9885 23.1779 34.0644 23.9661C34.1536 24.8916 34.204 25.6274 34.2157 26.3294L27.6516 19.5605C27.1753 19.0693 26.4031 19.0693 25.9269 19.5605L23.537 22.0249L17.0819 15.3684C16.6057 14.8772 15.8335 14.8772 15.3572 15.3684C14.8809 15.8595 14.8809 16.6558 15.3572 17.1469L22.6747 24.6927C23.1509 25.1839 23.9231 25.1839 24.3994 24.6927L26.7892 22.2283L32.5119 28.1295Z" fill="#F9562B"/>
-</g>
-<defs>
-<filter id="filter0_d_294_281" x="0" y="0" width="52" height="46" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset/>
-<feGaussianBlur stdDeviation="7.5"/>
-<feComposite in2="hardAlpha" operator="out"/>
-<feColorMatrix type="matrix" values="0 0 0 0 0.976471 0 0 0 0 0.337255 0 0 0 0 0.168627 0 0 0 1 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_294_281"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_294_281" result="shape"/>
-</filter>
-</defs>
-</svg>
-`
-        }</td>
+    
       </tr>`;
       }
       }

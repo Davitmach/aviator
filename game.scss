@@ -968,9 +968,10 @@ body {
           align-items: center;
           justify-content: center;
           flex-direction: column;
+          gap: 30px;
           .top {
             td {
-              width: 150px !important;
+              width: 170px !important;
             }
           }
           & > tr {
