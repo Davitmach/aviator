@@ -1,0 +1,201 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+}
+
+.Main_container {
+  width: 100vw;
+  height: 100vh;
+  background-color: #0F1219;
+  overflow: hidden;
+  position: relative;
+}
+.Main_container .Union_box {
+  width: 100%;
+  overflow: hidden;
+  position: absolute;
+  left: 50%;
+  top: -120px;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+.Main_container .Union_box svg {
+  width: 100%;
+  height: 600px;
+}
+.Main_container .Balance_box {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Main_container .Balance_box #Rewards_balance_box {
+  color: white;
+  font-weight: 700;
+  font-size: 30px;
+  font-family: "Inter", sans-serif;
+}
+.Main_container .Description_box {
+  position: absolute;
+  z-index: 2;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+}
+.Main_container .Description_box h1 {
+  color: white;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+}
+.Main_container .Description_box p {
+  color: #7F8495;
+  font-weight: 400;
+  font-size: 14px;
+  font-family: "Inter", sans-serif;
+}
+.Main_container .Rewards_container {
+  width: 95%;
+  top: 30%;
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  box-shadow: 0 4px 10px #2D384C;
+  background-color: #1F2431;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 20px;
+  gap: 25px;
+  border-radius: 20px;
+}
+.Main_container .Rewards_container .Active_claim {
+  background: linear-gradient(0deg, #2147D7 0%, #49A6E9 100%);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.2509803922);
+  width: 71pxpx;
+  height: 40pxpx;
+  padding: 11px 20px 11px 20px;
+  gap: 10px;
+  border-radius: 20px;
+  border: none;
+  color: white;
+  font-weight: 600;
+  font-size: 12px;
+  opacity: 0px;
+  font-family: "Inter", sans-serif;
+}
+.Main_container .Rewards_container .Disable_claim {
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.2509803922);
+  border: 1px solid #3F444F;
+  background: #282E39;
+  padding: 11px 20px;
+  border-radius: 20px;
+  color: #95979D;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "Inter", sans-serif;
+}
+.Main_container .Rewards_container > div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.Main_container .Rewards_container > div .Info_box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.Main_container .Rewards_container > div .Info_box .Icon_box {
+  width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Main_container .Rewards_container > div .Info_box .Information_claim {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.Main_container .Rewards_container > div .Info_box .Information_claim .Title_box {
+  color: #F5FF2A;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+}
+.Main_container .Rewards_container > div .Info_box .Information_claim .Amount_box {
+  color: white;
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+}
+.Main_container .Menu_box {
+  position: absolute;
+  bottom: 20px;
+  z-index: 3;
+  box-shadow: 0px 4px 10px 0px #2D384C inset;
+  background: #1F2431;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 90px;
+  width: 95%;
+  left: 50%;
+  transform: translateX(-50%);
+  height: auto;
+}
+@media (max-height: 783px) {
+  .Main_container .Menu_box {
+    bottom: 60px;
+  }
+}
+.Main_container .Menu_box > div:first-child {
+  border-bottom: 2px solid #2755D9;
+}
+.Main_container .Menu_box > div:first-child .Background_box {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(61, 102, 255, 0.2) 70%);
+}
+.Main_container .Menu_box > div:first-child .Title_box {
+  color: white;
+  font-weight: 500;
+  font-size: 12px;
+  font-family: "Inter", sans-serif;
+}
+.Main_container .Menu_box > div {
+  width: 50px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+}
+.Main_container .Menu_box > div .Title_box {
+  color: #95979D;
+  font-weight: 500;
+  font-size: 12px;
+  font-family: "Inter", sans-serif;
+}/*# sourceMappingURL=rewards.css.map */

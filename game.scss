@@ -1,0 +1,1078 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
+$darkBlue: #0f1219;
+$blue1: #151922;
+$blue2: #1f2431;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: $darkBlue;
+}
+.Game_container {
+  background-color: $darkBlue;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  gap: 13px;
+  @media (max-height: 695px) {
+    gap: 7px;
+  }
+  #Help_box {
+    width: calc(100% - 30px);
+
+    height: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 5;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0px 4px 10px 0px #2d384c inset;
+    background: #1f2431;
+    padding: 30px 20px;
+    border-radius: 20px;
+
+    .Close_box {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      button {
+        width: 50px;
+        height: 30px;
+        border-radius: 15px;
+        padding: 5px 13px;
+        background: #282e39;
+        border: 1px solid #3f444f;
+      }
+    }
+    p {
+      max-width: 100%;
+      font-size: 20px;
+      font-weight: 700;
+      font-family: "Inter", sans-serif;
+      color: white;
+    }
+  }
+  .Active {
+    opacity: 1;
+    visibility: visible;
+    transition: 0.4s;
+    display: flex;
+  }
+  .Disable {
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.4s;
+    display: none;
+  }
+  #Push_up {
+    position: fixed;
+    width: calc(100% - 30px);
+    height: 100px;
+    top: -140px;
+    visibility: hidden;
+    transition: 0.4s;
+    border-radius: 20px;
+    background: #1f2431;
+    box-shadow: 0px 4px 10px 0px #2d384c inset;
+    left: 3.5%;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    .Left_bar {
+      display: flex;
+      align-items: start;
+      justify-content: center;
+      flex-direction: column;
+      gap: 7px;
+      #Status {
+        color: white;
+        font-weight: 600;
+        font-size: 14px;
+        font-family: "Inter", sans-serif;
+      }
+      #Multiple {
+        color: white;
+        font-weight: 500;
+        font-size: 14px;
+        font-family: "Inter", sans-serif;
+      }
+    }
+    .Right_bar {
+      display: flex;
+      align-items: start;
+      justify-content: center;
+      flex-direction: column;
+      #Right_status {
+        color: white;
+        font-weight: 600;
+        font-size: 13px;
+        font-family: "Inter", sans-serif;
+      }
+      .Win_or_lose {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        #Amount {
+          font-weight: 500;
+          font-size: 14px;
+          font-family: "Inter", sans-serif;
+          color: white;
+        }
+        .Icon {
+        width: 40px;
+        height: 40px;
+        }
+      }
+    }
+  }
+  .Visible {
+    animation: FadeIn 5s ease-in-out forwards;
+    @keyframes FadeIn {
+      0% {
+        top: -150px;
+        visibility: hidden;
+      }
+      10% {
+        top: 10px;
+        visibility: visible;
+      }
+      20% {
+        top: 10px;
+        visibility: visible;
+      }
+
+      50% {
+        top: 10px;
+        visibility: visible;
+      }
+      60% {
+        top: 10px;
+        visibility: visible;
+      }
+      70% {
+        top: 10px;
+        visibility: visible;
+      }
+      80% {
+        top: 10px;
+        visibility: visible;
+      }
+      100% {
+        top: -150px;
+        visibility: hidden;
+      }
+    }
+  }
+  .Info_box {
+    width: 100%;
+    height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    box-shadow: 0px 4px 10px 0px #2d384c inset;
+    border-radius: 10px;
+    background: #1f2431;
+    .Logo_box {
+      color: white;
+      font-family: "Inter", sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .Balance_box {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      .Title_box {
+        span {
+          color: white;
+          font-size: 12px;
+          font-weight: 600;
+          font-family: "Inter", sans-serif;
+        }
+      }
+      .Balance {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .Icon_box {
+          width: 50px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        #Balance_box {
+          font-weight: 400;
+          font-size: 12px;
+          font-family: "Inter", sans-serif;
+          color: white;
+        }
+      }
+    }
+  }
+  .Game_box {
+    width: 100%;
+    height: auto;
+    box-shadow: 0px 4px 10px 0px #2d384c inset;
+    background: #1f2431;
+    overflow: hidden;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+
+    gap: 20px;
+    position: relative;
+
+    #Under_last_games {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 250px;
+      background: #1f2431;
+      box-shadow: 0px 4px 10px 0px #2d384c inset;
+      padding: 20px 19px;
+      border-radius: 19px;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      align-items: end;
+      gap: 20px;
+      overflow: hidden;
+      #Close_box {
+        width: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 0;
+        background: #282e39;
+        border: 1px solid #3f444f;
+        padding: 5px 13px;
+        border-radius: 15px;
+        height: 30px;
+      }
+      #Under_last_games_box {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 15px;
+        overflow: scroll;
+        & > div {
+          background: #282e39;
+          border: 1px solid #3f444f;
+          padding: 7px 10px;
+          height: 30px;
+          width: 60px;
+          border-radius: 15px;
+          color: #95979d;
+          font-weight: 500;
+          font-size: 12px;
+          font-family: "Inter", sans-serif;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .first {
+          background: linear-gradient(90deg, #fdce74 0%, #f4fe2b 100%);
+
+          font-weight: 600;
+          font-size: 12px;
+          font-family: "Inter", sans-serif;
+          padding: 7px 10px;
+          height: 30px;
+          width: auto;
+          border-radius: 15px;
+          color: #0f1219;
+          border: none;
+        }
+      }
+    }
+    .Coefficient_box {
+      width: 100%;
+      height: auto;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 21px;
+
+      & > div {
+        background: #282e39;
+        border: 1px solid #3f444f;
+        padding: 7px 10px;
+        height: 30px;
+        width: 60px;
+        border-radius: 15px;
+        color: #95979d;
+        font-weight: 500;
+        font-size: 12px;
+        font-family: "Inter", sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .first {
+        background: linear-gradient(90deg, #fdce74 0%, #f4fe2b 100%);
+        box-shadow: 0px 0px 15px 0px #f6f835;
+        font-weight: 600;
+        font-size: 12px;
+        font-family: "Inter", sans-serif;
+        padding: 7px 10px;
+        height: 30px;
+        width: auto;
+        border-radius: 15px;
+        color: #0f1219;
+        border: none;
+      }
+    }
+    .Disable_under {
+      visibility: hidden;
+    }
+    .Game {
+      width: 100%;
+      height: 260px;
+      border-left: 3px solid #364463;
+      border-bottom: 3px solid #364463;
+      position: relative;
+      overflow: hidden;
+      @media (max-height: 784px) {
+        height: 192px;
+      }
+      #Waiting {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #1f2431;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        visibility: hidden;
+        z-index: 4;
+        transition: 0.4s;
+        gap: 10px;
+        span {
+          color: #b9c2e1;
+          font-weight: 500;
+          font-size: 14px;
+          font-family: "Inter", sans-serif;
+        }
+      }
+      .Mult_box {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        z-index: 3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+        transform: translate(-50%, -50%);
+        span {
+          color: #b9c2e1;
+          font-weight: 500;
+          font-size: 14px;
+          font-family: "Inter", sans-serif;
+          text-shadow: 0 0 15px #f9562b;
+        }
+        #multiplier {
+          h1 {
+            color: white;
+            font-size: 30px;
+            font-weight: 700;
+            font-family: "Inter", sans-serif;
+          }
+        }
+      }
+      .Plane_box {
+        position: absolute;
+        bottom: -3px;
+        z-index: 3;
+
+        .Line_box {
+          position: relative;
+          @media (min-width: 320px) and (max-width: 370px) {
+            left: -30px;
+          }
+          svg {
+            @media (min-width: 320px) and (max-width: 370px) {
+              width: 288px;
+              height: 119px;
+            }
+          }
+        }
+        .Plane {
+          position: absolute;
+          top: -50px;
+          right: -48px;
+          transform: rotate(-15deg);
+          @media (min-width: 320px) and (max-width: 370px) {
+            right: 5px;
+          }
+        }
+      }
+      .Flight_anim {
+        animation: Flight 2s ease-in-out forwards;
+        & > .Plane {
+          animation: Plane_rot 1s ease-in-out infinite alternate;
+          @keyframes Plane_rot {
+            from {
+              transform: rotate(-20deg) translateY(10px) translateX(-10px);
+            }
+            to {
+              transform: rotate(-10deg) translateY(-8px) translateX(-5px);
+            }
+          }
+        }
+        @keyframes Flight {
+          from {
+            bottom: -200px;
+            left: -80%;
+          }
+          to {
+            bottom: -3px;
+            left: 0;
+          }
+        }
+      }
+      .Crash {
+        & > .Plane {
+          bottom: -110px;
+          right: -110px;
+          transform: rotate(-80deg);
+        }
+      }
+
+      .Mountain_box {
+        position: absolute;
+        bottom: -4px;
+        width: 100%;
+        left: 0;
+        z-index: 2;
+        svg {
+          width: 100%;
+          height: auto;
+          aspect-ratio: 20/9;
+        }
+      }
+      .Stars_box {
+        width: 100%;
+        position: absolute;
+        left: 15%;
+        top: 30px;
+        z-index: 1;
+      }
+    }
+  }
+  .Bet_pages_container {
+    width: 100%;
+    height: auto;
+    box-shadow: 0px 4px 10px 0px #2d384c inset;
+    background: #1f2431;
+    border-radius: 19px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+    gap: 10px;
+    @media (min-width: 320px) and (max-width: 411px) {
+      padding: 20px 10px;
+    }
+    @media (min-height: 733px) {
+      padding: 10px 10px I !important;
+    }
+    .Title_box {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+      .Icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      h4 {
+        color: white;
+        font-weight: 600;
+        font-size: 12px;
+        font-family: "Inter", sans-serif;
+      }
+    }
+    .Bet_type_box {
+      width: 90%;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: #3e4453;
+      box-shadow: 0px 4px 4px 0px #7a7c8e40 inset;
+      border-radius: 20px;
+      padding: 5px;
+      button {
+        width: 50%;
+        height: 100%;
+        background: none;
+        border: none;
+        font-weight: 600;
+        font-size: 12px;
+        font-family: "Inter", sans-serif;
+        z-index: 2;
+      }
+      .Result_active {
+        color: white;
+      }
+      .Result_disable {
+        color: #95979d;
+      }
+      .Background {
+        position: absolute;
+        width: 50%;
+        height: calc(100% - 10px);
+
+        left: 7px;
+        border-radius: 100px;
+        background: linear-gradient(0deg, #2147d7 0%, #49a6e9 100%);
+        box-shadow: 0px 0px 5px 0px #266ea4;
+        transition: 0.4s;
+      }
+    }
+    .Pages_box {
+      width: 100%;
+      position: relative;
+    }
+    .Bet_box {
+      width: 100%;
+      height: auto;
+      border-radius: 19px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 20px;
+      gap: 20px;
+      @media (min-width: 320px) and (max-width: 365px) {
+        padding: 10px;
+      }
+      @media (max-height: 722px) {
+        gap: 15px;
+        padding: 10px;
+      }
+
+      .Bet_type {
+        width: 100%;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        background: #3e4453;
+        box-shadow: 0px 4px 4px 0px #7a7c8e40 inset;
+        border-radius: 20px;
+        padding: 5px;
+        button {
+          width: 50%;
+          height: 100%;
+          background: none;
+          border: none;
+          font-weight: 600;
+          font-size: 12px;
+          font-family: "Inter", sans-serif;
+          z-index: 2;
+          color: #95979d;
+        }
+        .Active {
+          color: white;
+        }
+        .Disable {
+          color: #95979d;
+        }
+        .Background {
+          position: absolute;
+          width: 50%;
+          height: calc(100% - 10px);
+
+          left: 7px;
+          border-radius: 100px;
+          background: linear-gradient(0deg, #2147d7 0%, #49a6e9 100%);
+          box-shadow: 0px 0px 5px 0px #266ea4;
+          transition: 0.4s;
+        }
+      }
+
+      .Amount_box {
+        width: 100%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        .Counter_box {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          border: 1px solid #3f444f;
+          padding: 0 16px;
+          background: #282e39;
+          border-radius: 20px;
+          height: 40px;
+          width: 140px;
+          .Input_box {
+            width: 39px;
+            input {
+              width: 100%;
+              background: none;
+              border: none;
+              outline: none;
+              color: #95979d;
+              font-size: 12px;
+              font-weight: 600;
+              font-family: "Inter", sans-serif;
+              padding: 0 5px;
+            }
+          }
+          .Minus_btn,
+          .Plus_btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+        .Default_amount {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 7px;
+          & > div {
+            width: 35px;
+            height: 40px;
+            background: #282e39;
+            border: 1px solid #3f444f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+
+            color: #95979d;
+            font-size: 12px;
+            font-weight: 600;
+            font-family: "Inter", sans-serif;
+          }
+        }
+      }
+
+      .Bet_btn {
+        width: 100%;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        button {
+          width: 100%;
+          height: 100%;
+          border-radius: 30px;
+
+          border: none;
+          font-size: 12px;
+          font-weight: 700;
+          font-family: "Inter", sans-serif;
+        }
+        .bet {
+          color: #0f1219;
+          background: linear-gradient(180deg, #fdce74 0%, #f4fe2b 100%);
+          box-shadow: 0px 0px 5px 0px #f5fd2d;
+        }
+        .cancel_bet {
+          background: linear-gradient(0deg, #e73000 0%, #f89175 100%);
+
+          color: white;
+        }
+        .cash_out {
+          background: linear-gradient(0deg, #2147d7 0%, #49a6e9 100%);
+          box-shadow: 0px 0px 5px 0px #266ea4;
+          color: white;
+        }
+      }
+    }
+    .Auto_box {
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      position: absolute;
+      padding: 0 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 20px;
+      & > div {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .Auto_bet {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 10px;
+        .Counter_box {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          border: 1px solid #3f444f;
+          padding: 0 16px;
+          background: #282e39;
+          border-radius: 20px;
+          height: 40px;
+          width: 140px;
+          .Input_box {
+            width: 39px;
+            input {
+              width: 100%;
+              background: none;
+              border: none;
+              outline: none;
+              color: #95979d;
+              font-size: 12px;
+              font-weight: 600;
+              font-family: "Inter", sans-serif;
+              padding: 0 5px;
+            }
+          }
+          .Minus_btn,
+          .Plus_btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+        .Default_amount {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 7px;
+          & > div {
+            width: 35px;
+            height: 40px;
+            background: #282e39;
+            border: 1px solid #3f444f;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+
+            color: #95979d;
+            font-size: 12px;
+            font-weight: 600;
+            font-family: "Inter", sans-serif;
+          }
+        }
+      }
+      .Auto_cash_out {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .Auto_play {
+          width: 95px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          button {
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            border: none;
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            font-family: "Inter", sans-serif;
+          }
+          .Auto_btn_disable {
+            background: linear-gradient(0deg, #2147d7 0%, #49a6e9 100%);
+            box-shadow: 0px 0px 5px 0px #266ea4;
+          }
+          .Auto_btn_active {
+            background: linear-gradient(0deg, #e73000 0%, #f89175 100%);
+          }
+        }
+        .Cash_out {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          .Title_box {
+            color: #95979d;
+            font-size: 12px;
+            font-weight: 400;
+            font-family: "Inter", sans-serif;
+          }
+          .Auto_input_box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 110px;
+            height: 40px;
+            padding: 0 13px;
+            background: #282e39;
+            border: 1px solid #3f444f;
+            border-radius: 20px;
+            &>div {
+              height: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            input {
+              width: 60px;
+              height: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              background: none;
+              border: none;
+              outline: none;
+              color: #95979d;
+              font-size: 12px;
+              font-weight: 600;
+              font-family: "Inter", sans-serif;
+            }
+          }
+            .Clear_btn {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+            button {
+              background: none;
+              border: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .Results_box {
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 0 130px 0;
+    background: #1f2431;
+    box-shadow: 0px 4px 10px 0px #2d384c inset;
+    border-radius: 20px;
+    gap: 20px;
+    img {
+      width: 20px;
+      height: 20px;
+    }
+    .Icon_box {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      width: 100%;
+      .Title_box {
+        font-weight: 600;
+        font-size: 12px;
+        font-family: "Inter", sans-serif;
+        color: white;
+      }
+    }
+    .Results_type_box {
+      width: 90%;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: #3e4453;
+      box-shadow: 0px 4px 4px 0px #7a7c8e40 inset;
+      border-radius: 20px;
+      padding: 5px;
+      button {
+        width: 50%;
+        height: 100%;
+        background: none;
+        border: none;
+        font-weight: 600;
+        font-size: 12px;
+        font-family: "Inter", sans-serif;
+        z-index: 2;
+      }
+      .Result_active {
+        color: white;
+      }
+      .Result_disable {
+        color: #95979d;
+      }
+      .Background {
+        position: absolute;
+        width: 30%;
+        height: calc(100% - 10px);
+
+        left: 7px;
+        border-radius: 100px;
+        background: linear-gradient(0deg, #2147d7 0%, #49a6e9 100%);
+        box-shadow: 0px 0px 5px 0px #266ea4;
+        transition: 0.4s;
+      }
+    }
+    #betsTable {
+      width: 100%;
+      height: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      table {
+        width: 100%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 20px;
+        tbody {
+          width: 100%;
+          height: auto;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          .top {
+            td {
+              width: 150px !important;
+            }
+          }
+          & > tr {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            &>td:nth-child(2) {
+width: 50px;
+            }
+            td {
+              display: flex;
+              align-items: center;
+              justify-content:flex-start;
+              gap: 10px;
+              width: 100px;
+              color: #95979d;
+              font-weight: 600;
+              font-size: 12px;
+              font-family: "Inter", sans-serif;
+              white-space: nowrap;
+              h1 {
+                color: #95979d;
+                font-weight: 600;
+                font-size: 14px;
+                font-family: "Inter", sans-serif;
+                white-space: nowrap;
+              }
+              span {
+                color: white;
+                font-size: 12px;
+                font-weight: 600;
+                font-family: "Inter", sans-serif;
+              }
+              h4 {
+                color: #95979d;
+                font-size: 12px;
+                font-weight: 600;
+                font-family: "Inter", sans-serif;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .Menu_box {
+    position: fixed;
+    bottom: 30px;
+    z-index: 5;
+    box-shadow: 0px 4px 10px 0px #2d384c inset;
+    background: #1f2431;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 90px;
+    width: 95%;
+    left: 50%;
+    transform: translateX(-50%);
+    height: auto;
+
+    @media (max-height: 694px) {
+      bottom: 6px;
+    }
+    & > div:last-child {
+      border-bottom: 2px solid #2755d9;
+      .Background_box {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          180deg,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(61, 102, 255, 0.2) 70%
+        );
+      }
+
+      .Title_box {
+        color: white;
+        font-weight: 500;
+        font-size: 12px;
+        font-family: "Inter", sans-serif;
+      }
+    }
+    & > div {
+      width: 50px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      position: relative;
+
+      .Title_box {
+        color: #95979d;
+        font-weight: 500;
+        font-size: 12px;
+        font-family: "Inter", sans-serif;
+      }
+    }
+  }
+}
