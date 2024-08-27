@@ -959,6 +959,9 @@ body {
   flex-direction: column;
   gap: 50px;
 }
+.Game_container .Results_box #betsTable table tbody:has(#Res) {
+  gap: 50px;
+}
 .Game_container .Results_box #betsTable table tbody .top td {
   width: 170px !important;
 }

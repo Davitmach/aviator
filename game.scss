@@ -969,6 +969,9 @@ body {
           align-items: center;
           justify-content: center;
           flex-direction: column;
+          &:has(#Res) {
+            gap: 50px;
+          }
           gap: 50px;
           .top {
             td {
