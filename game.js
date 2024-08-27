@@ -782,7 +782,13 @@ function handleTouchEnd() {
 document.addEventListener('touchstart', handleTouchStart, { passive: false });
 document.addEventListener('touchmove', handleTouchMove, { passive: false });
 document.addEventListener('touchend', handleTouchEnd, { passive: false });
-
+document.addEventListener('scroll',(e)=> {
+ if(window.scrollY<400){
+  Visible = 10
+  updateBetsTable()
+ };
+  
+})
 
 
 
