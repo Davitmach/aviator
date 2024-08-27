@@ -721,67 +721,7 @@ var Visible = 10
 
 
 
-// document.addEventListener('wheel', (e) => {
 
-  
-  
-  
-//   if (e.deltaY == 50 && gameState.bets.length) {
-
-
-//     Visible += 1;
-//     updateBetsTable();
-//   }
-//    if (e.deltaY == -50 && Visible > 10) {
-
-//     Visible -= 5;
-//     updateBetsTable();
-//   }
-// });
-
-// let startY = 0; 
-// let isTouching = false; 
-
-
-// function handleTouchStart(event) {
-  
-//   startY = event.touches[0].clientY;
-//   isTouching = true;
-// }
-
-
-// function handleTouchMove(event) {
-//   if (!isTouching) return;
-
-//   const currentY = event.touches[0].clientY;
-//   const deltaY = startY - currentY; 
-
-
-//   if (deltaY > 50&& gameState.bets.length) {
-//     Visible+=5
-//     requestAnimationFrame(updateBetsTable);
-//     startY = currentY;
-//   } else if (deltaY < -50) {
-//     if(Visible>10 && Visible <30) {
-// Visible-=10
-// requestAnimationFrame(updateBetsTable);
-//     }
-//     else if( Visible >40) {
-//       Visible-=30
-//       requestAnimationFrame(updateBetsTable);
-//     }
-//     startY = currentY; 
-//   }
-// }
-
-
-// function handleTouchEnd() {
-//   isTouching = false;
-// }
-
-// document.addEventListener('touchstart', handleTouchStart, { passive: false });
-// document.addEventListener('touchmove', handleTouchMove, { passive: false });
-// document.addEventListener('touchend', handleTouchEnd, { passive: false });
 let lastLoggedScrollY = 0;
 document.addEventListener('scroll',(e)=> {
  if(window.scrollY<500){
@@ -907,7 +847,7 @@ sorted = topResultList.sort((a, b) => b.multiplier - a.multiplier);
         <td>
         ${bet.bet / 10}
         </td>
-        <td>   <img src="./assets/coin.png"><span>${
+        <td>   <span>${
           bet.cash_out
             ? bet.cash_out /10
             : ''
