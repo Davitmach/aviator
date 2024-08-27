@@ -729,14 +729,14 @@ document.addEventListener('scroll',(e)=> {
   updateBetsTable()
  };
  if (window.scrollY >= lastLoggedScrollY + 200) {
-  console.log('qaqs');
+
   
   Visible+=5
   updateBetsTable()
   lastLoggedScrollY = window.scrollY;
 }
  if (window.scrollY>500 &&window.scrollY <= lastLoggedScrollY - 200 && Visible > 10) {
-  console.log('qaqs');
+
   Visible -= 5;
   updateBetsTable();
   lastLoggedScrollY = window.scrollY;
@@ -1247,7 +1247,7 @@ topResultList.unshift({
 
     if(AutoBet == true && Pages == 'auto') {
       playerPlaceBet()
-      // console.log('add bet');
+      // g('add bet');
       
       
    
