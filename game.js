@@ -720,7 +720,7 @@ var Visible = 10
   
 
 
-// Обработчик для мыши (компьютер)
+
 document.addEventListener('wheel', (e) => {
 
   
@@ -739,39 +739,38 @@ document.addEventListener('wheel', (e) => {
   }
 });
 
-let startY = 0; // Начальная координата Y касания
-let isTouching = false; // Флаг, указывающий, что касание началось
+let startY = 0; 
+let isTouching = false; 
 
-// Обработчик для начала касания
+
 function handleTouchStart(event) {
-  // Сохраняем начальную координату Y при начале касания
+  
   startY = event.touches[0].clientY;
   isTouching = true;
 }
 
-// Обработчик для перемещения касания
+
 function handleTouchMove(event) {
   if (!isTouching) return;
 
-  // Получаем текущую координату Y
   const currentY = event.touches[0].clientY;
-  const deltaY = startY - currentY; // Вычисляем изменение
+  const deltaY = startY - currentY; 
 
-  // Проверяем направление прокрутки и выводим сообщение
+
   if (deltaY > 50&& gameState.bets.length) {
     Visible+=10
-    updateBetsTable();
-    startY = currentY; // Обновляем начальную координату
+    requestAnimationFrame(updateBetsTable);
+    startY = currentY;
   } else if (deltaY < -50) {
     if(Visible>10) {
 Visible-=20
-updateBetsTable();
-    } // Прокрутка вверх
-    startY = currentY; // Обновляем начальную координату
+requestAnimationFrame(updateBetsTable);
+    }
+    startY = currentY; 
   }
 }
 
-// Обработчик для завершения касания
+
 function handleTouchEnd() {
   isTouching = false;
 }
@@ -781,10 +780,11 @@ document.addEventListener('touchmove', handleTouchMove, { passive: false });
 document.addEventListener('touchend', handleTouchEnd, { passive: false });
 
 
-// // Обработчики для касания (мобильные устройства)
+
 
 function updateBetsTable() {
   
+ console.log('qaq');
  
 
 
