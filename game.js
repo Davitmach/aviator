@@ -758,13 +758,17 @@ function handleTouchMove(event) {
 
 
   if (deltaY > 50&& gameState.bets.length) {
-    Visible+=10
+    Visible+=5
     requestAnimationFrame(updateBetsTable);
     startY = currentY;
   } else if (deltaY < -50) {
-    if(Visible>10) {
-Visible-=20
+    if(Visible>10 && Visible <30) {
+Visible-=5
 requestAnimationFrame(updateBetsTable);
+    }
+    else if( Visible >40) {
+      Visible-=30
+      requestAnimationFrame(updateBetsTable);
     }
     startY = currentY; 
   }
