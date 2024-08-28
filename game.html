@@ -359,7 +359,7 @@
                   </svg>
                 </div>
                 <div class="Input_box">
-                  <input id="betAmount" max="1000" value="0" type="number" oninput="this.value = this.value > 1000 ? 1000 : this.value.replace(/[^0-9]/g, '');" />
+                  <input id="betAmount" max="1000" value="0" type="text" oninput="this.value = this.value > 1000 ? 1000 : this.value.replace(/[^0-9]/g, '');" />
 
     
                 </div>
@@ -425,7 +425,7 @@
                   </svg>
                 </div>
                 <div class="Input_box">
-                  <input id="autoAmount" max="1000" type="number"  value="0" oninput="this.value = this.value > 1000 ? 1000 : this.value.replace(/[^0-9]/g, '');" />
+                  <input id="autoAmount" max="1000" type="text"  value="0" oninput="this.value = this.value > 1000 ? 1000 : this.value.replace(/[^0-9]/g, '');" />
     
                 </div>
                 <div id="Auto_plus_btn" class="Plus_btn">
@@ -465,7 +465,7 @@
               <div class="Cash_out">
                 <div class="Title_box">Auto cash out</div>
                 <div class="Auto_input_box">
-                  <div><input id="Cash_out_input"  value="1.01" type="numeric"  oninput="this.value = this.value
+                  <div><input id="Cash_out_input"  value="1.01" type="text"  oninput="this.value = this.value
                     .replace(/[^0-9.]/g, '')     
                     .replace(/(\..*)\./g, '$1')
                     .replace(/^(\d+\.\d{2}).*/, '$1') " />

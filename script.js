@@ -9,13 +9,14 @@ var Game_icon = document.getElementById('Game_icon');
 var Reward_icon = document.getElementById('Rewards_icon')
 var Active_link = 'game.html';
 var Loading = document.getElementById('Loading');
+var Menu = document.getElementById('Menu')
 function manageScript(src) {
     if(src == './rewards.js') {
         document.querySelector(`script[src="./game.js"]`).remove()
     }
     let existingScript = document.querySelector(`script[src="${src}"]`);
     
-    // Remove existing script if found
+
     if (existingScript) {
         existingScript.remove();
     }
@@ -28,9 +29,11 @@ function manageScript(src) {
     }
 }
 document.body.style.overflow = 'hidden'
+Menu.style.visibility = 'hidden'
 setTimeout(() => {
      document.body.style.overflow = 'scroll'
      Loading.style.visibility = 'hidden'
+      Menu.style.visibility = 'visible'
 },2400);
    
 
@@ -126,6 +129,7 @@ function loadPage(pageUrl) {
 loadPage(Active_link);
 
 Game_btn.addEventListener('click', () => {
+    if(Active_link !== 'game.html') {
      document.body.style.overflow = 'hidden'
     Loading.style.visibility = 'visible'
     setTimeout(() => {
@@ -135,11 +139,13 @@ Game_btn.addEventListener('click', () => {
     if (Active_link !== 'game.html') {
         Active_link = 'game.html';
         loadPage(Active_link);
-        location.reload()
+        
+    }
     }
 });
 
 Reward_btn.addEventListener('click', () => {
+    if (Active_link !== 'rewards.html') {
     document.body.style.overflow = 'hidden'
     Loading.style.visibility = 'visible'
     setTimeout(() => {
@@ -151,5 +157,6 @@ Loading.style.visibility = 'hidden'
         loadPage(Active_link);
         
     }
+}
 });
 

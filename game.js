@@ -1,6 +1,6 @@
 
 
-
+(function() {
 var tg = {
   initData:
     "user=%7B%22id%22%3A1974611991%2C%22first_name%22%3A%22David%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22Davoooooooooooooooooooooooo%22%2C%22language_code%22%3A%22ru%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=-7558594942258246586&chat_type=private&auth_date=1724299858&hash=33fc3bb7c98d2f14f423f193ec6a6af0ae18cbec776d062cec3ecfe377550264",
@@ -191,6 +191,7 @@ function initializeWebSocket() {
   actionButton.classList.add('bet')
   autoCashOutClean.addEventListener("click", () => {
     cashOutInput.value = 1.01;
+    CashOutMultiplier = cashOutInput.value
   });
  autoActionBtn.style.border = 'none'
   boxHelp.classList.add("Disable");
@@ -462,8 +463,20 @@ betAmountInput.addEventListener('input',()=> {
     boxHelp.classList.remove("Active");
     boxHelp.classList.add("Disable");
   });
-
+function CheckDef() {
+  if(betAmountInput.value>1000) {
+    betAmountInput.value = 1000
+    
+  }
+}
+function CheckAutoDef() {
+  if(autoAmountInput.value>1000) {
+    autoAmountInput.value = 1000;
+    CashOutAmount = autoAmountInput.value
+  }
+}
   def1.addEventListener("click", () => {
+
     ChangeDef2 = true;
     ChangeDef5 = true;
     ChangeDef10 = true;
@@ -476,9 +489,12 @@ betAmountInput.addEventListener('input',()=> {
         
       
       betAmountInput.value = parseFloat(betAmountInput.value) + 1 || 1;
+      CheckDef()
     }
+    
   });
   def2.addEventListener("click", () => {
+  
     ChangeDef1 = true;
     ChangeDef5 = true;
     ChangeDef10 = true;
@@ -489,9 +505,12 @@ betAmountInput.addEventListener('input',()=> {
     } else {
       
       betAmountInput.value = parseFloat(betAmountInput.value) + 2 || 2;
+      CheckDef()
     }
+  
   });
   def5.addEventListener("click", () => {
+    
     ChangeDef1 = true;
     ChangeDef2 = true;
     ChangeDef10 = true;
@@ -502,9 +521,13 @@ betAmountInput.addEventListener('input',()=> {
     } else {
       
       betAmountInput.value = parseFloat(betAmountInput.value) + 5 || 5;
+      CheckDef()
     }
+  
   });
   def10.addEventListener("click", () => {
+
+  
     ChangeDef1 = true;
     ChangeDef5 = true;
     ChangeDef2 = true;
@@ -512,15 +535,23 @@ betAmountInput.addEventListener('input',()=> {
     if (ChangeDef10 == true) {
       betAmountInput.value = 10;
       ChangeDef10 = false;
+   
     } else {
       
       betAmountInput.value = parseFloat(betAmountInput.value) + 10 || 10;
+      CheckDef()
     }
+
+   
   });
 
   // auto
 
   def1_auto.addEventListener("click", () => {
+    
+    
+  
+      console.log('qaqs');
     ChangeDef2_auto = true;
     ChangeDef5_auto = true;
     ChangeDef10_auto = true;
@@ -532,9 +563,12 @@ betAmountInput.addEventListener('input',()=> {
       
       autoAmountInput.value = parseFloat(autoAmountInput.value) + 1 || 1;
       CashOutAmount = autoAmountInput.value
+      CheckAutoDef()
     }
+    
   });
   def2_auto.addEventListener("click", () => {
+  
     ChangeDef1_auto = true;
     ChangeDef5_auto = true;
     ChangeDef10_auto = true;
@@ -547,9 +581,12 @@ betAmountInput.addEventListener('input',()=> {
       
       autoAmountInput.value = parseFloat(autoAmountInput.value) + 2 || 2;
       CashOutAmount = autoAmountInput.value
-    }
+      CheckAutoDef()
+    
+  }
   });
   def5_auto.addEventListener("click", () => {
+   
     ChangeDef1_auto = true;
     ChangeDef2_auto = true;
     ChangeDef10_auto = true;
@@ -561,9 +598,12 @@ betAmountInput.addEventListener('input',()=> {
       
       autoAmountInput.value = parseFloat(autoAmountInput.value) + 5 || 5;
       CashOutAmount = autoAmountInput.value
+      CheckAutoDef()
     }
+    
   });
   def10_auto.addEventListener("click", () => {
+   
     ChangeDef1_auto = true;
     ChangeDef5_auto = true;
     ChangeDef2_auto = true;
@@ -576,12 +616,15 @@ betAmountInput.addEventListener('input',()=> {
       
       autoAmountInput.value = parseFloat(autoAmountInput.value) + 10 || 10;
       CashOutAmount = autoAmountInput.value
-    }
+      CheckAutoDef()
+    
+  }
   });
 
   Plus_amount.addEventListener("click", () => {
-    
+    if(betAmountInput.value < 1000 ) {
     betAmountInput.value++;
+    }
   });
   Minus_amount.addEventListener("click", () => {
     if (betAmountInput.value > 1) {
@@ -591,10 +634,11 @@ betAmountInput.addEventListener('input',()=> {
   });
 
   Auto_plus_amount.addEventListener("click", () => {
+    if(autoAmountInput.value <1000) {
     autoAmountInput.value++
     CashOutAmount=autoAmountInput.value ;
     console.log(CashOutAmount);
-    
+    }
     
   });
   Auto_minus_amount.addEventListener("click", () => {
@@ -1037,9 +1081,10 @@ sorted = topResultList.sort((a, b) => b.multiplier - a.multiplier);
         autoActionBtn.style.border = 'none'
       }
     }
-    if(data.button == 'cancel_bet' && hasBet == false) {
+    if(data.button == 'cancel_bet' && hasBet == false && Pages =='bet') {
       hasBet = true
     }
+ 
 
 
 
@@ -1207,7 +1252,34 @@ topResultList.unshift({
   }
 
   function handlePrepareNextRound(data) {
-
+    progressBar.value = 0;
+    let progressValue = 0;
+    const totalDuration = 3500; // Total duration of the animation in milliseconds
+    let startTime; // Declare startTime but don't initialize it yet
+    
+    waitLoading.style.opacity = "1";
+    waitLoading.style.visibility = "visible";
+    
+    function updateProgressBar(currentTime) {
+      if (!startTime) {
+        startTime = currentTime; // Initialize startTime on the first frame
+      }
+    
+      const elapsedTime = currentTime - startTime;
+      const progressFraction = Math.min(elapsedTime / totalDuration, 1); // Calculate progress
+    
+      progressValue = progressFraction * 100;
+      progressBar.value = progressValue;
+    
+      if (progressFraction < 1) {
+        requestAnimationFrame(updateProgressBar); // Continue the animation
+      }
+    }
+    
+    // Delay before starting the animation
+    setTimeout(() => {
+      requestAnimationFrame(updateProgressBar);
+    }, 800);
     if(AutoBet == true && Pages == 'auto') {
       playerPlaceBet()
       // g('add bet');
@@ -1251,30 +1323,35 @@ else {
     }
     betStatus = true;
     gameState.lastEvent = EVENT_END_ROUND;
-progressBar.value = 0;
-let progressValue = 0;
-const totalDuration = 5000; // Общая продолжительность анимации в миллисекундах
-const startTime = performance.now();
-
-waitLoading.style.opacity = "1";
-waitLoading.style.visibility = "visible";
-
-function updateProgressBar(currentTime) {
-  const elapsedTime = currentTime - startTime;
-  const progressFraction = Math.min(elapsedTime / totalDuration, 1); // Расчет прогресса
-
-  progressValue = progressFraction * 100;
-  progressBar.value = progressValue;
-
-  if (progressFraction < 1) {
-    requestAnimationFrame(updateProgressBar); // Продолжение анимации
-  }
-}
-
-// Задержка перед началом анимации
-setTimeout(() => {
-  requestAnimationFrame(updateProgressBar);
-}, 800);
+    // progressBar.value = 0;
+    // let progressValue = 0;
+    // const totalDuration = 5000; // Total duration of the animation in milliseconds
+    // let startTime; // Declare startTime but don't initialize it yet
+    
+    // waitLoading.style.opacity = "1";
+    // waitLoading.style.visibility = "visible";
+    
+    // function updateProgressBar(currentTime) {
+    //   if (!startTime) {
+    //     startTime = currentTime; // Initialize startTime on the first frame
+    //   }
+    
+    //   const elapsedTime = currentTime - startTime;
+    //   const progressFraction = Math.min(elapsedTime / totalDuration, 1); // Calculate progress
+    
+    //   progressValue = progressFraction * 100;
+    //   progressBar.value = progressValue;
+    
+    //   if (progressFraction < 1) {
+    //     requestAnimationFrame(updateProgressBar); // Continue the animation
+    //   }
+    // }
+    
+    // // Delay before starting the animation
+    // setTimeout(() => {
+    //   requestAnimationFrame(updateProgressBar);
+    // }, 800);
+    
 
 
     LastGames.unshift(`${data.end_multiplier.toFixed(2)}x`);
@@ -1391,7 +1468,7 @@ window.addEventListener('online',()=> {
         
     }
 if(Pages == 'bet') {
-  // hasBet = false
+  hasBet = false
     myResult = myResult.filter((e)=> e.id !== idCounter)
     updateBetsTable()
 }
@@ -1404,5 +1481,5 @@ if(Pages == 'bet') {
 }
 initializeWebSocket();
 
-
+})()
 
