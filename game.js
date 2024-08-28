@@ -1069,7 +1069,12 @@ sorted = topResultList.sort((a, b) => b.multiplier - a.multiplier);
     [EVENT_CANCEL_BET]: handleCancelBet,
     [EVENT_WELCOME]: handleWelcome,
   };
-
+if(actionButton.classList.contains('cancel_bet')) {
+  hasBet = true
+}
+else {
+  hasBet = false
+}
   function handleServerMessage(data) {
     
     if(data.button == 'cash_out' && hasBet == true) {
