@@ -723,6 +723,8 @@ if(parseFloat(autoAmountInput.value)> parseFloat(balanceElement.innerHTML)) {
       bet:bet
       
     });
+    console.log(myResult);
+    
     updateBetsTable()
  
   }
@@ -1072,6 +1074,7 @@ sorted = topResultList.sort((a, b) => b.multiplier - a.multiplier);
         
       }
       if (data.event == "bet_confirmation" ) {
+
       
         AddMyResult(data.amount);
       }
@@ -1514,8 +1517,8 @@ window.addEventListener('online',()=> {
   
     const amount =
       Pages == "bet"
-        ? parseInt(betAmountInput.value)
-        : parseInt(CashOutAmount);
+        ? parseFloat(betAmountInput.value)
+        : parseFloat(CashOutAmount);
     if (amount > 0 && amount <=1000 && amount <= balanceElement.innerHTML) {
       ws.send(JSON.stringify({ action: "bet", amount: amount * 10 }));
       counterBox.style.border = 'none'
