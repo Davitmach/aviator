@@ -282,7 +282,11 @@ autoAmountInput.style.textAlign = 'center'
 
 autoAmountInput.addEventListener('blur',()=> {
   CashOutAmount = autoAmountInput.value;
-  if(autoAmountInput.value > balanceElement.innerHTML) {
+  console.log(autoAmountInput.value);
+  console.log(balanceElement.innerHTML);
+  
+  if(parseFloat(autoAmountInput.value) > parseFloat(balanceElement.innerHTML)) {
+  
     AutoType = false;
     ChangeAutoInput = false;
     AutoBet = false;
@@ -369,7 +373,7 @@ function CheckAuto() {
       if (isValid ) {
         
         
-          if (parseFloat(autoAmountInput.value) > 0 && autoAmountInput.value <= balanceElement.innerHTML) {
+          if (parseFloat(autoAmountInput.value) > 0 && parseFloat(autoAmountInput.value) <= parseFloat(balanceElement.innerHTML)) {
             
             
             if(hasBet == false) {
@@ -486,6 +490,7 @@ function CheckAutoDef() {
     autoAmountInput.value = 1000;
     CashOutAmount = autoAmountInput.value
   }
+
 }
   def1.addEventListener("click", () => {
 
@@ -574,6 +579,7 @@ function CheckAutoDef() {
       
       autoAmountInput.value = parseFloat(autoAmountInput.value) + 1 || 1;
       CashOutAmount = autoAmountInput.value
+    
       CheckAutoDef()
     }
     
@@ -635,6 +641,9 @@ function CheckAutoDef() {
   Plus_amount.addEventListener("click", () => {
     if(betAmountInput.value < 1000 ) {
     betAmountInput.value++;
+    if(parseFloat(betAmountInput.value)> parseFloat(balanceElement.innerHTML)) {
+      playerCancelBet()
+    }
     }
   });
   Minus_amount.addEventListener("click", () => {
@@ -648,7 +657,14 @@ function CheckAutoDef() {
     if(autoAmountInput.value <1000) {
     autoAmountInput.value++
     CashOutAmount=autoAmountInput.value ;
-
+if(parseFloat(autoAmountInput.value)> parseFloat(balanceElement.innerHTML)) {
+  AutoType = false;
+  ChangeAutoInput = false;
+  AutoBet = false;
+    autoActionBtn.innerText = "Auto play";
+    autoActionBtn.classList.add('Auto_btn_disable');
+    autoActionBtn.classList.remove('Auto_btn_active');
+}
     }
     
   });
