@@ -1513,7 +1513,7 @@ window.addEventListener('online',()=> {
       if(Pages=='auto') {
         autoActionBtn.classList.add('Auto_btn_disable');
               autoActionBtn.classList.remove('Auto_btn_active');
-        autoActionBtn.style.border = '1px solid red'
+        
         AutoType = false;
         ChangeAutoInput = false;
         AutoBet = false;
