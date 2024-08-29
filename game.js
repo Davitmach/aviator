@@ -636,7 +636,7 @@ function CheckAutoDef() {
     if(autoAmountInput.value <1000) {
     autoAmountInput.value++
     CashOutAmount=autoAmountInput.value ;
-    console.log(CashOutAmount);
+
     }
     
   });
@@ -644,7 +644,7 @@ function CheckAutoDef() {
     if (autoAmountInput.value > 1) {
       autoAmountInput.value--;
       CashOutAmount=autoAmountInput.value ;
-      console.log(CashOutAmount);
+      
     }
   });
 
@@ -1019,6 +1019,10 @@ sorted = topResultList.sort((a, b) => b.multiplier - a.multiplier);
   }
 
   function connect() {
+  
+  
+    console.log('qaq');
+    
     ws = new WebSocket("wss://toxicwaste.mooo.com:" + PORT);
 
     ws.onmessage = function (event) {
@@ -1038,16 +1042,19 @@ sorted = topResultList.sort((a, b) => b.multiplier - a.multiplier);
         AddMyResult(data.amount);
       }
     };
-
+var Interval
     ws.onclose = function (event) {
       const code = event.code;
       const reason = event.reason || "-";
-
+     if(reason == '-') {
+      connect()
+     }
+     
       if (reason !== "INIT_DATA_VERIFY_ERROR") {
         addMessage(
           `Соединение закрыто. Код: ${code}, причина: ${reason}. Переподключение...`
         );
-        if (currentTab === "game") setTimeout(connect, 3000);
+        if (currentTab === "game") {Interval = setInterval(connect, 3000) }; 
       } else
         addMessage(
           `Соединение закрыто. Код: ${code}, причина: ${reason}. Обновите страницу`
@@ -1060,6 +1067,8 @@ sorted = topResultList.sort((a, b) => b.multiplier - a.multiplier);
     };
 
     ws.onopen = function () {
+      clearInterval(Interval)
+      
       addMessage("Подключено к WebSocket серверу");
       playerHello();
     };
@@ -1095,8 +1104,14 @@ else {
     autoActionBtn.style.border = 'none'
   }
 }
+
+
+
   function handleServerMessage(data) {
-    
+    if(!data) {
+      playerHello()
+      
+    }
     if(data.button == 'cash_out' && hasBet == true) {
       hasBet = false
       if(hasBet == true) {
@@ -1485,6 +1500,15 @@ window.addEventListener('online',()=> {
    
       
       counterBox.style.border = '1px solid red'
+      if(Pages=='auto') {
+        autoActionBtn.classList.add('Auto_btn_disable');
+              autoActionBtn.classList.remove('Auto_btn_active');
+        autoActionBtn.style.border = '1px solid red'
+        AutoType = false;
+        ChangeAutoInput = false;
+        AutoBet = false;
+          autoActionBtn.innerText = "Auto play";
+      }
     }
   }
 
