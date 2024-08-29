@@ -282,6 +282,14 @@ autoAmountInput.style.textAlign = 'center'
 
 autoAmountInput.addEventListener('blur',()=> {
   CashOutAmount = autoAmountInput.value;
+  if(autoAmountInput.value > balanceElement.innerHTML) {
+    AutoType = false;
+    ChangeAutoInput = false;
+    AutoBet = false;
+      autoActionBtn.innerText = "Auto play";
+      autoActionBtn.classList.add('Auto_btn_disable');
+      autoActionBtn.classList.remove('Auto_btn_active');
+  }
   autoAmountInput.style.textAlign = 'center'
 
   
