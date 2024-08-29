@@ -1283,10 +1283,12 @@ topResultList.unshift({
   }
 
   function handlePrepareNextRound(data) {
+    if(resultType.type == 'all') {
     window.scrollTo({
       top: 0,
       behavior: 'smooth' // 'smooth' для плавной прокрутки, 'auto' для мгновенной
     });
+  }
     progressBar.value = 0;
     let progressValue = 0;
     const totalDuration = 3500; // Total duration of the animation in milliseconds
