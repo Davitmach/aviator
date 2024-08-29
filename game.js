@@ -359,7 +359,7 @@ function CheckAuto() {
 
   if (AutoType == false && Pages == 'auto' ) {
       if (isValid) {
-          if (parseFloat(autoAmountInput.value) > 0) {
+          if (parseFloat(autoAmountInput.value) > 0 && autoAmountInput.value <= balanceElement.innerHTML) {
             if(hasBet == false) {
             autoCounterBox.style.border = 'none'
               betStatus = false;
@@ -550,8 +550,7 @@ function CheckAutoDef() {
   def1_auto.addEventListener("click", () => {
     
     
-  
-      console.log('qaqs');
+
     ChangeDef2_auto = true;
     ChangeDef5_auto = true;
     ChangeDef10_auto = true;
@@ -884,40 +883,49 @@ sorted = topResultList.sort((a, b) => b.multiplier - a.multiplier);
     
     
     else if (resultType.type == "all") {
-      for (let  [index,bet] of gameState.bets.entries()) {
-     if(index < Visible) {
-        tableHtml += `<tr id='Res'>
-        <td>
-
-         <h1> User ${bet.bet_id}</h1>
-        </td>
-        <td style="color:${bet.cash_out ? '#95979d' : 'red'}">
-        ${bet.bet / 10}
-        </td>
-        <td>   <span style="color:${bet.cash_out ? 'green' : ''}">${
-          bet.cash_out
-            ? bet.cash_out /10
-            : ''
-        }</span></td>
-        <td><h4>${
-          bet.cash_out_multiplier
-            ? bet.cash_out_multiplier.toFixed(2) + "x"
-            : ""
-        }</h4></td>
-    
-      </tr>`;
-      }
-      }
-
-      tableHtml += `</tbody>
+      // Устанавливаем количество видимых строк в 2
    
-      </table>`;
-      betsTableElement.innerHTML = tableHtml;
-      // document.querySelectorAll('#Res')[document.querySelectorAll('#Res').length -2] ? document.querySelectorAll('#Res')[document.querySelectorAll('#Res').length -2].dataset.visible = 'false' : '';
-      // document.querySelectorAll('#Res')[document.querySelectorAll('#Res').length -2] ? observer.observe(document.querySelectorAll('#Res')[document.querySelectorAll('#Res').length -2]) : ''
-
-      
-    } 
+      const fragment = document.createDocumentFragment(); // Создаем documentFragment
+  
+      // Создаем таблицу и тело таблицы
+      const table = document.createElement('table');
+      const tbody = document.createElement('tbody');
+      table.appendChild(tbody);
+  
+      // Перебираем ставки и отображаем только первые 2 строки
+      for (let [index, bet] of gameState.bets.entries()) {
+          if (index < Visible) {
+              const row = document.createElement('tr');
+              row.id = 'Res';
+  
+              row.innerHTML = `
+                  <td>
+                      <h1> User ${bet.bet_id}</h1>
+                  </td>
+                  <td style="color:${bet.cash_out ? '#95979d' : 'red'}">
+                      ${bet.bet / 10}
+                  </td>
+                  <td>
+                      <span style="color:${bet.cash_out ? 'green' : ''}">
+                          ${bet.cash_out ? bet.cash_out / 10 : ''}
+                      </span>
+                  </td>
+                  <td>
+                      <h4>
+                          ${bet.cash_out_multiplier ? bet.cash_out_multiplier.toFixed(2) + "x" : ""}
+                      </h4>
+                  </td>
+              `;
+              tbody.appendChild(row); // Добавляем строку в тело таблицы
+          }
+      }
+  
+      fragment.appendChild(table); // Добавляем таблицу в documentFragment
+  
+      betsTableElement.innerHTML = ''; // Очищаем существующий контент
+      betsTableElement.appendChild(fragment); // Добавляем новый контент из documentFragment
+  }
+  
     
     
     
@@ -1071,9 +1079,21 @@ sorted = topResultList.sort((a, b) => b.multiplier - a.multiplier);
   };
 if(actionButton.classList.contains('cancel_bet')) {
   hasBet = true
+  if(hasBet == true) {
+    autoActionBtn.style.border = '2px solid red'
+  }
+  else {
+    autoActionBtn.style.border = 'none'
+  }
 }
 else {
   hasBet = false
+  if(hasBet == true) {
+    autoActionBtn.style.border = '2px solid red'
+  }
+  else {
+    autoActionBtn.style.border = 'none'
+  }
 }
   function handleServerMessage(data) {
     
@@ -1088,6 +1108,12 @@ else {
     }
     if(data.button == 'cancel_bet' && hasBet == false && Pages =='bet') {
       hasBet = true
+      if(hasBet == true) {
+        autoActionBtn.style.border = '2px solid red'
+      }
+      else {
+        autoActionBtn.style.border = 'none'
+      }
     }
  
 
@@ -1129,7 +1155,7 @@ AutoCashOutMiltiplier = true
 
   function startRound() {
 AutoCashOut = false
-console.log(myResult);
+
 
     
     gameState.lastEvent = EVENT_START_ROUND;
@@ -1257,6 +1283,10 @@ topResultList.unshift({
   }
 
   function handlePrepareNextRound(data) {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // 'smooth' для плавной прокрутки, 'auto' для мгновенной
+    });
     progressBar.value = 0;
     let progressValue = 0;
     const totalDuration = 3500; // Total duration of the animation in milliseconds
@@ -1428,13 +1458,14 @@ window.addEventListener('online',()=> {
     
   }
 
+
   function playerPlaceBet() {
-    
+  
     const amount =
       Pages == "bet"
         ? parseInt(betAmountInput.value)
         : parseInt(CashOutAmount);
-    if (amount > 0 && amount <=1000) {
+    if (amount > 0 && amount <=1000 && amount <= balanceElement.innerHTML) {
       ws.send(JSON.stringify({ action: "bet", amount: amount * 10 }));
       counterBox.style.border = 'none'
       disableButton();
@@ -1474,6 +1505,12 @@ window.addEventListener('online',()=> {
     }
 if(Pages == 'bet') {
   hasBet = false
+  if(hasBet == true) {
+    autoActionBtn.style.border = '2px solid red'
+  }
+  else {
+    autoActionBtn.style.border = 'none'
+  }
     myResult = myResult.filter((e)=> e.id !== idCounter)
     updateBetsTable()
 }
