@@ -360,8 +360,11 @@
                 </div>
                 <div class="Input_box">
                   <input id="betAmount" max="1000" value="0" type="text" 
-                  oninput="this.value = this.value > 1000 ? 1000 : this.value.replace(/[^0-9.]/g, '');"
-                  onblur="if (this.value.endsWith('.')) { this.value = this.value.slice(0, -1); }" />
+                  oninput="this.value = this.value > 1000 ? 1000 : this.value.replace(/[^0-9.]/g, '').replace(/(\.\d{1})\d+/, '$1');"
+                  onblur="if (this.value.endsWith('.')) { this.value = this.value.slice(0, -1); }"
+           />
+           
+                
                 
 
 
@@ -429,9 +432,12 @@
                   </svg>
                 </div>
                 <div class="Input_box">
-                <input id="autoAmount" max="1000" value="0" type="text" 
-                  oninput="this.value = this.value > 1000 ? 1000 : this.value.replace(/[^0-9.]/g, '');"
-                  onblur="if (this.value.endsWith('.')) { this.value = this.value.slice(0, -1); }" />
+                  <input id="autoAmount" max="1000" value="0" type="text" 
+                  oninput="this.value = this.value > 1000 ? 1000 : this.value.replace(/[^0-9.]/g, '').replace(/(\.\d{1})\d+/, '$1');"
+                  onblur="if (this.value.endsWith('.')) { this.value = this.value.slice(0, -1); }"
+           />
+           
+                
     
                 </div>
                 <div id="Auto_plus_btn" class="Plus_btn">

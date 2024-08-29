@@ -650,7 +650,9 @@ function CheckAutoDef() {
     if (betAmountInput.value > 1) {
       betAmountInput.value--;
     }
-
+if(betAmountInput.value<1) {
+  betAmountInput.value = 1
+}
   });
 
   Auto_plus_amount.addEventListener("click", () => {
@@ -673,6 +675,10 @@ if(parseFloat(autoAmountInput.value)> parseFloat(balanceElement.innerHTML)) {
       autoAmountInput.value--;
       CashOutAmount=autoAmountInput.value ;
       
+    }
+    if(autoAmountInput.value < 1) {
+      autoAmountInput.value= 1;
+      CashOutAmount=autoAmountInput.value ;
     }
   });
 
@@ -1514,12 +1520,13 @@ window.addEventListener('online',()=> {
 
 
   function playerPlaceBet() {
+
   
     const amount =
       Pages == "bet"
         ? parseFloat(betAmountInput.value)
         : parseFloat(CashOutAmount);
-    if (amount > 0 && amount <=1000 && amount <= balanceElement.innerHTML) {
+    if (amount > 0.9 && amount <=1000 && amount <= balanceElement.innerHTML) {
       ws.send(JSON.stringify({ action: "bet", amount: amount * 10 }));
       counterBox.style.border = 'none'
       disableButton();
