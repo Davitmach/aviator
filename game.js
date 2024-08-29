@@ -358,8 +358,12 @@ function CheckAuto() {
 
 
   if (AutoType == false && Pages == 'auto' ) {
-      if (isValid) {
+      if (isValid ) {
+        
+        
           if (parseFloat(autoAmountInput.value) > 0 && autoAmountInput.value <= balanceElement.innerHTML) {
+            
+            
             if(hasBet == false) {
             autoCounterBox.style.border = 'none'
               betStatus = false;
@@ -650,6 +654,12 @@ function CheckAutoDef() {
 
   function addMessage(message) {
     // console.log(message);
+    setTimeout(() => {
+      if(message == 'Соединение закрыто. Код: 1000, причина: INIT_DATA_VERIFY_ERROR. Обновите страницу') {
+        console.log('qaqs tapec');
+        connect()
+      }
+    }, 1000);
     
   }
   function CashOutConf(bet) {
