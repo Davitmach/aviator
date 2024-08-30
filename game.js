@@ -349,7 +349,7 @@ cashOutInput.addEventListener('blur',()=> {
   }
   
 })
-async function CheckAuto() {
+ function CheckAuto() {
 
  
   if(hasBet == true) {
@@ -379,15 +379,11 @@ async function CheckAuto() {
 
   if (AutoType == false && Pages == 'auto' ) {
       if (isValid ) {
-        var Balance
-        await getBalance().then((e)=> {
-         Balance = parseFloat(e.balance/10)
-          
-        })
+   
 
 
-          if (parseFloat(autoAmountInput.value) > 0 && parseFloat(autoAmountInput.value) <= Balance) {
-            console.log('sahsashah');
+          if (parseFloat(autoAmountInput.value) > 0 && parseFloat(autoAmountInput.value) <= parseFloat(balanceElement.innerHTML)) {
+            
             
             
             if(hasBet == false) {
@@ -1519,18 +1515,23 @@ window.addEventListener('online',()=> {
   }
 
 
-  async function playerPlaceBet() {
+   async function playerPlaceBet() {
 
     var Balance
     await getBalance().then((e)=> {
      Balance = parseFloat(e.balance/10)
       
     })
+    if(parseFloat(balanceElement.innerHTML) !==Balance && amount > Balance ) {
+      playerCancelBet()
+      location.reload()
+      
+    }
     const amount =
       Pages == "bet"
         ? parseFloat(betAmountInput.value)
         : parseFloat(CashOutAmount);
-    if (amount > 0.9 && amount <=1000 && amount <= Balance) {
+    if (amount > 0.9 && amount <=1000 && amount <= parseFloat(balanceElement.innerHTML)) {
       ws.send(JSON.stringify({ action: "bet", amount: amount * 10 }));
       counterBox.style.border = 'none'
       disableButton();
