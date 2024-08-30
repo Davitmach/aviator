@@ -1522,11 +1522,7 @@ window.addEventListener('online',()=> {
      Balance = parseFloat(e.balance/10)
       
     })
-    if(parseFloat(balanceElement.innerHTML) !==Balance && amount > Balance ) {
-      playerCancelBet()
-      location.reload()
-      
-    }
+ 
     const amount =
       Pages == "bet"
         ? parseFloat(betAmountInput.value)
@@ -1558,6 +1554,11 @@ window.addEventListener('online',()=> {
         AutoBet = false;
           autoActionBtn.innerText = "Auto play";
       }
+    }
+    if(parseFloat(balanceElement.innerHTML) !==Balance && amount > Balance ) {
+      playerCancelBet()
+      location.reload()
+      
     }
   }
 
