@@ -485,6 +485,9 @@
       } else {
         if(parseFloat(betAmountInput.value) < parseFloat(balanceElement.innerHTML)) {
           betAmountInput.value = parseFloat(betAmountInput.value) + 1 || 1;
+          if(parseFloat(betAmountInput.value)> parseFloat(balanceElement.innerHTML)) {
+            betAmountInput.value = balanceElement.innerHTML
+          }
           }
         CheckDef();
       }
@@ -505,6 +508,9 @@
       } else {
         if(parseFloat(betAmountInput.value) < parseFloat(balanceElement.innerHTML)) {
           betAmountInput.value = parseFloat(betAmountInput.value) + 2|| 2;
+          if(parseFloat(betAmountInput.value)> parseFloat(balanceElement.innerHTML)) {
+            betAmountInput.value = balanceElement.innerHTML
+          }
           }
         CheckDef();
       }
@@ -525,6 +531,9 @@
       } else {
         if(parseFloat(betAmountInput.value) < parseFloat(balanceElement.innerHTML)) {
           betAmountInput.value = parseFloat(betAmountInput.value) + 5|| 5;
+          if(parseFloat(betAmountInput.value)> parseFloat(balanceElement.innerHTML)) {
+            betAmountInput.value = balanceElement.innerHTML
+          }
           }
         CheckDef();
       }
@@ -545,6 +554,9 @@
       } else {
         if(parseFloat(betAmountInput.value) < parseFloat(balanceElement.innerHTML)) {
         betAmountInput.value = parseFloat(betAmountInput.value) + 10 || 10;
+        if(parseFloat(betAmountInput.value)> parseFloat(balanceElement.innerHTML)) {
+          betAmountInput.value = balanceElement.innerHTML
+        }
         }
         CheckDef();
       }
@@ -571,7 +583,10 @@
       } else {
         autoAmountInput.value = parseFloat(autoAmountInput.value) + 1 || 1;
         CashOutAmount = autoAmountInput.value;
-
+        if(parseFloat(autoAmountInput.value) > parseFloat(balanceElement.innerHTML)) {
+          autoAmountInput.value = balanceElement.innerHTML;
+          CashOutAmount = autoAmountInput.value;
+        }
         CheckAutoDef();
       }
     });
@@ -593,6 +608,10 @@
       } else {
         autoAmountInput.value = parseFloat(autoAmountInput.value) + 2 || 2;
         CashOutAmount = autoAmountInput.value;
+        if(parseFloat(autoAmountInput.value) > parseFloat(balanceElement.innerHTML)) {
+          autoAmountInput.value = balanceElement.innerHTML;
+          CashOutAmount = autoAmountInput.value;
+        }
         CheckAutoDef();
       }
     });
@@ -614,6 +633,10 @@
       } else {
         autoAmountInput.value = parseFloat(autoAmountInput.value) + 5 || 5;
         CashOutAmount = autoAmountInput.value;
+        if(parseFloat(autoAmountInput.value) > parseFloat(balanceElement.innerHTML)) {
+          autoAmountInput.value = balanceElement.innerHTML;
+          CashOutAmount = autoAmountInput.value;
+        }
         CheckAutoDef();
       }
     });
@@ -635,6 +658,10 @@
       } else {
         autoAmountInput.value = parseFloat(autoAmountInput.value) + 10 || 10;
         CashOutAmount = autoAmountInput.value;
+        if(parseFloat(autoAmountInput.value) > parseFloat(balanceElement.innerHTML)) {
+          autoAmountInput.value = balanceElement.innerHTML;
+          CashOutAmount = autoAmountInput.value;
+        }
         CheckAutoDef();
       }
     });
