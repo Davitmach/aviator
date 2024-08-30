@@ -359,15 +359,38 @@
                   </svg>
                 </div>
                 <div class="Input_box">
-                  <input id="betAmount" max="1000" value="0" type="text" 
-                  oninput="this.value = this.value
-                             .replace(/[^0-9.]/g, '') // Remove non-numeric and non-dot characters
-                             .replace(/(\..*)\./g, '$1') // Remove extra dots
-                             .replace(/(\.\d{1})\d+/, '$1') // Limit decimal places to 2
-                             .replace(/(\.\d{1})\d+/, '$1'); // Ensure only 2 decimal places
+                  <input id="betAmount" max="1000" value="0" type="text"
+                  oninput="
+                      // Remove non-numeric and non-dot characters
+                      this.value = this.value
+                          .replace(/[^0-9.]/g, '')
+                          .replace(/(\..*)\./g, '$1'); // Remove extra dots
+                      
+                      // Ensure the decimal point is only allowed after at least one digit
+                      if (this.value.startsWith('.')) {
+                          this.value = '1' ; // Add a leading zero if the value starts with a decimal point
+                      }
+           
+                      // Ensure only two decimal places are allowed
+                      let parts = this.value.split('.');
+                      if (parts[1]) {
+                          parts[1] = parts[1].substring(0, 1); // Limit decimal places to 2
+                          this.value = parts.join('.');
+                      }
+           
+                      // Check if value exceeds 1000
+                      if (parseFloat(this.value) > 1000) {
+                          this.value = '1000'; // Set value to 1000 if it exceeds the limit
+                      }
                   "
-                  onblur="if (this.value.endsWith('.')) { this.value = this.value.slice(0, -1); }" 
+                  onblur="
+                      if (this.value.endsWith('.')) {
+                          this.value = this.value.slice(0, -1); // Remove trailing decimal point
+                      }
+                  " 
            />
+           
+           
            
            
                 
@@ -438,14 +461,35 @@
                   </svg>
                 </div>
                 <div class="Input_box">
-                  <input id="autoAmount" max="1000" value="0" type="text" 
-                  oninput="this.value = this.value
-                             .replace(/[^0-9.]/g, '') // Remove non-numeric and non-dot characters
-                             .replace(/(\..*)\./g, '$1') // Remove extra dots
-                             .replace(/(\.\d{1})\d+/, '$1') // Limit decimal places to 2
-                             .replace(/(\.\d{1})\d+/, '$1'); // Ensure only 2 decimal places
+                  <input id="autoAmount" max="1000" value="0" type="text"
+                  oninput="
+                      // Remove non-numeric and non-dot characters
+                      this.value = this.value
+                          .replace(/[^0-9.]/g, '')
+                          .replace(/(\..*)\./g, '$1'); // Remove extra dots
+                      
+                      // Ensure the decimal point is only allowed after at least one digit
+                      if (this.value.startsWith('.')) {
+                          this.value = '1' ; // Add a leading zero if the value starts with a decimal point
+                      }
+           
+                      // Ensure only two decimal places are allowed
+                      let part = this.value.split('.');
+                      if (part[1]) {
+                          part[1] = part[1].substring(0, 1); // Limit decimal places to 2
+                          this.value = part.join('.');
+                      }
+           
+                      // Check if value exceeds 1000
+                      if (parseFloat(this.value) > 1000) {
+                          this.value = '1000'; // Set value to 1000 if it exceeds the limit
+                      }
                   "
-                  onblur="if (this.value.endsWith('.')) { this.value = this.value.slice(0, -1); }" 
+                  onblur="
+                      if (this.value.endsWith('.')) {
+                          this.value = this.value.slice(0, -1); // Remove trailing decimal point
+                      }
+                  " 
            />
            
                 
