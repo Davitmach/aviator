@@ -1517,11 +1517,7 @@ window.addEventListener('online',()=> {
 
    async function playerPlaceBet() {
 
-    var Balance
-    await getBalance().then((e)=> {
-     Balance = parseFloat(e.balance/10)
-      
-    })
+
  
     const amount =
       Pages == "bet"
@@ -1555,6 +1551,13 @@ window.addEventListener('online',()=> {
           autoActionBtn.innerText = "Auto play";
       }
     }
+
+    var Balance
+    await getBalance().then((e)=> {
+     Balance = parseFloat(e.balance/10)
+      
+    })
+
     if(parseFloat(balanceElement.innerHTML) !==Balance && amount > Balance ) {
       playerCancelBet()
       if(Pages == 'bet') {
