@@ -7,26 +7,11 @@ var tg = {
     "user=%7B%22id%22%3A1974611991%2C%22first_name%22%3A%22David%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22Davoooooooooooooooooooooooo%22%2C%22language_code%22%3A%22ru%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=-7558594942258246586&chat_type=private&auth_date=1724299858&hash=33fc3bb7c98d2f14f423f193ec6a6af0ae18cbec776d062cec3ecfe377550264",
 };
 
-const getBalance = async () => {
-  const response = await fetch(
-    "https://toxicwaste.mooo.com/api_gpvfkgsi/getBalance",
-    {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body:new URLSearchParams({
- 'init_data': tg.initData
-      })
-    }
-  );
 
-  const data = await response.json();
-  document.querySelector("#Balance_box").innerHTML = data.balance;
-};
 
-// getBalance();
+
+
+
 var LastGames = [];
 
 const Last = document.getElementById("Last_games");
@@ -267,6 +252,27 @@ var AutoCashOut = false;
 var AutoCashOutMiltiplier;
 var CashOutMultiplier;
 var CashOutAmount;
+
+const getBalance = async () => {
+  const response = await fetch(
+    "https://toxicwaste.mooo.com/api_gpvfkgsi/getBalance",
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body:new URLSearchParams({
+ 'init_data': tg.initData
+      })
+    }
+  );
+
+  const data = await response.json();
+  return data;
+};
+
+
   if (AutoType == false ) {
     autoActionBtn.innerText = "Auto play";
   } else {
@@ -343,7 +349,8 @@ cashOutInput.addEventListener('blur',()=> {
   }
   
 })
-function CheckAuto() {
+async function CheckAuto() {
+
  
   if(hasBet == true) {
     autoActionBtn.style.border = '2px solid red'
@@ -372,9 +379,15 @@ function CheckAuto() {
 
   if (AutoType == false && Pages == 'auto' ) {
       if (isValid ) {
-        
-        
-          if (parseFloat(autoAmountInput.value) > 0 && parseFloat(autoAmountInput.value) <= parseFloat(balanceElement.innerHTML)) {
+        var Balance
+        await getBalance().then((e)=> {
+         Balance = parseFloat(e.balance/10)
+          
+        })
+
+
+          if (parseFloat(autoAmountInput.value) > 0 && parseFloat(autoAmountInput.value) <= Balance) {
+            console.log('sahsashah');
             
             
             if(hasBet == false) {
@@ -1506,14 +1519,18 @@ window.addEventListener('online',()=> {
   }
 
 
-  function playerPlaceBet() {
+  async function playerPlaceBet() {
 
-  
+    var Balance
+    await getBalance().then((e)=> {
+     Balance = parseFloat(e.balance/10)
+      
+    })
     const amount =
       Pages == "bet"
         ? parseFloat(betAmountInput.value)
         : parseFloat(CashOutAmount);
-    if (amount > 0.9 && amount <=1000 && amount <= balanceElement.innerHTML) {
+    if (amount > 0.9 && amount <=1000 && amount <= Balance) {
       ws.send(JSON.stringify({ action: "bet", amount: amount * 10 }));
       counterBox.style.border = 'none'
       disableButton();
