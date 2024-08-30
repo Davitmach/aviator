@@ -1557,7 +1557,19 @@ window.addEventListener('online',()=> {
     }
     if(parseFloat(balanceElement.innerHTML) !==Balance && amount > Balance ) {
       playerCancelBet()
-      location.reload()
+      if(Pages == 'bet') {
+        counterBox.style.border = '1px solid red'
+      }
+      else {
+        autoActionBtn.classList.add('Auto_btn_disable');
+        autoActionBtn.classList.remove('Auto_btn_active');
+  
+  AutoType = false;
+  ChangeAutoInput = false;
+  AutoBet = false;
+    autoActionBtn.innerText = "Auto play";
+      }
+    
       
     }
   }
