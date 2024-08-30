@@ -25,47 +25,7 @@ body {
   @media (max-height: 695px) {
     gap: 7px;
   }
-  #Help_box {
-    width: calc(100% - 30px);
 
-    height: auto;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    z-index: 5;
-    transform: translate(-50%, -50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 10px;
-    box-shadow: 0px 4px 10px 0px #2d384c inset;
-    background: #1f2431;
-    padding: 30px 20px;
-    border-radius: 20px;
-
-    .Close_box {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      button {
-        width: 50px;
-        height: 30px;
-        border-radius: 15px;
-        padding: 5px 13px;
-        background: #282e39;
-        border: 1px solid #3f444f;
-      }
-    }
-    p {
-      max-width: 100%;
-      font-size: 20px;
-      font-weight: 700;
-      font-family: "Inter", sans-serif;
-      color: white;
-    }
-  }
   .Active {
     opacity: 1;
     visibility: visible;
@@ -652,7 +612,7 @@ body {
               font-size: 12px;
               font-weight: 600;
               font-family: "Inter", sans-serif;
-              padding: 0 5px;
+              padding: 0 2px;
             }
           }
           .Minus_btn,
@@ -764,7 +724,7 @@ body {
               font-size: 12px;
               font-weight: 600;
               font-family: "Inter", sans-serif;
-              padding: 0 5px;
+              padding: 0 2px;
             }
           }
           .Minus_btn,

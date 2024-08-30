@@ -1,39 +1,21 @@
+(function () {
+  var tg = {
+    initData:
+      "user=%7B%22id%22%3A1974611991%2C%22first_name%22%3A%22David%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22Davoooooooooooooooooooooooo%22%2C%22language_code%22%3A%22ru%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=-7558594942258246586&chat_type=private&auth_date=1724299858&hash=33fc3bb7c98d2f14f423f193ec6a6af0ae18cbec776d062cec3ecfe377550264",
+  };
 
+  var LastGames = [];
 
-(function() {
+  const Last = document.getElementById("Last_games");
+  const Under_last_box = document.getElementById("Under_last_games_box");
+  const Under_last = document.getElementById("Under_last_games");
+  const Close_under = document.getElementById("Close_box");
+  Under_last.classList.add("Disable_under");
+  var Count;
 
-var tg = {
-  initData:
-    "user=%7B%22id%22%3A1974611991%2C%22first_name%22%3A%22David%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22Davoooooooooooooooooooooooo%22%2C%22language_code%22%3A%22ru%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=-7558594942258246586&chat_type=private&auth_date=1724299858&hash=33fc3bb7c98d2f14f423f193ec6a6af0ae18cbec776d062cec3ecfe377550264",
-};
+  var Width = window.innerWidth;
 
-
-
-
-
-
-var LastGames = [];
-
-const Last = document.getElementById("Last_games");
-const Under_last_box = document.getElementById("Under_last_games_box");
-const Under_last = document.getElementById("Under_last_games");
-const Close_under = document.getElementById("Close_box");
-Under_last.classList.add("Disable_under");    
-var Count;
-
-var Width = window.innerWidth;
-
-// Для создания Count после открытия игры
-if (Width > 300 && Width < 350) {
-  Count = 2;
-} else if (Width > 350 && Width < 400) {
-  Count = 3;
-} else if (Width > 400 && Width < 500) {
-  Count = 4;
-}
-//  создания Count во время  игры
-window.addEventListener("resize", () => {
-  Width = window.innerWidth;
+  // Для создания Count после открытия игры
   if (Width > 300 && Width < 350) {
     Count = 2;
   } else if (Width > 350 && Width < 400) {
@@ -41,844 +23,806 @@ window.addEventListener("resize", () => {
   } else if (Width > 400 && Width < 500) {
     Count = 4;
   }
-});
-var Open_under_status = true;
-function ShowLastGames(games) {
-  Last.innerHTML = "";
-  Under_last_box.innerHTML = "";
-
-  const limit = Math.min(LastGames.length, Count);
-
-  for (let index = 0; index < limit; index++) {
-    var Last_box = document.createElement("div");
-    Last_box.innerText = LastGames[index];
-    if (index == 0) {
-      Last_box.classList.add("first");
-    } else {
-      Last_box.classList.remove("first");
+  //  создания Count во время  игры
+  window.addEventListener("resize", () => {
+    Width = window.innerWidth;
+    if (Width > 300 && Width < 350) {
+      Count = 2;
+    } else if (Width > 350 && Width < 400) {
+      Count = 3;
+    } else if (Width > 400 && Width < 500) {
+      Count = 4;
     }
-    Last.append(Last_box);
-  }
-  if (games.length > Count) {
-    for (let index = 0; index < LastGames.length; index++) {
-      if(index< 12 ) {
-      var Under = document.createElement("div");
-      Under.innerText = LastGames[index];
+  });
+  var Open_under_status = true;
+  function ShowLastGames(games) {
+    Last.innerHTML = "";
+    Under_last_box.innerHTML = "";
+
+    const limit = Math.min(LastGames.length, Count);
+
+    for (let index = 0; index < limit; index++) {
+      var Last_box = document.createElement("div");
+      Last_box.innerText = LastGames[index];
       if (index == 0) {
-        Under.classList.add("first");
+        Last_box.classList.add("first");
       } else {
-        Under.classList.remove("first");
+        Last_box.classList.remove("first");
       }
-      Under_last_box.append(Under);
+      Last.append(Last_box);
     }
+    if (games.length > Count) {
+      for (let index = 0; index < LastGames.length; index++) {
+        if (index < 12) {
+          var Under = document.createElement("div");
+          Under.innerText = LastGames[index];
+          if (index == 0) {
+            Under.classList.add("first");
+          } else {
+            Under.classList.remove("first");
+          }
+          Under_last_box.append(Under);
+        }
+      }
     }
-  }
-  if (games.length > Count) {
-    Last.style.justifyContent = "space-between";
-    var Open_under = document.createElement("div");
-    Open_under.classList.add("Open_under");
-    Open_under.innerHTML = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    if (games.length > Count) {
+      Last.style.justifyContent = "space-between";
+      var Open_under = document.createElement("div");
+      Open_under.classList.add("Open_under");
+      Open_under.innerHTML = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M8 4C8.44183 4 8.8 4.35817 8.8 4.8V8H11.2C11.6418 8 12 8.35817 12 8.8C12 9.24183 11.6418 9.6 11.2 9.6H8C7.55817 9.6 7.2 9.24183 7.2 8.8V4.8C7.2 4.35817 7.55817 4 8 4Z" fill="#95979D"/>
       <path fill-rule="evenodd" clip-rule="evenodd" d="M16 8C16 12.4183 12.4183 16 8 16C3.58172 16 0 12.4183 0 8C0 3.58172 3.58172 0 8 0C12.4183 0 16 3.58172 16 8ZM14.4 8C14.4 11.5346 11.5346 14.4 8 14.4C4.46538 14.4 1.6 11.5346 1.6 8C1.6 4.46538 4.46538 1.6 8 1.6C11.5346 1.6 14.4 4.46538 14.4 8Z" fill="#95979D"/>
       </svg>`;
 
-    Last.append(Open_under);
+      Last.append(Open_under);
 
-    Open_under.addEventListener("click", () => {
-      Under_last.classList.remove("Disable_under");
+      Open_under.addEventListener("click", () => {
+        Under_last.classList.remove("Disable_under");
+      });
 
-      
-    });
-
-    Close_under.addEventListener("click", () => {
-      Under_last.classList.add("Disable_under");
-    });
+      Close_under.addEventListener("click", () => {
+        Under_last.classList.add("Disable_under");
+      });
+    }
   }
-}
 
-function initializeWebSocket() {
-  let T_MAX, M_MAX, PRECISION_MULTIPLIER;
+  function initializeWebSocket() {
+    let T_MAX, M_MAX, PRECISION_MULTIPLIER;
 
-  const PORT = 18855;
+    const PORT = 18855;
 
-  const EVENT_PREPARE_NEXT_ROUND = "prepare_next_round",
-    EVENT_START_ROUND = "start_round",
-    EVENT_END_ROUND = "end_round",
-    EVENT_BET_CONFIRMATION = "bet_confirmation",
-    EVENT_BET = "bet",
-    EVENT_CASH_OUT_CONFIRMATION = "cash_out_confirmation",
-    EVENT_CASH_OUT = "cash_out",
-    EVENT_CANCEL_BET_CONFIRMATION = "cancel_bet_confirmation",
-    EVENT_CANCEL_BET = "cancel_bet",
-    EVENT_WELCOME = "welcome";
+    const EVENT_PREPARE_NEXT_ROUND = "prepare_next_round",
+      EVENT_START_ROUND = "start_round",
+      EVENT_END_ROUND = "end_round",
+      EVENT_BET_CONFIRMATION = "bet_confirmation",
+      EVENT_BET = "bet",
+      EVENT_CASH_OUT_CONFIRMATION = "cash_out_confirmation",
+      EVENT_CASH_OUT = "cash_out",
+      EVENT_CANCEL_BET_CONFIRMATION = "cancel_bet_confirmation",
+      EVENT_CANCEL_BET = "cancel_bet",
+      EVENT_WELCOME = "welcome";
 
-  var CONFIG_BUTTON_BET = {
-      id: "bet",
-      onclick: playerPlaceBet,
-      textContent: `BET`,
-    },
-    CONFIG_BUTTON_CANCEL_BET = {
-      id: "cancel_bet",
-      onclick: playerCancelBet,
-      textContent: "CANCEL",
-    },
-    CONFIG_BUTTON_CASH_OUT = {
-      id: "cash_out",
-      onclick: playerCashOut,
-      textContent: "GET",
+    var CONFIG_BUTTON_BET = {
+        id: "bet",
+        onclick: playerPlaceBet,
+        textContent: `BET`,
+      },
+      CONFIG_BUTTON_CANCEL_BET = {
+        id: "cancel_bet",
+        onclick: playerCancelBet,
+        textContent: "CANCEL",
+      },
+      CONFIG_BUTTON_CASH_OUT = {
+        id: "cash_out",
+        onclick: playerCashOut,
+        textContent: "GET",
+      };
+
+    const multiplierElement = document.getElementById("multiplier"),
+      balanceElement = document.getElementById("Balance_box"),
+      counterBox = document.getElementById("Counter_box"),
+      autoCounterBox = document.getElementById("Auto_counter_box"),
+      betAmountInput = document.getElementById("betAmount"),
+      autoAmountInput = document.getElementById("autoAmount"),
+      actionButton = document.getElementById("actionButton"),
+      autoActionBtn = document.getElementById("Auto_action_btn"),
+      cashOutInput = document.getElementById("Cash_out_input"),
+      autoCashOutClean = document.getElementById("Clear_auto_cash_out"),
+      betsTableElement = document.getElementById("betsTable"),
+      plane = document.getElementById("Plane"),
+      currPlane = document.getElementById("Plane_curr"),
+      linePlane = document.getElementById("Line"),
+      multCrash = document.getElementById("CrushTxt"),
+      waitLoading = document.getElementById("Waiting"),
+      background = document.getElementById("Background"),
+      Plus_amount = document.getElementById("Plus_btn"),
+      Minus_amount = document.getElementById("Minus_btn"),
+      Auto_plus_amount = document.getElementById("Auto_plus_btn"),
+      Auto_minus_amount = document.getElementById("Auto_minus_btn"),
+      def1 = document.getElementById("1Def"),
+      def2 = document.getElementById("2Def"),
+      def5 = document.getElementById("5Def"),
+      def10 = document.getElementById("10Def"),
+      def1_auto = document.getElementById("1Def_auto"),
+      def2_auto = document.getElementById("2Def_auto"),
+      def5_auto = document.getElementById("5Def_auto"),
+      def10_auto = document.getElementById("10Def_auto"),
+      pushUp = document.getElementById("Push_up"),
+      allResult = document.getElementById("AllResult"),
+      topResult = document.getElementById("TopResult"),
+      myResults = document.getElementById("MyResult"),
+      resultBackground = document.getElementById("ResultBackground"),
+      progressBar = document.getElementById("Progress_bar"),
+      betTypeBtn = document.getElementById("Bet_type_btn"),
+      autoTypeBtn = document.getElementById("Auto_type_btn"),
+      betBox = document.getElementById("Bet_box"),
+      autoBox = document.getElementById("Auto_box");
+    autoActionBtn.classList.remove("Auto_btn_active");
+    autoActionBtn.classList.add("Auto_btn_disable");
+    betTypeBtn.classList.add("Result_active");
+    autoTypeBtn.classList.add("Result_disable");
+    autoBox.style.visibility = "hidden";
+    actionButton.classList.add("bet");
+    autoCashOutClean.addEventListener("click", () => {
+      cashOutInput.value = 1.01;
+      CashOutMultiplier = cashOutInput.value;
+    });
+    autoActionBtn.style.border = "none";
+
+    allResult.classList.add("Result_active");
+    topResult.classList.add("Result_disable");
+    myResults.classList.add("Result_disable");
+    allResult.addEventListener("click", () => {
+      resultBackground.style.left = "7px";
+      resultType.type = "all";
+      topResult.classList.remove("Result_active");
+      myResults.classList.remove("Result_active");
+      topResult.classList.add("Result_disable");
+      myResults.classList.add("Result_disable");
+      allResult.classList.add("Result_active");
+      allResult.classList.remove("Result_disable");
+      updateBetsTable();
+    });
+    myResults.addEventListener("click", () => {
+      allResult.classList.remove("Result_active");
+      topResult.classList.remove("Result_active");
+      allResult.classList.add("Result_disable");
+      topResult.classList.add("Result_disable");
+      myResults.classList.add("Result_active");
+      myResults.classList.remove("Result_disable");
+      resultType.type = "my";
+      resultBackground.style.left = "35%";
+      updateBetsTable();
+    });
+    topResult.addEventListener("click", () => {
+      allResult.classList.remove("Result_active");
+      topResult.classList.add("Result_active");
+      topResult.classList.remove("Result_disable");
+      myResults.classList.remove("Result_active");
+      myResults.classList.add("Result_disable");
+      allResult.classList.add("Result_disable");
+      resultType.type = "top";
+      resultBackground.style.left = "68%";
+      updateBetsTable();
+    });
+
+    let gameState = {
+      bets: [],
+      lastEvent: false,
     };
 
-  const multiplierElement = document.getElementById("multiplier"),
-    balanceElement = document.getElementById("Balance_box"),
-    counterBox = document.getElementById('Counter_box'),
-    autoCounterBox = document.getElementById('Auto_counter_box'),
-    betAmountInput = document.getElementById("betAmount"),
-    autoAmountInput = document.getElementById("autoAmount"),
-    actionButton = document.getElementById("actionButton"),
-    autoActionBtn = document.getElementById("Auto_action_btn"),
-    cashOutInput = document.getElementById("Cash_out_input"),
-    autoCashOutClean = document.getElementById("Clear_auto_cash_out"),
-    betsTableElement = document.getElementById("betsTable"),
-    plane = document.getElementById("Plane"),
-    currPlane = document.getElementById("Plane_curr"),
-    linePlane = document.getElementById("Line"),
-    multCrash = document.getElementById("CrushTxt"),
-    waitLoading = document.getElementById("Waiting"),
-    background = document.getElementById("Background"),
-    Plus_amount = document.getElementById("Plus_btn"),
-    Minus_amount = document.getElementById("Minus_btn"),
-    Auto_plus_amount = document.getElementById("Auto_plus_btn"),
-    Auto_minus_amount = document.getElementById("Auto_minus_btn"),
-    def1 = document.getElementById("1Def"),
-    def2 = document.getElementById("2Def"),
-    def5 = document.getElementById("5Def"),
-    def10 = document.getElementById("10Def"),
-    def1_auto = document.getElementById("1Def_auto"),
-    def2_auto = document.getElementById("2Def_auto"),
-    def5_auto = document.getElementById("5Def_auto"),
-    def10_auto = document.getElementById("10Def_auto"),
-    pushUp = document.getElementById("Push_up"),
-    allResult = document.getElementById("AllResult"),
-    topResult = document.getElementById("TopResult"),
-    myResults = document.getElementById("MyResult"),
-    resultBackground = document.getElementById("ResultBackground"),
-    progressBar = document.getElementById("Progress_bar"),
-    closeHelp = document.getElementById("Close_help"),
-    boxHelp = document.getElementById("Help_box"),
-    betTypeBtn = document.getElementById("Bet_type_btn"),
-    autoTypeBtn = document.getElementById("Auto_type_btn"),
-    betBox = document.getElementById("Bet_box"),
-    autoBox = document.getElementById("Auto_box");
-    autoActionBtn.classList.remove('Auto_btn_active');
-    autoActionBtn.classList.add('Auto_btn_disable');
-  betTypeBtn.classList.add("Result_active");
-  autoTypeBtn.classList.add("Result_disable");
-  autoBox.style.visibility = "hidden";
-  actionButton.classList.add('bet')
-  autoCashOutClean.addEventListener("click", () => {
-    cashOutInput.value = 1.01;
-    CashOutMultiplier = cashOutInput.value
-  });
- autoActionBtn.style.border = 'none'
-  boxHelp.classList.add("Disable");
-  allResult.classList.add("Result_active");
-  topResult.classList.add("Result_disable");
-  myResults.classList.add("Result_disable");
-  allResult.addEventListener("click", () => {
-    resultBackground.style.left = "7px";
-    resultType.type = "all";
-    topResult.classList.remove("Result_active");
-    myResults.classList.remove("Result_active");
-    topResult.classList.add("Result_disable");
-    myResults.classList.add("Result_disable");
-    allResult.classList.add("Result_active");
-    allResult.classList.remove("Result_disable");
-    updateBetsTable();
-  });
-  myResults.addEventListener("click", () => {
-    allResult.classList.remove("Result_active");
-    topResult.classList.remove("Result_active");
-    allResult.classList.add("Result_disable");
-    topResult.classList.add("Result_disable");
-    myResults.classList.add("Result_active");
-    myResults.classList.remove("Result_disable");
-    resultType.type = "my";
-    resultBackground.style.left = "35%";
-    updateBetsTable();
-  });
-  topResult.addEventListener("click", () => {
-    allResult.classList.remove("Result_active");
-    topResult.classList.add("Result_active");
-    topResult.classList.remove("Result_disable");
-    myResults.classList.remove("Result_active");
-    myResults.classList.add("Result_disable");
-    allResult.classList.add("Result_disable");
-    resultType.type = "top";
-    resultBackground.style.left = "68%";
-    updateBetsTable();
-  });
+    let startTime;
+    let multiplierInterval = null;
+    var resultType = {
+      type: "all",
+    };
+    var myResult = [];
+    var topResultList = [];
+    var idCounter = 0;
+    var userBet = [];
+    var ChangeDef1 = true;
+    var ChangeDef2 = true;
+    var ChangeDef5 = true;
+    var ChangeDef10 = true;
+    var ChangeDef1_auto = true;
+    var ChangeDef2_auto = true;
+    var ChangeDef5_auto = true;
+    var ChangeDef10_auto = true;
 
-  let gameState = {
-    bets: [],
-    lastEvent: false,
-  };
+    var Pages = "bet";
+    var AutoBet = false;
+    var betStatus = true;
+    var Bet = false;
+    var AutoType = false;
+    var AutoCashOut = false;
+    var hasBet = false;
+    var ChangeAutoInput = false;
+    var AutoCashOutMiltiplier;
+    var CashOutMultiplier;
+    var CashOutAmount;
 
-  let startTime;
-  let multiplierInterval = null;
-  var resultType = {
-    type: "all",
-  };
-  var myResult = [];
-  var topResultList = [];
-  var idCounter = 0;
-  var userBet = [];
-  var ChangeDef1 = true;
-  var ChangeDef2 = true;
-  var ChangeDef5 = true;
-  var ChangeDef10 = true;
-  var ChangeDef1_auto = true;
-  var ChangeDef2_auto = true;
-  var ChangeDef5_auto = true;
-  var ChangeDef10_auto = true;
-  var Help_menu = true;
-  var Pages = 'bet';
-  var AutoBet = false;
-  var betStatus = true;
-  var Bet = false;
-var AutoType = false;
-var AutoCashOut = false;
- var hasBet = false;
- var ChangeAutoInput = false;
-var AutoCashOutMiltiplier;
-var CashOutMultiplier;
-var CashOutAmount;
+    const getBalance = async () => {
+      const response = await fetch(
+        "https://toxicwaste.mooo.com/api_gpvfkgsi/getBalance",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams({
+            init_data: tg.initData,
+          }),
+        }
+      );
 
-const getBalance = async () => {
-  const response = await fetch(
-    "https://toxicwaste.mooo.com/api_gpvfkgsi/getBalance",
-    {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body:new URLSearchParams({
- 'init_data': tg.initData
-      })
-    }
-  );
+      const data = await response.json();
+      return data;
+    };
 
-  const data = await response.json();
-  return data;
-};
-
-
-  if (AutoType == false ) {
-    autoActionBtn.innerText = "Auto play";
-  } else {
-    autoActionBtn.innerText = "CANCEL";
-  }
-  autoActionBtn.addEventListener("click", () => {
-   
-    CashOutAmount = autoAmountInput.value
-CashOutMultiplier = cashOutInput.value.trim()
-    CheckAuto();
-  });
-
-autoAmountInput.style.textAlign = 'center'
-
-autoAmountInput.addEventListener('blur',()=> {
-  CashOutAmount = autoAmountInput.value;
-  console.log(autoAmountInput.value);
-  console.log(balanceElement.innerHTML);
-  
-  if(parseFloat(autoAmountInput.value) > parseFloat(balanceElement.innerHTML)) {
-  
-    AutoType = false;
-    ChangeAutoInput = false;
-    AutoBet = false;
+    if (AutoType == false) {
       autoActionBtn.innerText = "Auto play";
-      autoActionBtn.classList.add('Auto_btn_disable');
-      autoActionBtn.classList.remove('Auto_btn_active');
-  }
-  autoAmountInput.style.textAlign = 'center'
-
-  
-  if(ChangeAutoInput == true) {
-    autoCounterBox.style.border = '2px solid green'
-  
-     setTimeout(() => {
-       autoCounterBox.style.border = 'none'
-     }, 1000);
-  }
-  if(autoAmountInput.value < 1) {
-    AutoBet = false;
-    AutoType = false;
-    if (AutoType == false ) {
-      autoActionBtn.innerText = "Auto play";
-      autoActionBtn.classList.add('Auto_btn_disable');
-              autoActionBtn.classList.remove('Auto_btn_active');
     } else {
       autoActionBtn.innerText = "CANCEL";
-      autoActionBtn.classList.remove('Auto_btn_disable');
-              autoActionBtn.classList.add('Auto_btn_active');
     }
-  }
-})
-cashOutInput.addEventListener('blur',()=> {
-  if(ChangeAutoInput == true) {
-    CashOutMultiplier =cashOutInput.value.trim()
-    document.querySelector(".Auto_input_box").style.border = "1px solid green"
-  
-    setTimeout(() => {
-      document.querySelector(".Auto_input_box").style.border = "none";
-    }, 1000);
-  }
-  if(cashOutInput.value < 1.01) {
-    AutoType = false;
-    AutoBet = false;
-    if (AutoType == false ) {
-      autoActionBtn.innerText = "Auto play";
-      autoActionBtn.classList.remove('Auto_btn_active');
-      autoActionBtn.classList.add('Auto_btn_disable');
-    } else {
-      autoActionBtn.innerText = "CANCEL";
-      autoActionBtn.classList.add('Auto_btn_active');
-      autoActionBtn.classList.remove('Auto_btn_disable');
-    }
-  }
-  
-})
- function CheckAuto() {
+    autoActionBtn.addEventListener("click", () => {
+      CashOutAmount = autoAmountInput.value;
+      CashOutMultiplier = cashOutInput.value.trim();
+      CheckAuto();
+    });
 
- 
-  if(hasBet == true) {
-    autoActionBtn.style.border = '2px solid red'
-  }
-  else {
-    autoActionBtn.style.border = 'none'
-  }
+    autoAmountInput.style.textAlign = "center";
 
-  updateBetsTable()
-  var cashOutValue =  CashOutMultiplier; 
-
-  var isCorrectFormat = /^[0-9]+(\.[0-9]{1,2})?$/.test(cashOutValue);
-
-  if (!isCorrectFormat) {
-      document.querySelector(".Auto_input_box").style.border = "1px solid red";
-      return;
-  }
-
-  var formattedCashOutValue = cashOutValue.includes('.') && cashOutValue.split('.')[1].length === 1
-      ? cashOutValue 
-      : parseFloat(cashOutValue).toFixed(2);
+    autoAmountInput.addEventListener("blur", () => {
+      CashOutAmount = autoAmountInput.value;
 
 
-  var isValid = parseFloat(formattedCashOutValue) > 1;
+      if (
+        parseFloat(autoAmountInput.value) > parseFloat(balanceElement.innerHTML)
+      ) {
+        AutoType = false;
+        ChangeAutoInput = false;
+        AutoBet = false;
+        autoActionBtn.innerText = "Auto play";
+        autoActionBtn.classList.add("Auto_btn_disable");
+        autoActionBtn.classList.remove("Auto_btn_active");
+      }
+      autoAmountInput.style.textAlign = "center";
 
+      if (ChangeAutoInput == true) {
+        autoCounterBox.style.border = "2px solid green";
 
-  if (AutoType == false && Pages == 'auto' ) {
-      if (isValid ) {
-   
+        setTimeout(() => {
+          autoCounterBox.style.border = "none";
+        }, 1000);
+      }
+      if (autoAmountInput.value < 1) {
+        AutoBet = false;
+        AutoType = false;
+        if (AutoType == false) {
+          autoActionBtn.innerText = "Auto play";
+          autoActionBtn.classList.add("Auto_btn_disable");
+          autoActionBtn.classList.remove("Auto_btn_active");
+        } else {
+          autoActionBtn.innerText = "CANCEL";
+          autoActionBtn.classList.remove("Auto_btn_disable");
+          autoActionBtn.classList.add("Auto_btn_active");
+        }
+      }
+    });
+    cashOutInput.addEventListener("blur", () => {
+      if (ChangeAutoInput == true) {
+        CashOutMultiplier = cashOutInput.value.trim();
+        document.querySelector(".Auto_input_box").style.border =
+          "1px solid green";
 
+        setTimeout(() => {
+          document.querySelector(".Auto_input_box").style.border = "none";
+        }, 1000);
+      }
+      if (cashOutInput.value < 1.01) {
+        AutoType = false;
+        AutoBet = false;
+        if (AutoType == false) {
+          autoActionBtn.innerText = "Auto play";
+          autoActionBtn.classList.remove("Auto_btn_active");
+          autoActionBtn.classList.add("Auto_btn_disable");
+        } else {
+          autoActionBtn.innerText = "CANCEL";
+          autoActionBtn.classList.add("Auto_btn_active");
+          autoActionBtn.classList.remove("Auto_btn_disable");
+        }
+      }
+    });
+    function CheckAuto() {
+      if (hasBet == true) {
+        autoActionBtn.style.border = "2px solid red";
+      } else {
+        autoActionBtn.style.border = "none";
+      }
 
-          if (parseFloat(autoAmountInput.value) > 0 && parseFloat(autoAmountInput.value) <= parseFloat(balanceElement.innerHTML)) {
-            
-            
-            
-            if(hasBet == false) {
-            autoCounterBox.style.border = 'none'
+      updateBetsTable();
+      var cashOutValue = CashOutMultiplier;
+
+      var isCorrectFormat = /^[0-9]+(\.[0-9]{1,2})?$/.test(cashOutValue);
+
+      if (!isCorrectFormat) {
+        document.querySelector(".Auto_input_box").style.border =
+          "1px solid red";
+        return;
+      }
+
+      var formattedCashOutValue =
+        cashOutValue.includes(".") && cashOutValue.split(".")[1].length === 1
+          ? cashOutValue
+          : parseFloat(cashOutValue).toFixed(2);
+
+      var isValid = parseFloat(formattedCashOutValue) > 1;
+
+      if (AutoType == false && Pages == "auto") {
+        if (isValid) {
+          if (
+            parseFloat(autoAmountInput.value) > 0 &&
+            parseFloat(autoAmountInput.value) <=
+              parseFloat(balanceElement.innerHTML)
+          ) {
+            if (hasBet == false) {
+              autoCounterBox.style.border = "none";
               betStatus = false;
               document.querySelector(".Auto_input_box").style.border = "none";
               AutoType = true;
               ChangeAutoInput = true;
               autoActionBtn.innerText = "CANCEL";
-              autoActionBtn.classList.remove('Auto_btn_disable');
-              autoActionBtn.classList.add('Auto_btn_active');
+              autoActionBtn.classList.remove("Auto_btn_disable");
+              autoActionBtn.classList.add("Auto_btn_active");
               cashOutInput.value = formattedCashOutValue;
-              if (betStatus == true) {  
-                  playerPlaceBet();
-                  
-                  Bet = true;
-              }}
+              if (betStatus == true) {
+                playerPlaceBet();
+
+                Bet = true;
+              }
+            }
           } else {
-            autoCounterBox.style.border = '1px solid red'
+            autoCounterBox.style.border = "1px solid red";
           }
-      } else {
-   if(!parseFloat(autoAmountInput.value) > 0) {
-autoCounterBox.style.border = '1px solid red'
-   }
-          document.querySelector(".Auto_input_box").style.border = "1px solid red";
+        } else {
+          if (!parseFloat(autoAmountInput.value) > 0) {
+            autoCounterBox.style.border = "1px solid red";
+          }
+          document.querySelector(".Auto_input_box").style.border =
+            "1px solid red";
+        }
+      } else if (AutoType == true && Pages == "auto") {
+        AutoType = false;
+        ChangeAutoInput = false;
+        AutoBet = false;
+        autoActionBtn.innerText = "Auto play";
+        if (
+          AutoCashOut == false &&
+          gameState.lastEvent !== "end_round" &&
+          gameState.lastEvent !== "start_round"
+        ) {
+          playerCancelBet();
+        }
+
+        // myResult = myResult.filter((e) => e.id !== idCounter);
+
+        autoActionBtn.classList.add("Auto_btn_disable");
+        autoActionBtn.classList.remove("Auto_btn_active");
       }
-  } else if (AutoType == true && Pages == 'auto') {
-    AutoType = false;
-    ChangeAutoInput = false;
-    AutoBet = false;
+    }
+
+    betTypeBtn.addEventListener("click", () => {
+      Pages = "bet";
+      AutoType = false;
+      AutoBet = false;
+
       autoActionBtn.innerText = "Auto play";
-  if(AutoCashOut == false && gameState.lastEvent !== 'end_round' && gameState.lastEvent !== 'start_round') {
- playerCancelBet()
- 
-
- 
-  }
-      
-      
-      // myResult = myResult.filter((e) => e.id !== idCounter);
-
-      autoActionBtn.classList.add('Auto_btn_disable');
-      autoActionBtn.classList.remove('Auto_btn_active');
-  }
-}
-
-
-
-  betTypeBtn.addEventListener("click", () => {
-    Pages = "bet";
-    AutoType = false;
-    AutoBet = false;
-   
-    autoActionBtn.innerText = "Auto play";
-    autoActionBtn.classList.add('Auto_btn_disable');
-    autoActionBtn.classList.remove('Auto_btn_active');
-    ChangePage(Pages);
-    betTypeBtn.classList.remove("Result_disable");
-    betTypeBtn.classList.add("Result_active");
-    autoTypeBtn.classList.add("Result_disable");
-    autoTypeBtn.classList.remove("Result_active");
-    background.style.left = "7px";
-  });
-  autoTypeBtn.addEventListener("click", () => {
-    Pages = "auto";
-
-    ChangePage(Pages);
-    autoTypeBtn.classList.remove("Result_disable");
-    betTypeBtn.classList.remove("Result_active");
-    autoTypeBtn.classList.add("Result_active");
-    betTypeBtn.classList.add("Result_disable");
-    background.style.left = "48%";
-  });
-
-  function ChangePage(page) {
-    if (page == "bet") {
-      betBox.style.visibility = "visible";
-      autoBox.style.visibility = "hidden";
-    } else if (page == "auto") {
-      autoBox.style.visibility = "visible";
-      betBox.style.visibility = "hidden";
-    }
-  }
-
-  betAmountInput.addEventListener("click", () => {
-    if (Help_menu == true) {
-      boxHelp.classList.remove("Disable");
-      boxHelp.classList.add("Active");
-    }
-  });
-  betAmountInput.style.textAlign = 'center';
-betAmountInput.addEventListener('input',()=> {
-  betAmountInput.style.textAlign = 'center';
-})
-  autoAmountInput.addEventListener("click", () => {
-    if (Help_menu == true) {
-      boxHelp.classList.remove("Disable");
-      boxHelp.classList.add("Active");
-    }
-  });
-  closeHelp.addEventListener("click", () => {
-    Help_menu = false;
-    boxHelp.classList.remove("Active");
-    boxHelp.classList.add("Disable");
-  });
-function CheckDef() {
-  if(betAmountInput.value>1000) {
-    betAmountInput.value = 1000
-    
-  }
-}
-function CheckAutoDef() {
-  if(autoAmountInput.value>1000) {
-    autoAmountInput.value = 1000;
-    CashOutAmount = autoAmountInput.value
-  }
-
-}
-  def1.addEventListener("click", () => {
-
-    ChangeDef2 = true;
-    ChangeDef5 = true;
-    ChangeDef10 = true;
-
-    if (ChangeDef1 == true) {
-      betAmountInput.value = 1;
-      ChangeDef1 = false;
-    } else {
-      
-        
-      
-      betAmountInput.value = parseFloat(betAmountInput.value) + 1 || 1;
-      CheckDef()
-    }
-    
-  });
-  def2.addEventListener("click", () => {
-  
-    ChangeDef1 = true;
-    ChangeDef5 = true;
-    ChangeDef10 = true;
-
-    if (ChangeDef2 == true) {
-      betAmountInput.value = 2;
-      ChangeDef2 = false;
-    } else {
-      
-      betAmountInput.value = parseFloat(betAmountInput.value) + 2 || 2;
-      CheckDef()
-    }
-  
-  });
-  def5.addEventListener("click", () => {
-    
-    ChangeDef1 = true;
-    ChangeDef2 = true;
-    ChangeDef10 = true;
-
-    if (ChangeDef5 == true) {
-      betAmountInput.value = 5;
-      ChangeDef5 = false;
-    } else {
-      
-      betAmountInput.value = parseFloat(betAmountInput.value) + 5 || 5;
-      CheckDef()
-    }
-  
-  });
-  def10.addEventListener("click", () => {
-
-  
-    ChangeDef1 = true;
-    ChangeDef5 = true;
-    ChangeDef2 = true;
-
-    if (ChangeDef10 == true) {
-      betAmountInput.value = 10;
-      ChangeDef10 = false;
-   
-    } else {
-      
-      betAmountInput.value = parseFloat(betAmountInput.value) + 10 || 10;
-      CheckDef()
-    }
-
-   
-  });
-
-  // auto
-
-  def1_auto.addEventListener("click", () => {
-    
-    
-
-    ChangeDef2_auto = true;
-    ChangeDef5_auto = true;
-    ChangeDef10_auto = true;
-    if (ChangeDef1_auto == true) {
-      autoAmountInput.value = 1;
-      CashOutAmount = autoAmountInput.value
-      ChangeDef1_auto = false;
-    } else {
-      
-      autoAmountInput.value = parseFloat(autoAmountInput.value) + 1 || 1;
-      CashOutAmount = autoAmountInput.value
-    
-      CheckAutoDef()
-    }
-    
-  });
-  def2_auto.addEventListener("click", () => {
-  
-    ChangeDef1_auto = true;
-    ChangeDef5_auto = true;
-    ChangeDef10_auto = true;
-
-    if (ChangeDef2_auto == true) {
-      autoAmountInput.value = 2;
-      CashOutAmount = autoAmountInput.value
-      ChangeDef2_auto = false;
-    } else {
-      
-      autoAmountInput.value = parseFloat(autoAmountInput.value) + 2 || 2;
-      CashOutAmount = autoAmountInput.value
-      CheckAutoDef()
-    
-  }
-  });
-  def5_auto.addEventListener("click", () => {
-   
-    ChangeDef1_auto = true;
-    ChangeDef2_auto = true;
-    ChangeDef10_auto = true;
-
-    if (ChangeDef5_auto == true) {
-      autoAmountInput.value = 5;
-      ChangeDef5_auto = false;
-    } else {
-      
-      autoAmountInput.value = parseFloat(autoAmountInput.value) + 5 || 5;
-      CashOutAmount = autoAmountInput.value
-      CheckAutoDef()
-    }
-    
-  });
-  def10_auto.addEventListener("click", () => {
-   
-    ChangeDef1_auto = true;
-    ChangeDef5_auto = true;
-    ChangeDef2_auto = true;
-
-    if (ChangeDef10_auto == true) {
-      autoAmountInput.value = 10;
-      CashOutAmount = autoAmountInput.value
-      ChangeDef10_auto = false;
-    } else {
-      
-      autoAmountInput.value = parseFloat(autoAmountInput.value) + 10 || 10;
-      CashOutAmount = autoAmountInput.value
-      CheckAutoDef()
-    
-  }
-  });
-
-  Plus_amount.addEventListener("click", () => {
-    if(betAmountInput.value < 1000 ) {
-    betAmountInput.value++;
-    if(parseFloat(betAmountInput.value)> parseFloat(balanceElement.innerHTML)) {
-      playerCancelBet()
-    }
-    }
-  });
-  Minus_amount.addEventListener("click", () => {
-    if (betAmountInput.value > 1) {
-      betAmountInput.value--;
-    }
-if(betAmountInput.value<1) {
-  betAmountInput.value = 1
-}
-  });
-
-  Auto_plus_amount.addEventListener("click", () => {
-    if(autoAmountInput.value <1000) {
-    autoAmountInput.value++
-    CashOutAmount=autoAmountInput.value ;
-if(parseFloat(autoAmountInput.value)> parseFloat(balanceElement.innerHTML)) {
-  AutoType = false;
-  ChangeAutoInput = false;
-  AutoBet = false;
-    autoActionBtn.innerText = "Auto play";
-    autoActionBtn.classList.add('Auto_btn_disable');
-    autoActionBtn.classList.remove('Auto_btn_active');
-}
-    }
-    
-  });
-  Auto_minus_amount.addEventListener("click", () => {
-    if (autoAmountInput.value > 1) {
-      autoAmountInput.value--;
-      CashOutAmount=autoAmountInput.value ;
-      
-    }
-    if(autoAmountInput.value < 1) {
-      autoAmountInput.value= 1;
-      CashOutAmount=autoAmountInput.value ;
-    }
-  });
-
-  function addMessage(message) {
-
-    setTimeout(() => {
-      if(message == 'Соединение закрыто. Код: 1000, причина: INIT_DATA_VERIFY_ERROR. Обновите страницу') {
-   
-        connect()
-      }
-    }, 1000);
-    
-  }
-  function CashOutConf(bet) {
-
- 
-    var Result = myResult.find((e) => e.id == idCounter);
-
-  
-    
-    Result.status = "win";
-    
-    Result.multiplier = bet.multiplier ;
-    Result.amount = bet.amount;
-    if(Result.amount !== undefined) {
-    pushUp.classList.add("Visible");
-    }
-    setTimeout(() => {
-      pushUp.classList.remove("Visible");
-
-    }, 5100);
-
-    pushUp.querySelector("#Multiple").innerHTML = bet.multiplier?
-      bet.multiplier.toFixed(2) + "x" : '';
-    pushUp.querySelector("#Status").innerHTML =
-      bet.amount > 0 ? "You took" : "You lose";
-    pushUp.querySelector("#Right_status").innerHTML =
-      bet.amount > 0 ? "Your win" : "Your lose";
-    pushUp.querySelector("#Amount").innerHTML = bet.amount.toFixed(2) / 10;
-  }
-  function AddMyResult(bet) {
-    idCounter++;
-    
-    
-    myResult.unshift({
-      id: idCounter,
-      status: "lose",
-      bet:bet
-      
+      autoActionBtn.classList.add("Auto_btn_disable");
+      autoActionBtn.classList.remove("Auto_btn_active");
+      ChangePage(Pages);
+      betTypeBtn.classList.remove("Result_disable");
+      betTypeBtn.classList.add("Result_active");
+      autoTypeBtn.classList.add("Result_disable");
+      autoTypeBtn.classList.remove("Result_active");
+      background.style.left = "7px";
     });
-    console.log(myResult);
+    autoTypeBtn.addEventListener("click", () => {
+      Pages = "auto";
+
+      ChangePage(Pages);
+      autoTypeBtn.classList.remove("Result_disable");
+      betTypeBtn.classList.remove("Result_active");
+      autoTypeBtn.classList.add("Result_active");
+      betTypeBtn.classList.add("Result_disable");
+      background.style.left = "48%";
+    });
+
+    function ChangePage(page) {
+      if (page == "bet") {
+        betBox.style.visibility = "visible";
+        autoBox.style.visibility = "hidden";
+      } else if (page == "auto") {
+        autoBox.style.visibility = "visible";
+        betBox.style.visibility = "hidden";
+      }
+    }
+
+    betAmountInput.style.textAlign = "center";
+    betAmountInput.addEventListener("input", () => {
+      betAmountInput.style.textAlign = "center";
+    });
+
+    function CheckDef() {
+      if (betAmountInput.value > 1000) {
+        betAmountInput.value = 1000;
+      }
+    }
+    function CheckAutoDef() {
+      if (autoAmountInput.value > 1000) {
+        autoAmountInput.value = 1000;
+        CashOutAmount = autoAmountInput.value;
+      }
+    }
+    def1.addEventListener("click", () => {
+      ChangeDef2 = true;
+      ChangeDef5 = true;
+      ChangeDef10 = true;
+
+      if (ChangeDef1 == true) {
+        betAmountInput.value = 1;
+        ChangeDef1 = false;
+      } else {
+        betAmountInput.value = parseFloat(betAmountInput.value) + 1 || 1;
+        CheckDef();
+      }
+    });
+    def2.addEventListener("click", () => {
+      ChangeDef1 = true;
+      ChangeDef5 = true;
+      ChangeDef10 = true;
+
+      if (ChangeDef2 == true) {
+        betAmountInput.value = 2;
+        ChangeDef2 = false;
+      } else {
+        betAmountInput.value = parseFloat(betAmountInput.value) + 2 || 2;
+        CheckDef();
+      }
+    });
+    def5.addEventListener("click", () => {
+      ChangeDef1 = true;
+      ChangeDef2 = true;
+      ChangeDef10 = true;
+
+      if (ChangeDef5 == true) {
+        betAmountInput.value = 5;
+        ChangeDef5 = false;
+      } else {
+        betAmountInput.value = parseFloat(betAmountInput.value) + 5 || 5;
+        CheckDef();
+      }
+    });
+    def10.addEventListener("click", () => {
+      ChangeDef1 = true;
+      ChangeDef5 = true;
+      ChangeDef2 = true;
+
+      if (ChangeDef10 == true) {
+        betAmountInput.value = 10;
+        ChangeDef10 = false;
+      } else {
+        betAmountInput.value = parseFloat(betAmountInput.value) + 10 || 10;
+        CheckDef();
+      }
+    });
+
+    // auto
+
+    def1_auto.addEventListener("click", () => {
+      ChangeDef2_auto = true;
+      ChangeDef5_auto = true;
+      ChangeDef10_auto = true;
+      if (ChangeDef1_auto == true) {
+        autoAmountInput.value = 1;
+        CashOutAmount = autoAmountInput.value;
+        ChangeDef1_auto = false;
+      } else {
+        autoAmountInput.value = parseFloat(autoAmountInput.value) + 1 || 1;
+        CashOutAmount = autoAmountInput.value;
+
+        CheckAutoDef();
+      }
+    });
+    def2_auto.addEventListener("click", () => {
+      ChangeDef1_auto = true;
+      ChangeDef5_auto = true;
+      ChangeDef10_auto = true;
+
+      if (ChangeDef2_auto == true) {
+        autoAmountInput.value = 2;
+        CashOutAmount = autoAmountInput.value;
+        ChangeDef2_auto = false;
+      } else {
+        autoAmountInput.value = parseFloat(autoAmountInput.value) + 2 || 2;
+        CashOutAmount = autoAmountInput.value;
+        CheckAutoDef();
+      }
+    });
+    def5_auto.addEventListener("click", () => {
+      ChangeDef1_auto = true;
+      ChangeDef2_auto = true;
+      ChangeDef10_auto = true;
+
+      if (ChangeDef5_auto == true) {
+        autoAmountInput.value = 5;
+        ChangeDef5_auto = false;
+      } else {
+        autoAmountInput.value = parseFloat(autoAmountInput.value) + 5 || 5;
+        CashOutAmount = autoAmountInput.value;
+        CheckAutoDef();
+      }
+    });
+    def10_auto.addEventListener("click", () => {
+      ChangeDef1_auto = true;
+      ChangeDef5_auto = true;
+      ChangeDef2_auto = true;
+
+      if (ChangeDef10_auto == true) {
+        autoAmountInput.value = 10;
+        CashOutAmount = autoAmountInput.value;
+        ChangeDef10_auto = false;
+      } else {
+        autoAmountInput.value = parseFloat(autoAmountInput.value) + 10 || 10;
+        CashOutAmount = autoAmountInput.value;
+        CheckAutoDef();
+      }
+    });
+
+    Plus_amount.addEventListener("click", () => {
     
-    updateBetsTable()
- 
-  }
+      let currentAmount = parseFloat(betAmountInput.value);
+      let balance = parseFloat(balanceElement.innerHTML);
+      if(parseFloat(betAmountInput.value) > parseFloat(balanceElement.innerHTML)) {
+        betAmountInput.value = balanceElement.innerHTML
+      }
+      // Increment the value only if it is less than the balance and less than 1000
+      if (currentAmount < 1000 && currentAmount < balance) {
+          currentAmount = Math.min(currentAmount + 1, balance); // Increment but not beyond balance
+  
+          // Update input field with the incremented value
+          betAmountInput.value = currentAmount;
+          CashOutAmount =  betAmountInput.value;
+  
+          // Check if the new value exceeds the balance
+          if (parseFloat( betAmountInput.value) > balance) {
+              playerCancelBet()
+          }
+      }
+  
+      // Cap the value at 1000 if it exceeds that amount
+      if (parseFloat( betAmountInput.value) > 1000) {
+        betAmountInput.value = 1000;
+         
+      }
+    });
+    Minus_amount.addEventListener("click", () => {
+      if(parseFloat( betAmountInput.value) > parseFloat(balanceElement.innerHTML)) {
+        betAmountInput.value = balanceElement.innerHTML
+      }
+      
+      if (betAmountInput.value > 1) {
+        betAmountInput.value--;
+        betAmountInput.value = parseFloat(betAmountInput.value).toFixed(1)
+      }
+  
+       
+        
 
-  function roundDownToTwoDecimals(number) {
-    return Math.floor(number * PRECISION_MULTIPLIER) / PRECISION_MULTIPLIER;
-  }
-
-  function realToGameTime(time) {
-    let REAL_T_MAX = T_MAX;
-    return Math.pow(time / REAL_T_MAX, 1 / 2) * T_MAX;
-  }
-
-  function calculateMultiplierFromElapsedTime(elapsedTime) {
-    elapsedTime = realToGameTime(elapsedTime);
-
-    let multiplier =
-      elapsedTime < T_MAX ? T_MAX / (T_MAX - elapsedTime) : M_MAX;
-    if (multiplier > M_MAX) multiplier = M_MAX;
-
-  let roundedMultiplier = parseFloat(multiplier.toFixed(2));
-  let cashOutValue = parseFloat(CashOutMultiplier);
+   
 
 
+   
+    });
 
-
-  if (gameState.lastEvent == 'start_round'&& AutoCashOutMiltiplier == true&&   Bet == true &&AutoBet === true && roundedMultiplier >= cashOutValue  && Pages === 'auto') {
-
-
- 
+    Auto_plus_amount.addEventListener("click", () => {
+      
+      let currentAmount = parseFloat(autoAmountInput.value);
+      let balance = parseFloat(balanceElement.innerHTML);
+      if(parseFloat(autoAmountInput.value)> parseFloat(balanceElement.innerHTML)) {
+        autoAmountInput.value = balanceElement.innerHTML
+        CashOutAmount = autoAmountInput.value;
+      }
+      // Increment the value only if it is less than the balance and less than 1000
+      if (currentAmount < 1000 && currentAmount < balance) {
+          currentAmount = Math.min(currentAmount + 1, balance); // Increment but not beyond balance
+  
+          // Update input field with the incremented value
+          autoAmountInput.value = currentAmount;
+          CashOutAmount = autoAmountInput.value;
+  
+          // Check if the new value exceeds the balance
+          if (parseFloat(autoAmountInput.value) > balance) {
+              AutoType = false;
+              ChangeAutoInput = false;
+              AutoBet = false;
+              autoActionBtn.innerText = "Auto play";
+              autoActionBtn.classList.add("Auto_btn_disable");
+              autoActionBtn.classList.remove("Auto_btn_active");
+          }
+      }
+  
+      // Cap the value at 1000 if it exceeds that amount
+      if (parseFloat(autoAmountInput.value) > 1000) {
+          autoAmountInput.value = 1000;
+          CashOutAmount = autoAmountInput.value;
+      }
+  });
+  
+    Auto_minus_amount.addEventListener("click", () => {
+      if(parseFloat(autoAmountInput.value) > parseFloat(balanceElement.innerHTML)) {
+        autoAmountInput.value = balanceElement.innerHTML;
+        CashOutAmount = autoAmountInput.value;
+      }
+      if (autoAmountInput.value > 1) {
+        autoAmountInput.value--;
+        CashOutAmount = autoAmountInput.value;
+        autoAmountInput.value = parseFloat(autoAmountInput.value).toFixed(1)
+        CashOutAmount = autoAmountInput.value;
+      }
     
-playerCashOut()
-AutoCashOut = true
-Bet = false
-  
-    
-  }
+    });
 
-    
-    return roundDownToTwoDecimals(multiplier.toFixed(2));
-  }
+    function addMessage(message) {
+      setTimeout(() => {
+        if (
+          message ==
+          "Соединение закрыто. Код: 1000, причина: INIT_DATA_VERIFY_ERROR. Обновите страницу"
+        ) {
+          connect();
+        }
+      }, 1000);
+    }
+    function CashOutConf(bet) {
+      var Result = myResult.find((e) => e.id == idCounter);
 
-  function updateMultiplier() {
-    const now = performance.now();
-    const elapsedTime = (now - startTime) / 1000;
+      Result.status = "win";
 
+      Result.multiplier = bet.multiplier;
+      Result.amount = bet.amount;
+      if (Result.amount !== undefined) {
+        pushUp.classList.add("Visible");
+      }
+      setTimeout(() => {
+        pushUp.classList.remove("Visible");
+      }, 5100);
 
-    const multiplier = calculateMultiplierFromElapsedTime(elapsedTime);
+      pushUp.querySelector("#Multiple").innerHTML = bet.multiplier
+        ? bet.multiplier.toFixed(2) + "x"
+        : "";
+      pushUp.querySelector("#Status").innerHTML =
+        bet.amount > 0 ? "You took" : "You lose";
+      pushUp.querySelector("#Right_status").innerHTML =
+        bet.amount > 0 ? "Your win" : "Your lose";
+      pushUp.querySelector("#Amount").innerHTML = bet.amount.toFixed(2) / 10;
+    }
+    function AddMyResult(bet) {
+      idCounter++;
 
+      myResult.unshift({
+        id: idCounter,
+        status: "lose",
+        bet: bet,
+      });
+      console.log(myResult);
 
+      updateBetsTable();
+    }
 
-    multiplierElement.innerHTML = "<h1>" + multiplier + "x" + "</h1>";
-  }
+    function roundDownToTwoDecimals(number) {
+      return Math.floor(number * PRECISION_MULTIPLIER) / PRECISION_MULTIPLIER;
+    }
 
-  function disableButton(disabled = true) {
-    actionButton.disabled = disabled;
-  }
-  function autoChangeButton(newButton) {
-    autoActionBtn.textContent = newButton.textContent;
-    autoActionBtn.classList.remove("bet");
-    autoActionBtn.classList.remove("cancel_bet");
-    autoActionBtn.classList.remove("cash_out");
-    autoActionBtn.classList.add(newButton.id);
-    autoActionBtn.onclick = newButton.onclick;
-    disableButton(false);
-  }
-  function changeButton(newButton) {
-    actionButton.textContent = newButton.textContent;
-    actionButton.classList.remove("bet");
-    actionButton.classList.remove("cancel_bet");
-    actionButton.classList.remove("cash_out");
-    actionButton.classList.add(newButton.id);
-    actionButton.onclick = newButton.onclick;
-    disableButton(false);
-  }
+    function realToGameTime(time) {
+      let REAL_T_MAX = T_MAX;
+      return Math.pow(time / REAL_T_MAX, 1 / 2) * T_MAX;
+    }
 
+    function calculateMultiplierFromElapsedTime(elapsedTime) {
+      elapsedTime = realToGameTime(elapsedTime);
 
+      let multiplier =
+        elapsedTime < T_MAX ? T_MAX / (T_MAX - elapsedTime) : M_MAX;
+      if (multiplier > M_MAX) multiplier = M_MAX;
 
+      let roundedMultiplier = parseFloat(multiplier.toFixed(2));
+      let cashOutValue = parseFloat(CashOutMultiplier);
 
+      if (
+        gameState.lastEvent == "start_round" &&
+        AutoCashOutMiltiplier == true &&
+        Bet == true &&
+        AutoBet === true &&
+        roundedMultiplier >= cashOutValue &&
+        Pages === "auto"
+      ) {
+        playerCashOut();
+        AutoCashOut = true;
+        Bet = false;
+      }
 
-var Visible = 10
+      return roundDownToTwoDecimals(multiplier.toFixed(2));
+    }
 
-  
+    function updateMultiplier() {
+      const now = performance.now();
+      const elapsedTime = (now - startTime) / 1000;
 
+      const multiplier = calculateMultiplierFromElapsedTime(elapsedTime);
 
+      multiplierElement.innerHTML = "<h1>" + multiplier + "x" + "</h1>";
+    }
 
-let lastLoggedScrollY = 0;
-document.addEventListener('scroll',(e)=> {
- if(window.scrollY<500){
-  lastLoggedScrollY = 0
-  Visible = 10
-  updateBetsTable()
- };
- if (window.scrollY >= lastLoggedScrollY + 200) {
+    function disableButton(disabled = true) {
+      actionButton.disabled = disabled;
+    }
+    function autoChangeButton(newButton) {
+      autoActionBtn.textContent = newButton.textContent;
+      autoActionBtn.classList.remove("bet");
+      autoActionBtn.classList.remove("cancel_bet");
+      autoActionBtn.classList.remove("cash_out");
+      autoActionBtn.classList.add(newButton.id);
+      autoActionBtn.onclick = newButton.onclick;
+      disableButton(false);
+    }
+    function changeButton(newButton) {
+      actionButton.textContent = newButton.textContent;
+      actionButton.classList.remove("bet");
+      actionButton.classList.remove("cancel_bet");
+      actionButton.classList.remove("cash_out");
+      actionButton.classList.add(newButton.id);
+      actionButton.onclick = newButton.onclick;
+      disableButton(false);
+    }
 
-  
-  Visible+=5
-  updateBetsTable()
-  lastLoggedScrollY = window.scrollY;
-}
- if (window.scrollY>500 &&window.scrollY <= lastLoggedScrollY - 200 && Visible > 10) {
+    var Visible = 10;
 
-  Visible -= 5;
-  updateBetsTable();
-  lastLoggedScrollY = window.scrollY;
-}
-  
-})
+    let lastLoggedScrollY = 0;
+    document.addEventListener("scroll", (e) => {
+      if (window.scrollY < 500) {
+        lastLoggedScrollY = 0;
+        Visible = 10;
+        updateBetsTable();
+      }
+      if (window.scrollY >= lastLoggedScrollY + 200) {
+        Visible += 5;
+        updateBetsTable();
+        lastLoggedScrollY = window.scrollY;
+      }
+      if (
+        window.scrollY > 500 &&
+        window.scrollY <= lastLoggedScrollY - 200 &&
+        Visible > 10
+      ) {
+        Visible -= 5;
+        updateBetsTable();
+        lastLoggedScrollY = window.scrollY;
+      }
+    });
 
-
-
-function updateBetsTable() {
-  
- 
-
-
-
-    
-
-    var tableHtml = `
+    function updateBetsTable() {
+      var tableHtml = `
       <table>
        
         <tbody id="Table">
         `;
 
+      if (resultType.type == "top") {
+        sorted = topResultList.sort((a, b) => b.multiplier - a.multiplier);
 
-
-    if (resultType.type == "top") {
-    
-      
-
-sorted = topResultList.sort((a, b) => b.multiplier - a.multiplier);
-
-
-
-      for (let bet =0;bet<sorted.length;bet++) {
-        if(bet < 10) {
-        tableHtml += `<tr class="top">
+        for (let bet = 0; bet < sorted.length; bet++) {
+          if (bet < 10) {
+            tableHtml += `<tr class="top">
               <td>
                 <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M11.0001 0C7.69209 0 5.01043 2.66762 5.01043 5.95831C5.01043 9.24899 7.69209 11.9166 11.0001 11.9166C14.3081 11.9166 16.9898 9.24899 16.9898 5.95831C16.9898 2.66762 14.3081 0 11.0001 0ZM6.85341 5.95831C6.85341 3.68015 8.70994 1.83333 11.0001 1.83333C13.2902 1.83333 15.1468 3.68015 15.1468 5.95831C15.1468 8.23647 13.2902 10.0833 11.0001 10.0833C8.70994 10.0833 6.85341 8.23647 6.85341 5.95831Z" fill="url(#paint0_linear_294_244)"/>
@@ -898,8 +842,8 @@ sorted = topResultList.sort((a, b) => b.multiplier - a.multiplier);
               </td>
               <td>  
                 <img width="20px" height="20px" src='./assets/coin.png'><span>${
-                sorted[bet].amount ? sorted[bet].amount/10 : ""
-              }</span></td>
+                  sorted[bet].amount ? sorted[bet].amount / 10 : ""
+                }</span></td>
               <td><h4>${
                 sorted[bet].multiplier
                   ? sorted[bet].multiplier.toFixed(2) + "x"
@@ -923,71 +867,61 @@ sorted = topResultList.sort((a, b) => b.multiplier - a.multiplier);
       </defs>
       </svg></td>
             </tr>`;
+          }
         }
-      
-}
 
-      tableHtml += `</tbody></table>`;
-      betsTableElement.innerHTML = tableHtml;
-    
-    
-    }
-    
-    
-    else if (resultType.type == "all") {
-      // Устанавливаем количество видимых строк в 2
-   
-      const fragment = document.createDocumentFragment(); // Создаем documentFragment
-  
-      // Создаем таблицу и тело таблицы
-      const table = document.createElement('table');
-      const tbody = document.createElement('tbody');
-      table.appendChild(tbody);
-  
-      // Перебираем ставки и отображаем только первые 2 строки
-      for (let [index, bet] of gameState.bets.entries()) {
+        tableHtml += `</tbody></table>`;
+        betsTableElement.innerHTML = tableHtml;
+      } else if (resultType.type == "all") {
+        // Устанавливаем количество видимых строк в 2
+
+        const fragment = document.createDocumentFragment(); // Создаем documentFragment
+
+        // Создаем таблицу и тело таблицы
+        const table = document.createElement("table");
+        const tbody = document.createElement("tbody");
+        table.appendChild(tbody);
+
+        // Перебираем ставки и отображаем только первые 2 строки
+        for (let [index, bet] of gameState.bets.entries()) {
           if (index < Visible) {
-              const row = document.createElement('tr');
-              row.id = 'Res';
-  
-              row.innerHTML = `
+            const row = document.createElement("tr");
+            row.id = "Res";
+
+            row.innerHTML = `
                   <td>
                       <h1> User ${bet.bet_id}</h1>
                   </td>
-                  <td style="color:${bet.cash_out ? '#95979d' : 'red'}">
+                  <td style="color:${bet.cash_out ? "#95979d" : "red"}">
                       ${bet.bet / 10}
                   </td>
                   <td>
-                      <span style="color:${bet.cash_out ? 'green' : ''}">
-                          ${bet.cash_out ? bet.cash_out / 10 : ''}
+                      <span style="color:${bet.cash_out ? "green" : ""}">
+                          ${bet.cash_out ? bet.cash_out / 10 : ""}
                       </span>
                   </td>
                   <td>
                       <h4>
-                          ${bet.cash_out_multiplier ? bet.cash_out_multiplier.toFixed(2) + "x" : ""}
+                          ${
+                            bet.cash_out_multiplier
+                              ? bet.cash_out_multiplier.toFixed(2) + "x"
+                              : ""
+                          }
                       </h4>
                   </td>
               `;
-              tbody.appendChild(row); // Добавляем строку в тело таблицы
+            tbody.appendChild(row); // Добавляем строку в тело таблицы
           }
-      }
-  
-      fragment.appendChild(table); // Добавляем таблицу в documentFragment
-  
-      betsTableElement.innerHTML = ''; // Очищаем существующий контент
-      betsTableElement.appendChild(fragment); // Добавляем новый контент из documentFragment
-  }
-  
-    
-    
-    
-    else if (resultType.type == "my") {
-     
-      
-      
-      for (let bet=0;bet<myResult.length;bet++) {
-        if(bet<10) {
-        tableHtml += `<tr>
+        }
+
+        fragment.appendChild(table); // Добавляем таблицу в documentFragment
+
+        betsTableElement.innerHTML = ""; // Очищаем существующий контент
+        betsTableElement.appendChild(fragment); // Добавляем новый контент из documentFragment
+      } else if (resultType.type == "my") {
+        for (let bet = 0; bet < myResult.length; bet++) {
+          if (bet < 10) {
+            tableHtml += `<tr>
     <td>
       <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M11.0001 0C7.69209 0 5.01043 2.66762 5.01043 5.95831C5.01043 9.24899 7.69209 11.9166 11.0001 11.9166C14.3081 11.9166 16.9898 9.24899 16.9898 5.95831C16.9898 2.66762 14.3081 0 11.0001 0ZM6.85341 5.95831C6.85341 3.68015 8.70994 1.83333 11.0001 1.83333C13.2902 1.83333 15.1468 3.68015 15.1468 5.95831C15.1468 8.23647 13.2902 10.0833 11.0001 10.0833C8.70994 10.0833 6.85341 8.23647 6.85341 5.95831Z" fill="url(#paint0_linear_294_244)"/>
@@ -1006,16 +940,14 @@ sorted = topResultList.sort((a, b) => b.multiplier - a.multiplier);
      <h1> Me</h1>
     </td>
     <td>
-    ${myResult[bet].bet /10}
+    ${myResult[bet].bet / 10}
     </td>
     <td>   <img src="./assets/coin.png"><span>${
-      myResult[bet].amount
-        ? myResult[bet].amount / 10
-        : ''
-        
-        
+      myResult[bet].amount ? myResult[bet].amount / 10 : ""
     }</span></td>
-    <td><h4>${myResult[bet].multiplier ? myResult[bet].multiplier.toFixed(2) + "x" : ""}</h4></td>
+    <td><h4>${
+      myResult[bet].multiplier ? myResult[bet].multiplier.toFixed(2) + "x" : ""
+    }</h4></td>
     <td>${
       myResult[bet].amount !== undefined
         ? `<svg width="52" height="46" viewBox="0 0 52 46" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1058,203 +990,177 @@ sorted = topResultList.sort((a, b) => b.multiplier - a.multiplier);
         : ""
     }</td>
   </tr>`;
+          }
+        }
+        tableHtml += `</tbody></table>`;
+        betsTableElement.innerHTML = tableHtml;
+      }
+    }
+
+    function getCurrentDateTimeWithSeconds() {
+      const now = new Date();
+      return now.toISOString().slice(0, 19).replace("T", " ");
+    }
+
+    function connect() {
+      var Reason_status = true;
+
+      ws = new WebSocket("wss://toxicwaste.mooo.com:" + PORT);
+
+      ws.onmessage = function (event) {
+        const data = JSON.parse(event.data);
+
+        handleServerMessage(data);
+
+        if (data.event == "cash_out_confirmation") {
+          CashOutConf(data);
+        }
+        if (data.event == "bet_confirmation") {
+          AddMyResult(data.amount);
+        }
+      };
+
+      ws.onclose = function (event) {
+        const code = event.code;
+        const reason = event.reason || "-";
+        console.log(event);
+
+        if (reason == "-" && Reason_status == true) {
+          connect();
+        }
+
+        if (reason !== "INIT_DATA_VERIFY_ERROR") {
+          addMessage(
+            `Соединение закрыто. Код: ${code}, причина: ${reason}. Переподключение...`
+          );
+          // if (currentTab === "game") {setTimeout(connect, 3000) };
+        } else
+          addMessage(
+            `Соединение закрыто. Код: ${code}, причина: ${reason}. Обновите страницу`
+          );
+      };
+      Reward_btn.addEventListener("click", () => {
+        Reason_status = false;
+        ws.close();
+      });
+      Game_btn.addEventListener("click", () => {
+        Reason_status = true;
+      });
+
+      ws.onerror = function (error) {
+        console.error("WebSocket ошибка:", error);
+        ws.close();
+      };
+
+      ws.onopen = function () {
+        console.log(1);
+
+        addMessage("Подключено к WebSocket серверу");
+        playerHello();
+      };
+    }
+
+    const eventHandlers = {
+      [EVENT_PREPARE_NEXT_ROUND]: handlePrepareNextRound,
+      [EVENT_START_ROUND]: handleStartRound,
+      [EVENT_END_ROUND]: handleEndRound,
+      [EVENT_BET_CONFIRMATION]: handleBetConfirmation,
+      [EVENT_BET]: handleBet,
+      [EVENT_CASH_OUT_CONFIRMATION]: handleCashOutConfirmation,
+      [EVENT_CASH_OUT]: handleCashOut,
+      [EVENT_CANCEL_BET_CONFIRMATION]: handleCancelBetConfirmation,
+      [EVENT_CANCEL_BET]: handleCancelBet,
+      [EVENT_WELCOME]: handleWelcome,
+    };
+    if (actionButton.classList.contains("cancel_bet")) {
+      hasBet = true;
+      if (hasBet == true) {
+        autoActionBtn.style.border = "2px solid red";
+      } else {
+        autoActionBtn.style.border = "none";
+      }
+    } else {
+      hasBet = false;
+      if (hasBet == true) {
+        autoActionBtn.style.border = "2px solid red";
+      } else {
+        autoActionBtn.style.border = "none";
+      }
+    }
+
+    function handleServerMessage(data) {
+      if (!data) {
+        playerHello();
+      }
+      if (data.button == "cash_out" && hasBet == true) {
+        hasBet = false;
+        if (hasBet == true) {
+          autoActionBtn.style.border = "2px solid red";
+        } else {
+          autoActionBtn.style.border = "none";
         }
       }
-      tableHtml += `</tbody></table>`;
-      betsTableElement.innerHTML = tableHtml;
-    }
-  }
-
-  function getCurrentDateTimeWithSeconds() {
-    const now = new Date();
-    return now.toISOString().slice(0, 19).replace("T", " ");
-  }
-
-  function connect() {
-var Reason_status = true
-  
-    
-    
-    ws = new WebSocket("wss://toxicwaste.mooo.com:" + PORT);
-
-    ws.onmessage = function (event) {
-      const data = JSON.parse(event.data);
-  
-
-      handleServerMessage(data);
-
-
-      if (data.event == "cash_out_confirmation") {
-        CashOutConf(data);
- 
-        
+      if (data.button == "cancel_bet" && hasBet == false && Pages == "bet") {
+        hasBet = true;
+        if (hasBet == true) {
+          autoActionBtn.style.border = "2px solid red";
+        } else {
+          autoActionBtn.style.border = "none";
+        }
       }
-      if (data.event == "bet_confirmation" ) {
 
-      
-        AddMyResult(data.amount);
+      if (data.event !== "end_round") {
+        AutoCashOutMiltiplier = true;
       }
-    };
-
-    ws.onclose = function (event) {
-
-      
-      
-      const code = event.code;
-      const reason = event.reason || "-";
-console.log(event);
-
-     if(reason == '-' && Reason_status  == true) {
-
-      connect()
-     }
-     
-      if (reason !== "INIT_DATA_VERIFY_ERROR") {
-        addMessage(
-          `Соединение закрыто. Код: ${code}, причина: ${reason}. Переподключение...`
-        );
-        // if (currentTab === "game") {setTimeout(connect, 3000) }; 
-      } else
-        addMessage(
-          `Соединение закрыто. Код: ${code}, причина: ${reason}. Обновите страницу`
-        );
-    };
-    Reward_btn.addEventListener('click',()=> {
-      Reason_status = false
-      ws.close();
-
-    })
-    Game_btn.addEventListener('click',()=> {
-      Reason_status = true
-    })
-
-    ws.onerror = function (error) {
-      console.error("WebSocket ошибка:", error);
-      ws.close();
-    };
-
-    ws.onopen = function () {
-      console.log(1);
-      
-      addMessage("Подключено к WebSocket серверу");
-      playerHello();
-    };
-  }
-
-  const eventHandlers = {
-    [EVENT_PREPARE_NEXT_ROUND]: handlePrepareNextRound,
-    [EVENT_START_ROUND]: handleStartRound,
-    [EVENT_END_ROUND]: handleEndRound,
-    [EVENT_BET_CONFIRMATION]: handleBetConfirmation,
-    [EVENT_BET]: handleBet,
-    [EVENT_CASH_OUT_CONFIRMATION]: handleCashOutConfirmation,
-    [EVENT_CASH_OUT]: handleCashOut,
-    [EVENT_CANCEL_BET_CONFIRMATION]: handleCancelBetConfirmation,
-    [EVENT_CANCEL_BET]: handleCancelBet,
-    [EVENT_WELCOME]: handleWelcome,
-  };
-if(actionButton.classList.contains('cancel_bet')) {
-  hasBet = true
-  if(hasBet == true) {
-    autoActionBtn.style.border = '2px solid red'
-  }
-  else {
-    autoActionBtn.style.border = 'none'
-  }
-}
-else {
-  hasBet = false
-  if(hasBet == true) {
-    autoActionBtn.style.border = '2px solid red'
-  }
-  else {
-    autoActionBtn.style.border = 'none'
-  }
-}
-
-
-
-  function handleServerMessage(data) {
-    if(!data) {
-      playerHello()
-      
-    }
-    if(data.button == 'cash_out' && hasBet == true) {
-      hasBet = false
-      if(hasBet == true) {
-        autoActionBtn.style.border = '2px solid red'
+      if (data.event == "end_round") {
+        AutoCashOutMiltiplier = false;
       }
-      else {
-        autoActionBtn.style.border = 'none'
+
+      const handler = eventHandlers[data.event];
+      if (handler) {
+        handler(data);
+      } else {
+        console.warn(`Неизвестное событие: ${data.event}`);
+      }
+
+      if ("balance" in data)
+        balanceElement.textContent = data.balance.toFixed(2) / 10;
+
+      if ("button" in data) {
+        switch (data.button) {
+          case CONFIG_BUTTON_BET.id:
+            changeButton(CONFIG_BUTTON_BET);
+            break;
+
+          case CONFIG_BUTTON_CANCEL_BET.id:
+            changeButton(CONFIG_BUTTON_CANCEL_BET);
+            break;
+
+          case CONFIG_BUTTON_CASH_OUT.id:
+            changeButton(CONFIG_BUTTON_CASH_OUT);
+            break;
+        }
       }
     }
-    if(data.button == 'cancel_bet' && hasBet == false && Pages =='bet') {
-      hasBet = true
-      if(hasBet == true) {
-        autoActionBtn.style.border = '2px solid red'
-      }
-      else {
-        autoActionBtn.style.border = 'none'
-      }
-    }
- 
 
+    function startRound() {
+      AutoCashOut = false;
 
+      gameState.lastEvent = EVENT_START_ROUND;
 
-    if(data.event !== 'end_round') {
-AutoCashOutMiltiplier = true
-    }
-    if(data.event == 'end_round') {
-      AutoCashOutMiltiplier = false
-    }
-    
-    const handler = eventHandlers[data.event];
-    if (handler) {
-      handler(data);
-    } else {
-      console.warn(`Неизвестное событие: ${data.event}`);
-    }
+      if (multiplierInterval === null) {
+        progressBar.value = 0;
+        updateMultiplier();
+        waitLoading.style.opacity = "0";
+        waitLoading.style.visibility = "hidden";
 
-    if ("balance" in data)
-      balanceElement.textContent = data.balance.toFixed(2) / 10;
+        multCrash.innerHTML = `<span></span>`;
+        multiplierInterval = setInterval(updateMultiplier, 50);
+        plane.classList.toggle("Flight_anim");
+        plane.classList.remove("Crash");
+        currPlane.querySelector("img").src = "./assets/planeFlight.png";
 
-    if ("button" in data) {
-      switch (data.button) {
-        case CONFIG_BUTTON_BET.id:
-          changeButton(CONFIG_BUTTON_BET);
-          break;
-
-        case CONFIG_BUTTON_CANCEL_BET.id:
-          changeButton(CONFIG_BUTTON_CANCEL_BET);
-          break;
-
-        case CONFIG_BUTTON_CASH_OUT.id:
-          changeButton(CONFIG_BUTTON_CASH_OUT);
-          break;
-      }
-    }
-  }
-
-  function startRound() {
-AutoCashOut = false
-
-
-    
-    gameState.lastEvent = EVENT_START_ROUND;
-
-    if (multiplierInterval === null) {
-      progressBar.value = 0;
-      updateMultiplier();
-      waitLoading.style.opacity = "0";
-      waitLoading.style.visibility = "hidden";
-
-      multCrash.innerHTML = `<span></span>`;
-      multiplierInterval = setInterval(updateMultiplier, 50);
-      plane.classList.toggle("Flight_anim");
-      plane.classList.remove("Crash");
-      currPlane.querySelector("img").src = "./assets/planeFlight.png";
-   
-      linePlane.innerHTML = ` <svg width="270" height="140" viewBox="0 0 270 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+        linePlane.innerHTML = ` <svg width="270" height="140" viewBox="0 0 270 140" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M267.527 2C235.342 94.3382 102.004 138.985 2 140H267.527V2Z" fill="url(#paint0_linear_178_1178)" fill-opacity="0.4"/>
     <path d="M2 138C102.004 137 235.342 93 267.527 2" stroke="url(#paint1_linear_178_1178)" stroke-width="3" stroke-linecap="round"/>
     <defs>
@@ -1268,188 +1174,174 @@ AutoCashOut = false
     </linearGradient>
     </defs>
     </svg>    `;
-    }
-  
-  }
-
-  function handleStartRound() {
-    startTime = performance.now();
-    startRound();
-  }
-
-  function handleBet(data) {
-    
-    
-    addMessage(`Сделана ставка ${data.bet_id}: ${data.amount}`);
-    gameState.bets.push({
-      bet_id: data.bet_id,
-      bet: data.amount,
-    });
-    
-    // console.log(gameState.bets, 'qaqs');
-    
-
-    userBet.push({
-      bet_id: data.bet_id,
-      bet: data.amount,
-    });
-    updateBetsTable();
-  
-  }
-
-  function handleCashOut(data) {
-    addMessage(
-      `Забран выигрыш ${data.bet_id}: ${data.amount} при множителе ${data.multiplier}`
-    );
-    let bet = gameState.bets.find((bet) => bet.bet_id === data.bet_id);
-    if (bet) {
-      bet.cash_out = data.amount;
-      bet.cash_out_multiplier = data.multiplier;
-      bet.amount = data.bet
-
-      
-      
-topResultList.unshift({
-  bet_id: data.bet_id,
-  amount:data.amount,
-  multiplier:data.multiplier
-})
-
-    }
-
-    updateBetsTable();
-  }
-
-  function handleWelcome(data) {
-    T_MAX = data.game_parameters["t_max"];
-    M_MAX = data.game_parameters["m_max"];
-    PRECISION_MULTIPLIER = data.game_parameters["precision_multiplier"];
-
-    switch (data.last_event) {
-      case EVENT_PREPARE_NEXT_ROUND:
-        handlePrepareNextRound(data);
-        break;
-
-      case EVENT_START_ROUND:
-        const now = performance.now();
-        startTime = now - data.elapsed_time * 1000;
-
-        gameState.bets = data.bets;
-
-        updateBetsTable();
-
-        startRound();
-        break;
-
-      case EVENT_END_ROUND:
-        gameState.bets = data.bets;
-
-
-        updateBetsTable();
-        ShowLastGames(data.end_multiplier);
-        handleEndRound(data);
-        break;
-    }
-  }
-
-  function handleCancelBetConfirmation(data) {
-    if (data.error !== null)
-      addMessage(`Ошибка при отмене ставки: ${data.error}`);
-  }
-
-  function handleCancelBet(data) {
-    addMessage(`Отменена ставка ${data.bet_id}`);
-    
-    gameState.bets = gameState.bets.filter((bet) => bet.bet_id !== data.bet_id);
-    updateBetsTable();
-  }
-
-  function handlePrepareNextRound(data) {
-    if(resultType.type == 'all') {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth' // 'smooth' для плавной прокрутки, 'auto' для мгновенной
-    });
-  }
-    progressBar.value = 0;
-    let progressValue = 0;
-    const totalDuration = 3500; // Total duration of the animation in milliseconds
-    let startTime; // Declare startTime but don't initialize it yet
-    
-    waitLoading.style.opacity = "1";
-    waitLoading.style.visibility = "visible";
-    
-    function updateProgressBar(currentTime) {
-      if (!startTime) {
-        startTime = currentTime; // Initialize startTime on the first frame
-      }
-    
-      const elapsedTime = currentTime - startTime;
-      const progressFraction = Math.min(elapsedTime / totalDuration, 1); // Calculate progress
-    
-      progressValue = progressFraction * 100;
-      progressBar.value = progressValue;
-    
-      if (progressFraction < 1) {
-        requestAnimationFrame(updateProgressBar); // Continue the animation
       }
     }
-    
-    
-    setTimeout(() => {
-      requestAnimationFrame(updateProgressBar);
-    }, 800);
-    if(AutoBet == true && Pages == 'auto') {
-      playerPlaceBet()
 
-      
-      
-   
-      Bet = true
+    function handleStartRound() {
+      startTime = performance.now();
+      startRound();
     }
-    userBet = [];
-    gameState.bets = data.bets;
-    updateBetsTable();
-    gameState.lastEvent = EVENT_PREPARE_NEXT_ROUND;
 
-    multiplierElement.textContent = "-";
-  }
+    function handleBet(data) {
+      addMessage(`Сделана ставка ${data.bet_id}: ${data.amount}`);
+      gameState.bets.push({
+        bet_id: data.bet_id,
+        bet: data.amount,
+      });
 
-  const PREPARE_NEXT_ROUND_TIME = 5 * 1000,
-    END_ROUND_TIME = 3 * 1000;
+      // console.log(gameState.bets, 'qaqs');
 
-  function getRandomDelay(max) {
-    return Math.floor(Math.random() * (max + 1));
-  }
-
-  const maxDelay = PREPARE_NEXT_ROUND_TIME + END_ROUND_TIME;
-  const randomDelay = getRandomDelay(maxDelay);
-
-  function handleEndRound(data) {
-Visible = 20
-    AutoCashOut = false
-    AutoCashOutMiltiplier = false
-if(AutoType == true) {
-  AutoBet = true;
-}
-else {
-  AutoBet = false;
-}
-    updateBetsTable();
-    if(Pages == 'auto') {
-    // playerCancelBet()
-    Bet = false;
+      userBet.push({
+        bet_id: data.bet_id,
+        bet: data.amount,
+      });
+      updateBetsTable();
     }
-    betStatus = true;
-    gameState.lastEvent = EVENT_END_ROUND;
 
+    function handleCashOut(data) {
+      addMessage(
+        `Забран выигрыш ${data.bet_id}: ${data.amount} при множителе ${data.multiplier}`
+      );
+      let bet = gameState.bets.find((bet) => bet.bet_id === data.bet_id);
+      if (bet) {
+        bet.cash_out = data.amount;
+        bet.cash_out_multiplier = data.multiplier;
+        bet.amount = data.bet;
 
+        topResultList.unshift({
+          bet_id: data.bet_id,
+          amount: data.amount,
+          multiplier: data.multiplier,
+        });
+      }
 
-    LastGames.unshift(`${data.end_multiplier.toFixed(2)}x`);
-    multCrash.innerHTML = `<span>Crushed </span>`;
-    plane.classList.remove("Flight_anim");
-    plane.classList.toggle("Crash");
-    linePlane.innerHTML = `<svg width="315" height="92" viewBox="0 0 315 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+      updateBetsTable();
+    }
+
+    function handleWelcome(data) {
+      T_MAX = data.game_parameters["t_max"];
+      M_MAX = data.game_parameters["m_max"];
+      PRECISION_MULTIPLIER = data.game_parameters["precision_multiplier"];
+
+      switch (data.last_event) {
+        case EVENT_PREPARE_NEXT_ROUND:
+          handlePrepareNextRound(data);
+          break;
+
+        case EVENT_START_ROUND:
+          const now = performance.now();
+          startTime = now - data.elapsed_time * 1000;
+
+          gameState.bets = data.bets;
+
+          updateBetsTable();
+
+          startRound();
+          break;
+
+        case EVENT_END_ROUND:
+          gameState.bets = data.bets;
+
+          updateBetsTable();
+          ShowLastGames(data.end_multiplier);
+          handleEndRound(data);
+          break;
+      }
+    }
+
+    function handleCancelBetConfirmation(data) {
+      if (data.error !== null)
+        addMessage(`Ошибка при отмене ставки: ${data.error}`);
+    }
+
+    function handleCancelBet(data) {
+      addMessage(`Отменена ставка ${data.bet_id}`);
+
+      gameState.bets = gameState.bets.filter(
+        (bet) => bet.bet_id !== data.bet_id
+      );
+      updateBetsTable();
+    }
+
+    function handlePrepareNextRound(data) {
+      if (resultType.type == "all") {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth", // 'smooth' для плавной прокрутки, 'auto' для мгновенной
+        });
+      }
+      progressBar.value = 0;
+      let progressValue = 0;
+      const totalDuration = 3500; // Total duration of the animation in milliseconds
+      let startTime; // Declare startTime but don't initialize it yet
+
+      waitLoading.style.opacity = "1";
+      waitLoading.style.visibility = "visible";
+
+      function updateProgressBar(currentTime) {
+        if (!startTime) {
+          startTime = currentTime; // Initialize startTime on the first frame
+        }
+
+        const elapsedTime = currentTime - startTime;
+        const progressFraction = Math.min(elapsedTime / totalDuration, 1); // Calculate progress
+
+        progressValue = progressFraction * 100;
+        progressBar.value = progressValue;
+
+        if (progressFraction < 1) {
+          requestAnimationFrame(updateProgressBar); // Continue the animation
+        }
+      }
+
+      setTimeout(() => {
+        requestAnimationFrame(updateProgressBar);
+      }, 800);
+      if (AutoBet == true && Pages == "auto") {
+        playerPlaceBet();
+
+        Bet = true;
+      }
+      userBet = [];
+      gameState.bets = data.bets;
+      updateBetsTable();
+      gameState.lastEvent = EVENT_PREPARE_NEXT_ROUND;
+
+      multiplierElement.textContent = "-";
+    }
+
+    const PREPARE_NEXT_ROUND_TIME = 5 * 1000,
+      END_ROUND_TIME = 3 * 1000;
+
+    function getRandomDelay(max) {
+      return Math.floor(Math.random() * (max + 1));
+    }
+
+    const maxDelay = PREPARE_NEXT_ROUND_TIME + END_ROUND_TIME;
+    const randomDelay = getRandomDelay(maxDelay);
+
+    function handleEndRound(data) {
+      Visible = 20;
+      AutoCashOut = false;
+      AutoCashOutMiltiplier = false;
+      if (AutoType == true) {
+        AutoBet = true;
+      } else {
+        AutoBet = false;
+      }
+      updateBetsTable();
+      if (Pages == "auto") {
+        // playerCancelBet()
+        Bet = false;
+      }
+      betStatus = true;
+      gameState.lastEvent = EVENT_END_ROUND;
+
+      LastGames.unshift(`${data.end_multiplier.toFixed(2)}x`);
+      multCrash.innerHTML = `<span>Crushed </span>`;
+      plane.classList.remove("Flight_anim");
+      plane.classList.toggle("Crash");
+      linePlane.innerHTML = `<svg width="315" height="92" viewBox="0 0 315 92" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M2 89.9999C288 -76.5 247 35.4998 313 89.9997L2 89.9999Z" fill="url(#paint0_linear_194_992)" fill-opacity="0.4"/>
 <path d="M2 89.9999C288 -76.5 247 35.4998 313 89.9997" stroke="url(#paint1_linear_194_992)" stroke-width="3" stroke-linecap="round"/>
 <defs>
@@ -1464,155 +1356,141 @@ else {
 </defs>
 </svg>
 `;
-linePlane.querySelector('svg').style.width = '313px'
-linePlane.querySelector('svg').style.height = '75px'
-    currPlane.querySelector("img").src = `./assets/planeCrash.png`;
+      linePlane.querySelector("svg").style.width = "313px";
+      linePlane.querySelector("svg").style.height = "75px";
+      currPlane.querySelector("img").src = `./assets/planeCrash.png`;
 
-    ShowLastGames(LastGames);
+      ShowLastGames(LastGames);
 
-    if (multiplierInterval !== null) {
-      clearInterval(multiplierInterval);
-      multiplierInterval = null;
-    }
-    multiplierElement.innerHTML =
-      "<h1 style='text-shadow:0 0 15px #F9562B' >" +
-      data.end_multiplier +
-      "x" +
-      "</h1>";
-
-  setTimeout(() => {
-      ws.send(JSON.stringify({ action: "ping" }));
-    }, randomDelay);
-  }
-
-  function handleBetConfirmation(data) {
-    if (data.error !== null)
-      addMessage(`Ошибка при размещении ставки: ${data.error}`);
-  }
-
-  function handleCashOutConfirmation(data) {
-    if (data.error === null) {
-      addMessage(`Выигрыш ${data.amount} при множителе ${data.multiplier}`);
-    } else {
-      addMessage(`Ошибка при выигрыше: ${data.error}`);
-    }
-  }
-  window.addEventListener('offline',()=> {
-    ws.close()
-  
-    
-  })
-window.addEventListener('online',()=> {
- playerHello();
- location.reload();
-})
-  function playerHello() {
-   
-    
-    ws.send(JSON.stringify({ action: "hello", init_data: tg.initData }));
-    
-    
-  }
-
-
-   async function playerPlaceBet() {
-
-
- 
-    const amount =
-      Pages == "bet"
-        ? parseFloat(betAmountInput.value)
-        : parseFloat(CashOutAmount);
-    if (amount > 0.9 && amount <=1000 && amount <= parseFloat(balanceElement.innerHTML)) {
-      ws.send(JSON.stringify({ action: "bet", amount: amount * 10 }));
-      counterBox.style.border = 'none'
-      disableButton();
-      if(Pages == 'bet') {
-        hasBet = true;
-        if(hasBet == true) {
-          autoActionBtn.style.border = '2px solid red'
-        }
-        else {
-          autoActionBtn.style.border = 'none'
-        }
+      if (multiplierInterval !== null) {
+        clearInterval(multiplierInterval);
+        multiplierInterval = null;
       }
-    } else {
-      addMessage("Неверная сумма ставки");
-   
-      
-      counterBox.style.border = '1px solid red'
-      if(Pages=='auto') {
-        autoActionBtn.classList.add('Auto_btn_disable');
-              autoActionBtn.classList.remove('Auto_btn_active');
-        
-        AutoType = false;
-        ChangeAutoInput = false;
-        AutoBet = false;
+      multiplierElement.innerHTML =
+        "<h1 style='text-shadow:0 0 15px #F9562B' >" +
+        data.end_multiplier +
+        "x" +
+        "</h1>";
+
+      setTimeout(() => {
+        ws.send(JSON.stringify({ action: "ping" }));
+      }, randomDelay);
+    }
+
+    function handleBetConfirmation(data) {
+      if (data.error !== null)
+        addMessage(`Ошибка при размещении ставки: ${data.error}`);
+    }
+
+    function handleCashOutConfirmation(data) {
+      if (data.error === null) {
+        addMessage(`Выигрыш ${data.amount} при множителе ${data.multiplier}`);
+      } else {
+        addMessage(`Ошибка при выигрыше: ${data.error}`);
+      }
+    }
+    window.addEventListener("offline", () => {
+      ws.close();
+    });
+    window.addEventListener("online", () => {
+      playerHello();
+      location.reload();
+    });
+    function playerHello() {
+      ws.send(JSON.stringify({ action: "hello", init_data: tg.initData }));
+    }
+
+    async function playerPlaceBet() {
+      const amount =
+        Pages == "bet"
+          ? parseFloat(betAmountInput.value)
+          : parseFloat(CashOutAmount);
+      if (
+        amount > 0 &&
+        amount <= 1000 &&
+        amount <= parseFloat(balanceElement.innerHTML)
+      ) {
+        ws.send(JSON.stringify({ action: "bet", amount: amount * 10 }));
+        counterBox.style.border = "none";
+        disableButton();
+        if (Pages == "bet") {
+          hasBet = true;
+          if (hasBet == true) {
+            autoActionBtn.style.border = "2px solid red";
+          } else {
+            autoActionBtn.style.border = "none";
+          }
+        }
+      } else {
+        addMessage("Неверная сумма ставки");
+
+        counterBox.style.border = "1px solid red";
+        if (Pages == "auto") {
+          autoActionBtn.classList.add("Auto_btn_disable");
+          autoActionBtn.classList.remove("Auto_btn_active");
+
+          AutoType = false;
+          ChangeAutoInput = false;
+          AutoBet = false;
           autoActionBtn.innerText = "Auto play";
+        }
+      }
+
+      var Balance;
+      await getBalance().then((e) => {
+        Balance = parseFloat(e.balance / 10);
+      });
+
+      if (
+        parseFloat(balanceElement.innerHTML) !== Balance &&
+        amount > Balance
+      ) {
+        playerCancelBet();
+        if (Pages == "bet") {
+          counterBox.style.border = "1px solid red";
+        } else {
+          autoActionBtn.classList.add("Auto_btn_disable");
+          autoActionBtn.classList.remove("Auto_btn_active");
+
+          AutoType = false;
+          ChangeAutoInput = false;
+          AutoBet = false;
+          autoActionBtn.innerText = "Auto play";
+        }
       }
     }
 
-    var Balance
-    await getBalance().then((e)=> {
-     Balance = parseFloat(e.balance/10)
-      
-    })
+    function playerCashOut() {
+      ws.send(JSON.stringify({ action: "cash_out" }));
+      disableButton();
+    }
 
-    if(parseFloat(balanceElement.innerHTML) !==Balance && amount > Balance ) {
-      playerCancelBet()
-      if(Pages == 'bet') {
-        counterBox.style.border = '1px solid red'
+    function playerCancelBet() {
+      if (AutoCashOut == false && Pages == "auto") {
+        myResult = myResult.filter((e) => e.id !== idCounter);
+        updateBetsTable();
       }
-      else {
-        autoActionBtn.classList.add('Auto_btn_disable');
-        autoActionBtn.classList.remove('Auto_btn_active');
-  
-  AutoType = false;
-  ChangeAutoInput = false;
-  AutoBet = false;
-    autoActionBtn.innerText = "Auto play";
+
+      if (AutoBet == false && Pages == "auto") {
+        autoActionBtn.innerText = "Auto play";
+        updateBetsTable();
       }
-    
-      
-    }
-  }
+      if (Pages == "bet") {
+        hasBet = false;
+        if (hasBet == true) {
+          autoActionBtn.style.border = "2px solid red";
+        } else {
+          autoActionBtn.style.border = "none";
+        }
+        myResult = myResult.filter((e) => e.id !== idCounter);
+        updateBetsTable();
+      }
 
-  function playerCashOut() {
-  
-    ws.send(JSON.stringify({ action: "cash_out" }));
-    disableButton();
-  }
-
-  function playerCancelBet() {
-    if(AutoCashOut == false && Pages == 'auto') {
-      myResult = myResult.filter((e)=> e.id !== idCounter)
-      updateBetsTable()
+      ws.send(JSON.stringify({ action: "cancel_bet" }));
+      disableButton();
     }
 
-    if (AutoBet == false && Pages == 'auto') {
-      autoActionBtn.innerText = "Auto play";
-      updateBetsTable()
-        
-    }
-if(Pages == 'bet') {
-  hasBet = false
-  if(hasBet == true) {
-    autoActionBtn.style.border = '2px solid red'
+    connect();
   }
-  else {
-    autoActionBtn.style.border = 'none'
-  }
-    myResult = myResult.filter((e)=> e.id !== idCounter)
-    updateBetsTable()
-}
-
-    ws.send(JSON.stringify({ action: "cancel_bet" }));
-    disableButton();
-  }
-
-  connect();
-}
-initializeWebSocket();
-
-})()
-
+  initializeWebSocket();
+})();

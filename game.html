@@ -12,13 +12,7 @@
   </head>
   <body>
     <div class="Game_container">
-      <div id="Help_box">
-        <div class="Close_box"><button id="Close_help"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M1.70711 0.292893C1.31658 -0.0976311 0.683417 -0.0976311 0.292893 0.292893C-0.0976311 0.683417 -0.0976311 1.31658 0.292893 1.70711L5.58579 7L0.292893 12.2929C-0.0976311 12.6834 -0.0976311 13.3166 0.292893 13.7071C0.683417 14.0976 1.31658 14.0976 1.70711 13.7071L7 8.41421L12.2929 13.7071C12.6834 14.0976 13.3166 14.0976 13.7071 13.7071C14.0976 13.3166 14.0976 12.6834 13.7071 12.2929L8.41421 7L13.7071 1.70711C14.0976 1.31658 14.0976 0.683417 13.7071 0.292893C13.3166 -0.0976311 12.6834 -0.0976311 12.2929 0.292893L7 5.58579L1.70711 0.292893Z" fill="#95979D"/>
-          </svg>
-          </button></div>
-        <div class="Description_box"><p>Please enter number!</p></div>
-      </div>
+
       <div id="Push_up" >
         <div class="Left_bar">
           <div id="Status"></div>
@@ -361,34 +355,74 @@
                 <div class="Input_box">
                   <input id="betAmount" max="1000" value="0" type="text"
                   oninput="
-                      // Remove non-numeric and non-dot characters
+                      // Удаляем все символы, кроме цифр и одной точки
                       this.value = this.value
                           .replace(/[^0-9.]/g, '')
-                          .replace(/(\..*)\./g, '$1'); // Remove extra dots
-                      
-                      // Ensure the decimal point is only allowed after at least one digit
+                          .replace(/(\..*)\./g, '$1'); // Удаляем лишние точки
+           
+                      // Проверяем, начинается ли строка с точки, и добавляем 1 перед ней
                       if (this.value.startsWith('.')) {
-                          this.value = '1' ; // Add a leading zero if the value starts with a decimal point
+                          this.value = '1' + this.value;
                       }
            
-                      // Ensure only two decimal places are allowed
+                      // Разделяем строку на целую и дробную части
                       let parts = this.value.split('.');
-                      if (parts[1]) {
-                          parts[1] = parts[1].substring(0, 1); // Limit decimal places to 2
-                          this.value = parts.join('.');
+                      
+                      // Удаляем ведущие нули в целой части, оставляя только один ноль
+                      if (parts[0].length > 1) {
+                          parts[0] = parts[0].replace(/^0+/, '');
+                      }
+                      if (parts[0] === '') {
+                          parts[0] = '0';
                       }
            
-                      // Check if value exceeds 1000
+                      // Ограничиваем количество знаков после точки до двух
+                      if (parts[1]) {
+                          parts[1] = parts[1].substring(0, 1); // Обрезаем до двух знаков
+                      }
+           
+                      // Объединяем части
+                      this.value = parts.join('.');
+           
+                      // Проверяем, превышает ли значение 1000
                       if (parseFloat(this.value) > 1000) {
-                          this.value = '1000'; // Set value to 1000 if it exceeds the limit
+                          this.value = '1000';
+                      }
+           
+               
+                      if (this.value === '0' && this.selectionStart === 0 && this.value.length === 1) {
+                          this.value = '';
                       }
                   "
                   onblur="
+                      // Удаляем точку в конце, если она там есть
                       if (this.value.endsWith('.')) {
-                          this.value = this.value.slice(0, -1); // Remove trailing decimal point
+                          this.value = this.value.slice(0, -1);
                       }
-                  " 
+           
+                      // Проверяем, является ли значение пустым или некорректным, и устанавливаем его в 0
+                      if (isNaN(parseFloat(this.value)) || this.value === '') {
+                          this.value = '0';
+                      } else {
+                          this.value = parseFloat(this.value).toString();
+                      }
+                  "
+                  onpaste="
+                      // Получаем данные из буфера обмена
+                      const pasteData = (event.clipboardData || window.clipboardData).getData('text');
+           
+                      // Проверяем, если вставленные данные содержат более одной точки или дробную часть длиннее двух знаков
+                      if (pasteData.match(/[^0-9.]/g) || (pasteData.match(/\./g) || []).length > 1 || pasteData.split('.')[1]?.length > 2) {
+                          event.preventDefault(); // Отменяем вставку
+                      }
+                  "
            />
+           
+              
+              
+                
+                
+                
            
            
            
@@ -463,33 +497,67 @@
                 <div class="Input_box">
                   <input id="autoAmount" max="1000" value="0" type="text"
                   oninput="
-                      // Remove non-numeric and non-dot characters
+                      // Удаляем все символы, кроме цифр и одной точки
                       this.value = this.value
                           .replace(/[^0-9.]/g, '')
-                          .replace(/(\..*)\./g, '$1'); // Remove extra dots
-                      
-                      // Ensure the decimal point is only allowed after at least one digit
+                          .replace(/(\..*)\./g, '$1'); // Удаляем лишние точки
+           
+                      // Проверяем, начинается ли строка с точки, и добавляем 1 перед ней
                       if (this.value.startsWith('.')) {
-                          this.value = '1' ; // Add a leading zero if the value starts with a decimal point
+                          this.value = '1' + this.value;
                       }
            
-                      // Ensure only two decimal places are allowed
+                      // Разделяем строку на целую и дробную части
                       let part = this.value.split('.');
-                      if (part[1]) {
-                          part[1] = part[1].substring(0, 1); // Limit decimal places to 2
-                          this.value = part.join('.');
+                      
+                      // Удаляем ведущие нули в целой части, оставляя только один ноль
+                      if (part[0].length > 1) {
+                          part[0] = part[0].replace(/^0+/, '');
+                      }
+                      if (part[0] === '') {
+                          part[0] = '0';
                       }
            
-                      // Check if value exceeds 1000
+                      // Ограничиваем количество знаков после точки до двух
+                      if (part[1]) {
+                          part[1] = part[1].substring(0, 1); // Обрезаем до двух знаков
+                      }
+           
+                      // Объединяем части
+                      this.value = part.join('.');
+           
+                      // Проверяем, превышает ли значение 1000
                       if (parseFloat(this.value) > 1000) {
-                          this.value = '1000'; // Set value to 1000 if it exceeds the limit
+                          this.value = '1000';
+                      }
+           
+                   
+                      if (this.value === '0' && this.selectionStart === 0 && this.value.length === 1) {
+                          this.value = '';
                       }
                   "
                   onblur="
+                      // Удаляем точку в конце, если она там есть
                       if (this.value.endsWith('.')) {
-                          this.value = this.value.slice(0, -1); // Remove trailing decimal point
+                          this.value = this.value.slice(0, -1);
                       }
-                  " 
+           
+                      // Проверяем, является ли значение пустым или некорректным, и устанавливаем его в 0
+                      if (isNaN(parseFloat(this.value)) || this.value === '') {
+                          this.value = '0';
+                      } else {
+                          this.value = parseFloat(this.value).toString();
+                      }
+                  "
+                  onpaste="
+                      // Получаем данные из буфера обмена
+                      const paste = (event.clipboardData || window.clipboardData).getData('text');
+           
+                      // Проверяем, если вставленные данные содержат более одной точки или дробную часть длиннее двух знаков
+                      if (paste.match(/[^0-9.]/g) || (paste.match(/\./g) || []).length > 1 || paste.split('.')[1]?.length > 2) {
+                          event.preventDefault(); // Отменяем вставку
+                      }
+                  "
            />
            
                 

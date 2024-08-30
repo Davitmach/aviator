@@ -25,45 +25,6 @@ body {
     gap: 7px;
   }
 }
-.Game_container #Help_box {
-  width: calc(100% - 30px);
-  height: auto;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  z-index: 5;
-  transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 10px;
-  box-shadow: 0px 4px 10px 0px #2d384c inset;
-  background: #1f2431;
-  padding: 30px 20px;
-  border-radius: 20px;
-}
-.Game_container #Help_box .Close_box {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-.Game_container #Help_box .Close_box button {
-  width: 50px;
-  height: 30px;
-  border-radius: 15px;
-  padding: 5px 13px;
-  background: #282e39;
-  border: 1px solid #3f444f;
-}
-.Game_container #Help_box p {
-  max-width: 100%;
-  font-size: 20px;
-  font-weight: 700;
-  font-family: "Inter", sans-serif;
-  color: white;
-}
 .Game_container .Active {
   opacity: 1;
   visibility: visible;
@@ -651,7 +612,7 @@ body {
   font-size: 12px;
   font-weight: 600;
   font-family: "Inter", sans-serif;
-  padding: 0 5px;
+  padding: 0 2px;
 }
 .Game_container .Bet_pages_container .Bet_box .Amount_box .Counter_box .Minus_btn,
 .Game_container .Bet_pages_container .Bet_box .Amount_box .Counter_box .Plus_btn {
@@ -758,7 +719,7 @@ body {
   font-size: 12px;
   font-weight: 600;
   font-family: "Inter", sans-serif;
-  padding: 0 5px;
+  padding: 0 2px;
 }
 .Game_container .Bet_pages_container .Auto_box .Auto_bet .Counter_box .Minus_btn,
 .Game_container .Bet_pages_container .Auto_box .Auto_bet .Counter_box .Plus_btn {
