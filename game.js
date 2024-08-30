@@ -1093,6 +1093,7 @@ var Reason_status = true
       
       const code = event.code;
       const reason = event.reason || "-";
+console.log(event);
 
      if(reason == '-' && Reason_status  == true) {
 
@@ -1124,7 +1125,7 @@ var Reason_status = true
     };
 
     ws.onopen = function () {
-  
+      console.log(1);
       
       addMessage("Подключено к WebSocket серверу");
       playerHello();
