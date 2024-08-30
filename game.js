@@ -334,7 +334,7 @@
         }
       }
     });
-    function CheckAuto() {
+ async   function CheckAuto() {
       if (hasBet == true) {
         autoActionBtn.style.border = "2px solid red";
       } else {
@@ -361,11 +361,7 @@
 
       if (AutoType == false && Pages == "auto") {
         if (isValid) {
-          if (
-            parseFloat(autoAmountInput.value) > 0 &&
-            parseFloat(autoAmountInput.value) <=
-              parseFloat(balanceElement.innerHTML)
-          ) {
+          if (parseFloat(autoAmountInput.value) > 0 &&parseFloat(autoAmountInput.value) <=parseFloat(balanceElement.innerHTML)) {
             if (hasBet == false) {
               autoCounterBox.style.border = "none";
               betStatus = false;
@@ -405,11 +401,20 @@
           playerCancelBet();
         }
 
-        // myResult = myResult.filter((e) => e.id !== idCounter);
+ 
 
         autoActionBtn.classList.add("Auto_btn_disable");
         autoActionBtn.classList.remove("Auto_btn_active");
       }
+
+      var Balance;
+      await getBalance().then((e) => {
+        Balance = parseFloat(e.balance / 10);
+      });
+      if(parseFloat(balanceElement.innerHTML) !==Balance) {
+        balanceElement.innerHTML = Balance
+      }
+
     }
 
     betTypeBtn.addEventListener("click", () => {
@@ -470,10 +475,17 @@
       ChangeDef10 = true;
 
       if (ChangeDef1 == true) {
+        if(1 > parseFloat(balanceElement.innerHTML)) {
+          betAmountInput.value = balanceElement.innerHTML;
+        }
+        else {
         betAmountInput.value = 1;
+        }
         ChangeDef1 = false;
       } else {
-        betAmountInput.value = parseFloat(betAmountInput.value) + 1 || 1;
+        if(parseFloat(betAmountInput.value) < parseFloat(balanceElement.innerHTML)) {
+          betAmountInput.value = parseFloat(betAmountInput.value) + 1 || 1;
+          }
         CheckDef();
       }
     });
@@ -483,10 +495,17 @@
       ChangeDef10 = true;
 
       if (ChangeDef2 == true) {
+        if(2 > parseFloat(balanceElement.innerHTML)) {
+          betAmountInput.value = balanceElement.innerHTML;
+        }
+        else {
         betAmountInput.value = 2;
+        }
         ChangeDef2 = false;
       } else {
-        betAmountInput.value = parseFloat(betAmountInput.value) + 2 || 2;
+        if(parseFloat(betAmountInput.value) < parseFloat(balanceElement.innerHTML)) {
+          betAmountInput.value = parseFloat(betAmountInput.value) + 2|| 2;
+          }
         CheckDef();
       }
     });
@@ -496,10 +515,17 @@
       ChangeDef10 = true;
 
       if (ChangeDef5 == true) {
+        if(5 > parseFloat(balanceElement.innerHTML)) {
+          betAmountInput.value = balanceElement.innerHTML;
+        }
+        else {
         betAmountInput.value = 5;
+        }
         ChangeDef5 = false;
       } else {
-        betAmountInput.value = parseFloat(betAmountInput.value) + 5 || 5;
+        if(parseFloat(betAmountInput.value) < parseFloat(balanceElement.innerHTML)) {
+          betAmountInput.value = parseFloat(betAmountInput.value) + 5|| 5;
+          }
         CheckDef();
       }
     });
@@ -509,10 +535,17 @@
       ChangeDef2 = true;
 
       if (ChangeDef10 == true) {
+        if(10 > parseFloat(balanceElement.innerHTML)) {
+          betAmountInput.value = balanceElement.innerHTML;
+        }
+        else {
         betAmountInput.value = 10;
+        }
         ChangeDef10 = false;
       } else {
+        if(parseFloat(betAmountInput.value) < parseFloat(balanceElement.innerHTML)) {
         betAmountInput.value = parseFloat(betAmountInput.value) + 10 || 10;
+        }
         CheckDef();
       }
     });
@@ -524,8 +557,16 @@
       ChangeDef5_auto = true;
       ChangeDef10_auto = true;
       if (ChangeDef1_auto == true) {
-        autoAmountInput.value = 1;
-        CashOutAmount = autoAmountInput.value;
+        if(1 > parseFloat(balanceElement.innerHTML)) {
+          autoAmountInput.value = balanceElement.innerHTML;
+          CashOutAmount = autoAmountInput.value;
+        }
+        else {
+          autoAmountInput.value = 1;
+          CashOutAmount = autoAmountInput.value;
+        }
+    
+        
         ChangeDef1_auto = false;
       } else {
         autoAmountInput.value = parseFloat(autoAmountInput.value) + 1 || 1;
@@ -540,8 +581,14 @@
       ChangeDef10_auto = true;
 
       if (ChangeDef2_auto == true) {
-        autoAmountInput.value = 2;
-        CashOutAmount = autoAmountInput.value;
+        if(2 > parseFloat(balanceElement.innerHTML)) {
+          autoAmountInput.value = balanceElement.innerHTML;
+          CashOutAmount = autoAmountInput.value;
+        }
+        else {
+          autoAmountInput.value = 2;
+          CashOutAmount = autoAmountInput.value;
+        }
         ChangeDef2_auto = false;
       } else {
         autoAmountInput.value = parseFloat(autoAmountInput.value) + 2 || 2;
@@ -555,7 +602,14 @@
       ChangeDef10_auto = true;
 
       if (ChangeDef5_auto == true) {
-        autoAmountInput.value = 5;
+        if(5 > parseFloat(balanceElement.innerHTML)) {
+          autoAmountInput.value = balanceElement.innerHTML;
+          CashOutAmount = autoAmountInput.value;
+        }
+        else {
+          autoAmountInput.value = 5;
+          CashOutAmount = autoAmountInput.value;
+        }
         ChangeDef5_auto = false;
       } else {
         autoAmountInput.value = parseFloat(autoAmountInput.value) + 5 || 5;
@@ -569,8 +623,14 @@
       ChangeDef2_auto = true;
 
       if (ChangeDef10_auto == true) {
-        autoAmountInput.value = 10;
-        CashOutAmount = autoAmountInput.value;
+        if(10 > parseFloat(balanceElement.innerHTML)) {
+          autoAmountInput.value = balanceElement.innerHTML;
+          CashOutAmount = autoAmountInput.value;
+        }
+        else {
+          autoAmountInput.value = 10;
+          CashOutAmount = autoAmountInput.value;
+        }
         ChangeDef10_auto = false;
       } else {
         autoAmountInput.value = parseFloat(autoAmountInput.value) + 10 || 10;
@@ -1441,10 +1501,8 @@
         Balance = parseFloat(e.balance / 10);
       });
 
-      if (
-        parseFloat(balanceElement.innerHTML) !== Balance &&
-        amount > Balance
-      ) {
+      if (parseFloat(balanceElement.innerHTML) !== Balance &&amount > Balance) {
+        balanceElement.innerHTML = Balance
         playerCancelBet();
         if (Pages == "bet") {
           counterBox.style.border = "1px solid red";
@@ -1457,6 +1515,10 @@
           AutoBet = false;
           autoActionBtn.innerText = "Auto play";
         }
+      }
+      else if(parseFloat(balanceElement.innerHTML) !== Balance &&amount < Balance) {
+        balanceElement.innerHTML = Balance
+        ws.send(JSON.stringify({ action: "bet", amount: amount * 10 }));
       }
     }
 
