@@ -360,9 +360,15 @@
                 </div>
                 <div class="Input_box">
                   <input id="betAmount" max="1000" value="0" type="text" 
-                  oninput="this.value = this.value > 1000 ? 1000 : this.value.replace(/[^0-9.]/g, '').replace(/(\.\d{1})\d+/, '$1');"
-                  onblur="if (this.value.endsWith('.')) { this.value = this.value.slice(0, -1); }"
+                  oninput="this.value = this.value
+                             .replace(/[^0-9.]/g, '') // Remove non-numeric and non-dot characters
+                             .replace(/(\..*)\./g, '$1') // Remove extra dots
+                             .replace(/(\.\d{1})\d+/, '$1') // Limit decimal places to 2
+                             .replace(/(\.\d{1})\d+/, '$1'); // Ensure only 2 decimal places
+                  "
+                  onblur="if (this.value.endsWith('.')) { this.value = this.value.slice(0, -1); }" 
            />
+           
            
                 
                 
@@ -433,8 +439,13 @@
                 </div>
                 <div class="Input_box">
                   <input id="autoAmount" max="1000" value="0" type="text" 
-                  oninput="this.value = this.value > 1000 ? 1000 : this.value.replace(/[^0-9.]/g, '').replace(/(\.\d{1})\d+/, '$1');"
-                  onblur="if (this.value.endsWith('.')) { this.value = this.value.slice(0, -1); }"
+                  oninput="this.value = this.value
+                             .replace(/[^0-9.]/g, '') // Remove non-numeric and non-dot characters
+                             .replace(/(\..*)\./g, '$1') // Remove extra dots
+                             .replace(/(\.\d{1})\d+/, '$1') // Limit decimal places to 2
+                             .replace(/(\.\d{1})\d+/, '$1'); // Ensure only 2 decimal places
+                  "
+                  onblur="if (this.value.endsWith('.')) { this.value = this.value.slice(0, -1); }" 
            />
            
                 
