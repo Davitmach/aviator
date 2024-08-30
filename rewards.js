@@ -40,7 +40,7 @@ const Fly_title = document.getElementById('Fly_title');
       });
 
       const data = await response.json();
- console.log(data);
+ 
  
       Daily.addEventListener('click',()=> {
     getClaim('daily')

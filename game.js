@@ -1,6 +1,7 @@
 
 
 (function() {
+
 var tg = {
   initData:
     "user=%7B%22id%22%3A1974611991%2C%22first_name%22%3A%22David%22%2C%22last_name%22%3A%22%22%2C%22username%22%3A%22Davoooooooooooooooooooooooo%22%2C%22language_code%22%3A%22ru%22%2C%22allows_write_to_pm%22%3Atrue%7D&chat_instance=-7558594942258246586&chat_type=private&auth_date=1724299858&hash=33fc3bb7c98d2f14f423f193ec6a6af0ae18cbec776d062cec3ecfe377550264",
@@ -683,10 +684,10 @@ if(parseFloat(autoAmountInput.value)> parseFloat(balanceElement.innerHTML)) {
   });
 
   function addMessage(message) {
-    // console.log(message);
+
     setTimeout(() => {
       if(message == 'Соединение закрыто. Код: 1000, причина: INIT_DATA_VERIFY_ERROR. Обновите страницу') {
-        console.log('qaqs tapec');
+   
         connect()
       }
     }, 1000);
@@ -1061,9 +1062,9 @@ sorted = topResultList.sort((a, b) => b.multiplier - a.multiplier);
   }
 
   function connect() {
+var Reason_status = true
   
-  
-    console.log('qaq');
+    
     
     ws = new WebSocket("wss://toxicwaste.mooo.com:" + PORT);
 
@@ -1085,11 +1086,16 @@ sorted = topResultList.sort((a, b) => b.multiplier - a.multiplier);
         AddMyResult(data.amount);
       }
     };
-var Interval
+
     ws.onclose = function (event) {
+
+      
+      
       const code = event.code;
       const reason = event.reason || "-";
-     if(reason == '-') {
+
+     if(reason == '-' && Reason_status  == true) {
+
       connect()
      }
      
@@ -1097,12 +1103,20 @@ var Interval
         addMessage(
           `Соединение закрыто. Код: ${code}, причина: ${reason}. Переподключение...`
         );
-        if (currentTab === "game") {Interval = setInterval(connect, 3000) }; 
+        // if (currentTab === "game") {setTimeout(connect, 3000) }; 
       } else
         addMessage(
           `Соединение закрыто. Код: ${code}, причина: ${reason}. Обновите страницу`
         );
     };
+    Reward_btn.addEventListener('click',()=> {
+      Reason_status = false
+      ws.close();
+
+    })
+    Game_btn.addEventListener('click',()=> {
+      Reason_status = true
+    })
 
     ws.onerror = function (error) {
       console.error("WebSocket ошибка:", error);
@@ -1110,7 +1124,7 @@ var Interval
     };
 
     ws.onopen = function () {
-      clearInterval(Interval)
+  
       
       addMessage("Подключено к WebSocket серверу");
       playerHello();
@@ -1371,13 +1385,13 @@ topResultList.unshift({
       }
     }
     
-    // Delay before starting the animation
+    
     setTimeout(() => {
       requestAnimationFrame(updateProgressBar);
     }, 800);
     if(AutoBet == true && Pages == 'auto') {
       playerPlaceBet()
-      // g('add bet');
+
       
       
    
@@ -1418,35 +1432,7 @@ else {
     }
     betStatus = true;
     gameState.lastEvent = EVENT_END_ROUND;
-    // progressBar.value = 0;
-    // let progressValue = 0;
-    // const totalDuration = 5000; // Total duration of the animation in milliseconds
-    // let startTime; // Declare startTime but don't initialize it yet
-    
-    // waitLoading.style.opacity = "1";
-    // waitLoading.style.visibility = "visible";
-    
-    // function updateProgressBar(currentTime) {
-    //   if (!startTime) {
-    //     startTime = currentTime; // Initialize startTime on the first frame
-    //   }
-    
-    //   const elapsedTime = currentTime - startTime;
-    //   const progressFraction = Math.min(elapsedTime / totalDuration, 1); // Calculate progress
-    
-    //   progressValue = progressFraction * 100;
-    //   progressBar.value = progressValue;
-    
-    //   if (progressFraction < 1) {
-    //     requestAnimationFrame(updateProgressBar); // Continue the animation
-    //   }
-    // }
-    
-    // // Delay before starting the animation
-    // setTimeout(() => {
-    //   requestAnimationFrame(updateProgressBar);
-    // }, 800);
-    
+
 
 
     LastGames.unshift(`${data.end_multiplier.toFixed(2)}x`);
@@ -1484,7 +1470,7 @@ linePlane.querySelector('svg').style.height = '75px'
       "x" +
       "</h1>";
 
-    setTimeout(() => {
+  setTimeout(() => {
       ws.send(JSON.stringify({ action: "ping" }));
     }, randomDelay);
   }
