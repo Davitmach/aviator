@@ -355,68 +355,75 @@
                 <div class="Input_box">
                   <input id="betAmount" max="1000" value="0" type="text"
                   oninput="
-                      // Удаляем все символы, кроме цифр и одной точки
-                      this.value = this.value
-                          .replace(/[^0-9.]/g, '')
-                          .replace(/(\..*)\./g, '$1'); // Удаляем лишние точки
-           
-                      // Проверяем, начинается ли строка с точки, и добавляем 1 перед ней
-                      if (this.value.startsWith('.')) {
-                          this.value = '1' + this.value;
-                      }
-           
-                      // Разделяем строку на целую и дробную части
-                      let parts = this.value.split('.');
-                      
-                      // Удаляем ведущие нули в целой части, оставляя только один ноль
-                      if (parts[0].length > 1) {
-                          parts[0] = parts[0].replace(/^0+/, '');
-                      }
-                      if (parts[0] === '') {
-                          parts[0] = '0';
-                      }
-           
-                      // Ограничиваем количество знаков после точки до двух
-                      if (parts[1]) {
-                          parts[1] = parts[1].substring(0, 1); // Обрезаем до двух знаков
-                      }
-           
-                      // Объединяем части
-                      this.value = parts.join('.');
-           
-                      // Проверяем, превышает ли значение 1000
-                      if (parseFloat(this.value) > 1000) {
-                          this.value = '1000';
-                      }
-           
-               
-                      if (this.value === '0' && this.selectionStart === 0 && this.value.length === 1) {
-                          this.value = '';
-                      }
+                    // Удаляем все символы, кроме цифр и одной точки
+                    this.value = this.value
+                        .replace(/[^0-9.]/g, '')
+                        .replace(/(\..*)\./g, '$1'); // Удаляем лишние точки
+                
+                    // Проверяем, начинается ли строка с точки, и добавляем 1 перед ней
+                    if (this.value.startsWith('.')) {
+                        this.value = '1' + this.value;
+                    }
+                
+                    // Разделяем строку на целую и дробную части
+                    let parte = this.value.split('.');
+                    
+                    // Удаляем ведущие нули в целой части, оставляя только один ноль
+                    if (parte[0].length > 1) {
+                      parte[0] = parte[0].replace(/^0+/, '');
+                    }
+                    if (parte[0] === '') {
+                      parte[0] = '0';
+                    }
+                
+                    // Ограничиваем количество знаков после точки до двух
+                    if (parte[1]) {
+                      parte[1] = parte[1].substring(0, 1); // Обрезаем до двух знаков
+                    }
+                
+                    // Объединяем части
+                    this.value = parte.join('.');
+                
+                    // Проверяем, превышает ли значение 1000
+                    if (parseFloat(this.value) > 1000) {
+                        this.value = '1000';
+                    }
+                
+                    if (this.value === '0' && this.selectionStart === 0 && this.value.length === 1) {
+                        this.value = '';
+                    }
                   "
                   onblur="
-                      // Удаляем точку в конце, если она там есть
-                      if (this.value.endsWith('.')) {
-                          this.value = this.value.slice(0, -1);
-                      }
-           
-                      // Проверяем, является ли значение пустым или некорректным, и устанавливаем его в 0
-                      if (isNaN(parseFloat(this.value)) || this.value === '') {
-                          this.value = '0';
-                      } else {
-                          this.value = parseFloat(this.value).toString();
-                      }
+                    // Удаляем точку в конце, если она там есть
+                    if (this.value.endsWith('.')) {
+                        this.value = this.value.slice(0, -1);
+                    }
+                
+                    // Проверяем, является ли значение пустым или некорректным, и устанавливаем его в 0
+                    if (isNaN(parseFloat(this.value)) || this.value === '') {
+                        this.value = '0';
+                    } else {
+                        this.value = parseFloat(this.value).toString();
+                    }
                   "
                   onpaste="
-                      // Получаем данные из буфера обмена
-                      const pasteData = (event.clipboardData || window.clipboardData).getData('text');
-           
-                      // Проверяем, если вставленные данные содержат более одной точки или дробную часть длиннее двух знаков
-                      if (pasteData.match(/[^0-9.]/g) || (pasteData.match(/\./g) || []).length > 1 || pasteData.split('.')[1]?.length > 2) {
-                          event.preventDefault(); // Отменяем вставку
-                      }
+                    // Получаем данные из буфера обмена
+                    const pasteData = (event.clipboardData || window.clipboardData).getData('text');
+                
+                    // Проверяем, если вставленные данные содержат более одной точки
+                    if ((pasteData.match(/\./g) || []).length > 1) {
+                        event.preventDefault(); // Отменяем вставку
+                    }
+                
+                    // Если дробная часть длиннее двух знаков, обрезаем её
+                    let parts = pasteData.split('.');
+                    if (parts[1] && parts[1].length > 2) {
+                        event.preventDefault();
+                        this.value = parts[0] + '.' + parts[1].substring(0, 1);
+                    }
                   "
-           />
+                />
+                
            
               
               
@@ -497,68 +504,74 @@
                 <div class="Input_box">
                   <input id="autoAmount" max="1000" value="0" type="text"
                   oninput="
-                      // Удаляем все символы, кроме цифр и одной точки
-                      this.value = this.value
-                          .replace(/[^0-9.]/g, '')
-                          .replace(/(\..*)\./g, '$1'); // Удаляем лишние точки
-           
-                      // Проверяем, начинается ли строка с точки, и добавляем 1 перед ней
-                      if (this.value.startsWith('.')) {
-                          this.value = '1' + this.value;
-                      }
-           
-                      // Разделяем строку на целую и дробную части
-                      let part = this.value.split('.');
-                      
-                      // Удаляем ведущие нули в целой части, оставляя только один ноль
-                      if (part[0].length > 1) {
-                          part[0] = part[0].replace(/^0+/, '');
-                      }
-                      if (part[0] === '') {
-                          part[0] = '0';
-                      }
-           
-                      // Ограничиваем количество знаков после точки до двух
-                      if (part[1]) {
-                          part[1] = part[1].substring(0, 1); // Обрезаем до двух знаков
-                      }
-           
-                      // Объединяем части
-                      this.value = part.join('.');
-           
-                      // Проверяем, превышает ли значение 1000
-                      if (parseFloat(this.value) > 1000) {
-                          this.value = '1000';
-                      }
-           
-                   
-                      if (this.value === '0' && this.selectionStart === 0 && this.value.length === 1) {
-                          this.value = '';
-                      }
+                    // Удаляем все символы, кроме цифр и одной точки
+                    this.value = this.value
+                        .replace(/[^0-9.]/g, '')
+                        .replace(/(\..*)\./g, '$1'); // Удаляем лишние точки
+                
+                    // Проверяем, начинается ли строка с точки, и добавляем 1 перед ней
+                    if (this.value.startsWith('.')) {
+                        this.value = '1' + this.value;
+                    }
+                
+                    // Разделяем строку на целую и дробную части
+                    let partd = this.value.split('.');
+                    
+                    // Удаляем ведущие нули в целой части, оставляя только один ноль
+                    if (partd[0].length > 1) {
+                      partd[0] = partd[0].replace(/^0+/, '');
+                    }
+                    if (partd[0] === '') {
+                      partd[0] = '0';
+                    }
+                
+                    // Ограничиваем количество знаков после точки до двух
+                    if (partd[1]) {
+                      partd[1] =partd[1].substring(0, 1); // Обрезаем до двух знаков
+                    }
+                
+                    // Объединяем части
+                    this.value = partd.join('.');
+                
+                    // Проверяем, превышает ли значение 1000
+                    if (parseFloat(this.value) > 1000) {
+                        this.value = '1000';
+                    }
+                
+                    if (this.value === '0' && this.selectionStart === 0 && this.value.length === 1) {
+                        this.value = '';
+                    }
                   "
                   onblur="
-                      // Удаляем точку в конце, если она там есть
-                      if (this.value.endsWith('.')) {
-                          this.value = this.value.slice(0, -1);
-                      }
-           
-                      // Проверяем, является ли значение пустым или некорректным, и устанавливаем его в 0
-                      if (isNaN(parseFloat(this.value)) || this.value === '') {
-                          this.value = '0';
-                      } else {
-                          this.value = parseFloat(this.value).toString();
-                      }
+                    // Удаляем точку в конце, если она там есть
+                    if (this.value.endsWith('.')) {
+                        this.value = this.value.slice(0, -1);
+                    }
+                
+                    // Проверяем, является ли значение пустым или некорректным, и устанавливаем его в 0
+                    if (isNaN(parseFloat(this.value)) || this.value === '') {
+                        this.value = '0';
+                    } else {
+                        this.value = parseFloat(this.value).toString();
+                    }
                   "
                   onpaste="
-                      // Получаем данные из буфера обмена
-                      const paste = (event.clipboardData || window.clipboardData).getData('text');
-           
-                      // Проверяем, если вставленные данные содержат более одной точки или дробную часть длиннее двух знаков
-                      if (paste.match(/[^0-9.]/g) || (paste.match(/\./g) || []).length > 1 || paste.split('.')[1]?.length > 2) {
-                          event.preventDefault(); // Отменяем вставку
-                      }
+                    // Получаем данные из буфера обмена
+                    const pasteDatag = (event.clipboardData || window.clipboardData).getData('text');
+                
+                    // Проверяем, если вставленные данные содержат более одной точки
+                    if ((pasteDatag.match(/\./g) || []).length > 1) {
+                        event.preventDefault(); // Отменяем вставку
+                    }
+                
+                    // Если дробная часть длиннее двух знаков, обрезаем её
+                    let partsq = pasteDatag.split('.');
+                    if (partsq[1] && partsq[1].length > 2) {
+                        event.preventDefault();
+                        this.value = partsq[0] + '.' + partsq[1].substring(0, 1);
+                    }
                   "
-           />
+                />
            
                 
     

@@ -407,13 +407,7 @@
         autoActionBtn.classList.remove("Auto_btn_active");
       }
 
-      var Balance;
-      await getBalance().then((e) => {
-        Balance = parseFloat(e.balance / 10);
-      });
-      if(parseFloat(balanceElement.innerHTML) !==Balance) {
-        balanceElement.innerHTML = Balance
-      }
+     
 
     }
 
@@ -700,8 +694,12 @@
       
       if (betAmountInput.value > 1) {
         betAmountInput.value--;
-        betAmountInput.value = parseFloat(betAmountInput.value).toFixed(1)
-      }
+        if(betAmountInput.value.includes('.')) {
+          betAmountInput.value = parseFloat(betAmountInput.value).toFixed(1)
+        }
+        else {
+        betAmountInput.value = parseFloat(betAmountInput.value)
+      }}
   
        
         
@@ -754,8 +752,14 @@
       if (autoAmountInput.value > 1) {
         autoAmountInput.value--;
         CashOutAmount = autoAmountInput.value;
+        if(autoAmountInput.value.includes('.')) {
         autoAmountInput.value = parseFloat(autoAmountInput.value).toFixed(1)
         CashOutAmount = autoAmountInput.value;
+        }
+        else {
+          autoAmountInput.value = parseFloat(autoAmountInput.value)
+          CashOutAmount = autoAmountInput.value;
+        }
       }
     
     });
@@ -1179,6 +1183,10 @@
       if (!data) {
         playerHello();
       }
+  
+    
+    
+      
       if (data.button == "cash_out" && hasBet == true) {
         hasBet = false;
         if (hasBet == true) {
@@ -1212,7 +1220,19 @@
 
       if ("balance" in data)
         balanceElement.textContent = data.balance.toFixed(2) / 10;
-
+      if(data.event == 'bet_confirmation') {
+        console.log(data);
+        
+        
+        if((data.balance/10) !==parseFloat(balanceElement.innerHTML) ) {
+       location.reload()
+        }
+        
+        
+        
+       
+        
+      }
       if ("button" in data) {
         switch (data.button) {
           case CONFIG_BUTTON_BET.id:
@@ -1492,11 +1512,7 @@
         Pages == "bet"
           ? parseFloat(betAmountInput.value)
           : parseFloat(CashOutAmount);
-      if (
-        amount > 0 &&
-        amount <= 1000 &&
-        amount <= parseFloat(balanceElement.innerHTML)
-      ) {
+      if (amount > 0 &&amount <= 1000 &&amount <= parseFloat(balanceElement.innerHTML)) {
         ws.send(JSON.stringify({ action: "bet", amount: amount * 10 }));
         counterBox.style.border = "none";
         disableButton();
@@ -1523,30 +1539,9 @@
         }
       }
 
-      var Balance;
-      await getBalance().then((e) => {
-        Balance = parseFloat(e.balance / 10);
-      });
+  
 
-      if (parseFloat(balanceElement.innerHTML) !== Balance &&amount > Balance) {
-        balanceElement.innerHTML = Balance
-        playerCancelBet();
-        if (Pages == "bet") {
-          counterBox.style.border = "1px solid red";
-        } else {
-          autoActionBtn.classList.add("Auto_btn_disable");
-          autoActionBtn.classList.remove("Auto_btn_active");
-
-          AutoType = false;
-          ChangeAutoInput = false;
-          AutoBet = false;
-          autoActionBtn.innerText = "Auto play";
-        }
-      }
-      else if(parseFloat(balanceElement.innerHTML) !== Balance &&amount < Balance) {
-        balanceElement.innerHTML = Balance
-        ws.send(JSON.stringify({ action: "bet", amount: amount * 10 }));
-      }
+   
     }
 
     function playerCashOut() {

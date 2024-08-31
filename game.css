@@ -612,7 +612,6 @@ body {
   font-size: 12px;
   font-weight: 600;
   font-family: "Inter", sans-serif;
-  padding: 0 2px;
 }
 .Game_container .Bet_pages_container .Bet_box .Amount_box .Counter_box .Minus_btn,
 .Game_container .Bet_pages_container .Bet_box .Amount_box .Counter_box .Plus_btn {
@@ -719,7 +718,6 @@ body {
   font-size: 12px;
   font-weight: 600;
   font-family: "Inter", sans-serif;
-  padding: 0 2px;
 }
 .Game_container .Bet_pages_container .Auto_box .Auto_bet .Counter_box .Minus_btn,
 .Game_container .Bet_pages_container .Auto_box .Auto_bet .Counter_box .Plus_btn {
